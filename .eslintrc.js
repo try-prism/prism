@@ -1,0 +1,65 @@
+module.exports = {
+  root: true,
+  parserOptions: {
+    ecmaVersion: 2020,
+    sourceType: 'module',
+    ecmaFeatures: {
+      jsx: true,
+    },
+  },
+  env: {
+    browser: true,
+    es6: true,
+    node: true,
+  },
+  plugins: ['simple-import-sort'],
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
+  extends: [
+    'next/core-web-vitals',
+    'eslint:recommended',
+    'plugin:jsx-a11y/recommended',
+    'plugin:react/recommended',
+    'plugin:prettier/recommended',
+    'plugin:sonarjs/recommended',
+    'plugin:unicorn/recommended',
+    'plugin:security/recommended',
+    'plugin:react-hooks/recommended',
+  ],
+  rules: {
+    'no-console': 'error',
+    'no-shadow': 'off',
+    'no-undef': 'off',
+    'react/prop-types': 'off',
+    'react/react-in-jsx-scope': 'off',
+    'react/jsx-uses-react': 'error',
+    'react/jsx-uses-vars': 'error',
+    'react/jsx-no-duplicate-props': 'error',
+    'react/no-direct-mutation-state': 'error',
+    'react/no-find-dom-node': 'warn',
+    'react/no-typos': 'error',
+    'react/no-unused-prop-types': 'warn',
+    'react/no-deprecated': 'warn',
+    'react/default-props-match-prop-types': [
+      'error',
+      { allowRequiredDefaults: true },
+    ],
+    'unicorn/filename-case': 'off',
+    'unicorn/prefer-module': 'off',
+    'unicorn/prevent-abbreviations': 'off',
+    'simple-import-sort/imports': 'error',
+    'sort-imports': [
+      'error',
+      {
+        ignoreCase: false,
+        ignoreDeclarationSort: false,
+        ignoreMemberSort: false,
+        memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],
+        allowSeparatedGroups: false,
+      },
+    ],
+  },
+};
