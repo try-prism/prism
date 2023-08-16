@@ -1,9 +1,10 @@
-import { API_BASE_URL } from '@/constant';
 import { Menu, Transition } from '@headlessui/react';
 import { EllipsisHorizontalIcon } from '@heroicons/react/20/solid';
 import { useMergeLink } from '@mergeapi/react-merge-link';
 import axios from 'axios';
 import { Fragment, useCallback, useEffect, useState } from 'react';
+
+import { API_BASE_URL } from '@/constant';
 
 const integrations = [
   {
@@ -34,22 +35,35 @@ function classNames(...classes: string[]) {
 }
 
 export default function IntegrationCards() {
-  const [linkToken, setLinkToken] = useState<string>();
+  const [linkToken, setLinkToken] = useState<string>('');
+  const [orgId, setOrgId] = useState<string>('');
+  const [orgName, setOrgName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
 
   useEffect(() => {
-    axios.get(`${API_BASE_URL}/integration/what/generate`).then(({ data }) => {
-      setLinkToken(data.linkToken);
-    });
+    setLinkToken('');
+    setOrgId('');
+    setOrgName('');
+    setEmail('');
   }, []);
 
-  const onSuccess = useCallback((public_token: string) => {
-    axios.post(`${API_BASE_URL}/integration`, {
-      public_token,
-      organization_id: org_id,
-      organization_name: org_name,
-      email_address: email,
-    });
-  }, []);
+  // useEffect(() => {
+  //   axios.get(`${API_BASE_URL}/integration/what/generate`).then(({ data }) => {
+  //     setLinkToken(data.linkToken);
+  //   });
+  // }, []);
+
+  const onSuccess = useCallback(
+    (public_token: string) => {
+      axios.post(`${API_BASE_URL}/integration`, {
+        public_token,
+        organization_id: orgId,
+        organization_name: orgName,
+        email_address: email,
+      });
+    },
+    [orgId, orgName, email]
+  );
 
   const { open, isReady } = useMergeLink({
     linkToken,
@@ -80,10 +94,7 @@ export default function IntegrationCards() {
           </div>
         </div>
       </div>
-      <ul
-        role="list"
-        className="grid grid-cols-1 gap-x-6 gap-y-8 lg:grid-cols-3 xl:gap-x-4"
-      >
+      <ul className="grid grid-cols-1 gap-x-6 gap-y-8 lg:grid-cols-3 xl:gap-x-4">
         {integrations.map(integration => (
           <li
             key={integration.id}

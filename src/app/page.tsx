@@ -2,6 +2,7 @@
 import { Dialog } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
+import React from 'react';
 import { useState } from 'react';
 import { FaGoogle } from 'react-icons/fa';
 import { IoMail } from 'react-icons/io5';
@@ -41,9 +42,8 @@ export default function Example() {
           </div>
           <div className="hidden lg:flex lg:items-center lg:gap-x-8">
             {navigation.map((item, index) => (
-              <>
+              <React.Fragment key={item.name}>
                 <Link
-                  key={item.name}
                   href={item.href}
                   className="text-sm font-semibold leading-6 text-white"
                 >
@@ -52,7 +52,7 @@ export default function Example() {
                 {index !== navigation.length - 1 && (
                   <span className="text-xs text-white">/</span>
                 )}
-              </>
+              </React.Fragment>
             ))}
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">

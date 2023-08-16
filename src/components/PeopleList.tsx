@@ -30,7 +30,7 @@ const people = [
     imageUrl:
       'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
     href: '#',
-    lastSeen: null,
+    lastSeen: undefined,
   },
   {
     name: 'Lindsay Walton',
@@ -59,7 +59,7 @@ const people = [
     imageUrl:
       'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
     href: '#',
-    lastSeen: null,
+    lastSeen: undefined,
   },
 ];
 
@@ -87,7 +87,7 @@ export default function PeopleList() {
           </div>
         </div>
       </div>
-      <ul role="list" className="divide-y divide-gray-100">
+      <ul className="divide-y divide-gray-100">
         {people.map(person => (
           <li key={person.email} className="flex justify-between gap-x-6 py-5">
             <div className="flex min-w-0 gap-x-4">
