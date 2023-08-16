@@ -1,5 +1,6 @@
 import { Menu, Transition } from '@headlessui/react';
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid';
+import clsx from 'clsx';
 import Image from 'next/image';
 import { Fragment } from 'react';
 
@@ -64,10 +65,6 @@ const people = [
     lastSeen: undefined,
   },
 ];
-
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ');
-}
 
 export default function PeopleList() {
   return (
@@ -155,7 +152,7 @@ export default function PeopleList() {
                       {({ active }) => (
                         <a
                           href="#"
-                          className={classNames(
+                          className={clsx(
                             active ? 'bg-gray-50' : '',
                             'block px-3 py-1 text-sm leading-6 text-gray-900'
                           )}
@@ -169,7 +166,7 @@ export default function PeopleList() {
                       {({ active }) => (
                         <a
                           href="#"
-                          className={classNames(
+                          className={clsx(
                             active ? 'bg-gray-50' : '',
                             'block px-3 py-1 text-sm leading-6 text-gray-900'
                           )}

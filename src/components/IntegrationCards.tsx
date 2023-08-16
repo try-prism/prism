@@ -2,6 +2,7 @@ import { Menu, Transition } from '@headlessui/react';
 import { EllipsisHorizontalIcon } from '@heroicons/react/20/solid';
 import { useMergeLink } from '@mergeapi/react-merge-link';
 import axios from 'axios';
+import clsx from 'clsx';
 import Image from 'next/image';
 import { Fragment, useCallback, useEffect, useState } from 'react';
 
@@ -19,6 +20,8 @@ const integrations = [
     src: GoogleDriveLogo,
     account: 'corp-admin@google.com',
     date: '2022-12-13',
+    status: 'Complete',
+    category: 'File Storage',
   },
   {
     id: 2,
@@ -26,6 +29,8 @@ const integrations = [
     src: BoxLogo,
     account: 'corp-admin@microsoft.com',
     date: '2022-12-13',
+    status: 'Complete',
+    category: 'File Storage',
   },
   {
     id: 3,
@@ -33,12 +38,10 @@ const integrations = [
     src: OneDriveLogo,
     account: 'corp-admin@apple.com',
     date: '2022-12-13',
+    status: 'Complete',
+    category: 'File Storage',
   },
 ];
-
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ');
-}
 
 export default function IntegrationCards() {
   const [linkToken, setLinkToken] = useState<string>('');
@@ -137,26 +140,12 @@ export default function IntegrationCards() {
                       {({ active }) => (
                         <a
                           href="#"
-                          className={classNames(
+                          className={clsx(
                             active ? 'bg-gray-50' : '',
                             'block px-3 py-1 text-sm leading-6 text-gray-900'
                           )}
                         >
-                          View
-                          <span className="sr-only">, {integration.name}</span>
-                        </a>
-                      )}
-                    </Menu.Item>
-                    <Menu.Item>
-                      {({ active }) => (
-                        <a
-                          href="#"
-                          className={classNames(
-                            active ? 'bg-gray-50' : '',
-                            'block px-3 py-1 text-sm leading-6 text-gray-900'
-                          )}
-                        >
-                          Edit
+                          Remove
                           <span className="sr-only">, {integration.name}</span>
                         </a>
                       )}
@@ -166,15 +155,23 @@ export default function IntegrationCards() {
               </Menu>
             </div>
             <dl className="-my-3 divide-y divide-gray-100 px-6 py-4 text-sm leading-6">
-              <div className="flex justify-between gap-x-4 py-3">
+              <div className="flex justify-between gap-x-4 py-2">
                 <dt className="text-gray-500">Account</dt>
                 <dd className="text-gray-700">{integration.account}</dd>
               </div>
-              <div className="flex justify-between gap-x-4 py-3">
-                <dt className="text-gray-500">Date</dt>
-                <dd className="flex items-start gap-x-2">
+              <div className="flex justify-between gap-x-4 py-2">
+                <dt className="text-gray-500">Added Date</dt>
+                <dd className="flex items-start gap-x-2 text-gray-700">
                   <time dateTime={integration.date}>{integration.date}</time>
                 </dd>
+              </div>
+              <div className="flex justify-between gap-x-4 py-2">
+                <dt className="text-gray-500">Status</dt>
+                <dd className="text-gray-700">{integration.status}</dd>
+              </div>
+              <div className="flex justify-between gap-x-4 py-2">
+                <dt className="text-gray-500">Category</dt>
+                <dd className="text-gray-700">{integration.category}</dd>
               </div>
             </dl>
           </li>

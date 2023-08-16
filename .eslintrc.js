@@ -54,15 +54,15 @@ module.exports = {
     'simple-import-sort/imports': 'error',
     'jsx-a11y/anchor-is-valid': 'off',
     'sonarjs/no-duplicate-string': 'off',
-    // 'sort-imports': [
-    //   'error',
-    //   {
-    //     ignoreCase: false,
-    //     ignoreDeclarationSort: false,
-    //     ignoreMemberSort: false,
-    //     memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],
-    //     allowSeparatedGroups: false,
-    //   },
-    // ],
+    'sort-imports': [
+      'error',
+      {
+        ignoreCase: false,
+        ignoreDeclarationSort: true,
+        ignoreMemberSort: false,
+        memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],
+        allowSeparatedGroups: false,
+      },
+    ],
   },
 };

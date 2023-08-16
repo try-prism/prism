@@ -1,18 +1,26 @@
 import { Dialog, Transition } from '@headlessui/react';
 import {
   Bars3BottomLeftIcon,
+  BuildingOffice2Icon,
   MagnifyingGlassIcon,
-  QuestionMarkCircleIcon,
   XMarkIcon,
 } from '@heroicons/react/24/outline';
+import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 
 import PrismLogo from '@/images/prism.svg';
 import PrismBlackLogo from '@/images/prism_black.png';
 
-const navigation = [
+export interface NavigationItem {
+  name: string;
+  href: string;
+  icon: any;
+  current: boolean;
+}
+
+const navItems = [
   { name: 'Search', href: '#', icon: MagnifyingGlassIcon, current: true },
   {
     name: 'My History',
@@ -20,14 +28,23 @@ const navigation = [
     icon: Bars3BottomLeftIcon,
     current: false,
   },
-  { name: 'Help', href: '#', icon: QuestionMarkCircleIcon, current: false },
 ];
 
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ');
-}
 export default function Sidebar() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [navigation, setNavigation] = useState<NavigationItem[]>(navItems);
+
+  useEffect(() => {
+    setNavigation((old: any) => [
+      ...old,
+      {
+        name: 'Admin Dashboard',
+        href: '#',
+        icon: BuildingOffice2Icon,
+        current: false,
+      },
+    ]);
+  }, []);
 
   return (
     <>
@@ -98,7 +115,7 @@ export default function Sidebar() {
                             <li key={item.name}>
                               <a
                                 href={item.href}
-                                className={classNames(
+                                className={clsx(
                                   item.current
                                     ? 'bg-gray-800 text-white'
                                     : 'text-gray-400 hover:text-white hover:bg-gray-800',
@@ -157,7 +174,7 @@ export default function Sidebar() {
                     <li key={item.name}>
                       <a
                         href={item.href}
-                        className={classNames(
+                        className={clsx(
                           item.current
                             ? 'bg-gray-800 text-white'
                             : 'text-gray-400 hover:text-white hover:bg-gray-800',
