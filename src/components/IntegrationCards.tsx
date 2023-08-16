@@ -1,55 +1,78 @@
-import { API_BASE_URL } from '@/constant';
 import { Menu, Transition } from '@headlessui/react';
 import { EllipsisHorizontalIcon } from '@heroicons/react/20/solid';
 import { useMergeLink } from '@mergeapi/react-merge-link';
 import axios from 'axios';
+import clsx from 'clsx';
+import Image from 'next/image';
 import { Fragment, useCallback, useEffect, useState } from 'react';
+
+// import ShareDriveLogo from '@/images/integrations/sharedrive.png';
+// import DropboxLogo from '@/images/integrations/dropbox.png';
+import { API_BASE_URL } from '@/constant';
+import BoxLogo from '@/images/integrations/box.png';
+import GoogleDriveLogo from '@/images/integrations/googledrive.png';
+import OneDriveLogo from '@/images/integrations/onedrive.png';
 
 const integrations = [
   {
     id: 1,
     name: 'Google Drive',
-    imageUrl: 'https://tailwindui.com/img/logos/48x48/tuple.svg',
+    src: GoogleDriveLogo,
     account: 'corp-admin@google.com',
     date: '2022-12-13',
+    status: 'Complete',
+    category: 'File Storage',
   },
   {
     id: 2,
-    name: 'One Drive',
-    imageUrl: 'https://tailwindui.com/img/logos/48x48/savvycal.svg',
+    name: 'Box',
+    src: BoxLogo,
     account: 'corp-admin@microsoft.com',
     date: '2022-12-13',
+    status: 'Complete',
+    category: 'File Storage',
   },
   {
     id: 3,
-    name: 'Confluence',
-    imageUrl: 'https://tailwindui.com/img/logos/48x48/reform.svg',
+    name: 'OneDrive',
+    src: OneDriveLogo,
     account: 'corp-admin@apple.com',
     date: '2022-12-13',
+    status: 'Complete',
+    category: 'File Storage',
   },
 ];
 
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ');
-}
-
 export default function IntegrationCards() {
-  const [linkToken, setLinkToken] = useState<string>();
+  const [linkToken, setLinkToken] = useState<string>('');
+  const [orgId, setOrgId] = useState<string>('');
+  const [orgName, setOrgName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
 
   useEffect(() => {
-    axios.get(`${API_BASE_URL}/integration/what/generate`).then(({ data }) => {
-      setLinkToken(data.linkToken);
-    });
+    setLinkToken('');
+    setOrgId('');
+    setOrgName('');
+    setEmail('');
   }, []);
 
-  const onSuccess = useCallback((public_token: string) => {
-    axios.post(`${API_BASE_URL}/integration`, {
-      public_token,
-      organization_id: org_id,
-      organization_name: org_name,
-      email_address: email,
-    });
-  }, []);
+  // useEffect(() => {
+  //   axios.get(`${API_BASE_URL}/integration/what/generate`).then(({ data }) => {
+  //     setLinkToken(data.linkToken);
+  //   });
+  // }, []);
+
+  const onSuccess = useCallback(
+    (public_token: string) => {
+      axios.post(`${API_BASE_URL}/integration`, {
+        public_token,
+        organization_id: orgId,
+        organization_name: orgName,
+        email_address: email,
+      });
+    },
+    [orgId, orgName, email]
+  );
 
   const { open, isReady } = useMergeLink({
     linkToken,
@@ -80,20 +103,17 @@ export default function IntegrationCards() {
           </div>
         </div>
       </div>
-      <ul
-        role="list"
-        className="grid grid-cols-1 gap-x-6 gap-y-8 lg:grid-cols-3 xl:gap-x-4"
-      >
+      <ul className="grid grid-cols-1 gap-x-6 gap-y-8 lg:grid-cols-3 xl:gap-x-4">
         {integrations.map(integration => (
           <li
             key={integration.id}
             className="overflow-hidden rounded-xl border border-gray-200"
           >
             <div className="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 p-6">
-              <img
-                src={integration.imageUrl}
+              <Image
+                src={integration.src}
                 alt={integration.name}
-                className="h-12 w-12 flex-none rounded-lg bg-white object-cover ring-1 ring-gray-900/10"
+                className="h-12 w-12 flex-none rounded-lg bg-white object-cover ring-1 ring-gray-900/10 p-1"
               />
               <div className="text-sm font-medium leading-6 text-gray-900">
                 {integration.name}
@@ -120,26 +140,12 @@ export default function IntegrationCards() {
                       {({ active }) => (
                         <a
                           href="#"
-                          className={classNames(
+                          className={clsx(
                             active ? 'bg-gray-50' : '',
                             'block px-3 py-1 text-sm leading-6 text-gray-900'
                           )}
                         >
-                          View
-                          <span className="sr-only">, {integration.name}</span>
-                        </a>
-                      )}
-                    </Menu.Item>
-                    <Menu.Item>
-                      {({ active }) => (
-                        <a
-                          href="#"
-                          className={classNames(
-                            active ? 'bg-gray-50' : '',
-                            'block px-3 py-1 text-sm leading-6 text-gray-900'
-                          )}
-                        >
-                          Edit
+                          Remove
                           <span className="sr-only">, {integration.name}</span>
                         </a>
                       )}
@@ -149,15 +155,23 @@ export default function IntegrationCards() {
               </Menu>
             </div>
             <dl className="-my-3 divide-y divide-gray-100 px-6 py-4 text-sm leading-6">
-              <div className="flex justify-between gap-x-4 py-3">
+              <div className="flex justify-between gap-x-4 py-2">
                 <dt className="text-gray-500">Account</dt>
                 <dd className="text-gray-700">{integration.account}</dd>
               </div>
-              <div className="flex justify-between gap-x-4 py-3">
-                <dt className="text-gray-500">Date</dt>
-                <dd className="flex items-start gap-x-2">
+              <div className="flex justify-between gap-x-4 py-2">
+                <dt className="text-gray-500">Added Date</dt>
+                <dd className="flex items-start gap-x-2 text-gray-700">
                   <time dateTime={integration.date}>{integration.date}</time>
                 </dd>
+              </div>
+              <div className="flex justify-between gap-x-4 py-2">
+                <dt className="text-gray-500">Status</dt>
+                <dd className="text-gray-700">{integration.status}</dd>
+              </div>
+              <div className="flex justify-between gap-x-4 py-2">
+                <dt className="text-gray-500">Category</dt>
+                <dd className="text-gray-700">{integration.category}</dd>
               </div>
             </dl>
           </li>

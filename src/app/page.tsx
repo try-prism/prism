@@ -1,10 +1,14 @@
 'use client';
 import { Dialog } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import Image from 'next/image';
 import Link from 'next/link';
+import React from 'react';
 import { useState } from 'react';
 import { FaGoogle } from 'react-icons/fa';
 import { IoMail } from 'react-icons/io5';
+
+import PrismLogo from '@/images/prism.svg';
 
 const navigation = [
   { name: 'Product', href: '#' },
@@ -26,7 +30,7 @@ export default function Example() {
           <div className="flex lg:flex-1">
             <Link href="#" className="-m-1.5 p-1.5">
               <span className="sr-only">Prism</span>
-              <img className="h-8 w-auto" src="/prism/prism.svg" alt="" />
+              <Image className="h-8 w-auto" src={PrismLogo} alt="" />
             </Link>
           </div>
           <div className="flex lg:hidden">
@@ -41,9 +45,8 @@ export default function Example() {
           </div>
           <div className="hidden lg:flex lg:items-center lg:gap-x-8">
             {navigation.map((item, index) => (
-              <>
+              <React.Fragment key={item.name}>
                 <Link
-                  key={item.name}
                   href={item.href}
                   className="text-sm font-semibold leading-6 text-white"
                 >
@@ -52,7 +55,7 @@ export default function Example() {
                 {index !== navigation.length - 1 && (
                   <span className="text-xs text-white">/</span>
                 )}
-              </>
+              </React.Fragment>
             ))}
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
@@ -78,11 +81,7 @@ export default function Example() {
             <div className="flex items-center justify-between">
               <Link href="#" className="-m-1.5 p-1.5">
                 <span className="sr-only">Your Company</span>
-                <img
-                  className="h-8 w-auto"
-                  src="https://tailwindui.com/img/logos/mark.svg?color=purple&shade=600"
-                  alt=""
-                />
+                <Image className="h-8 w-auto" src={PrismLogo} alt="" />
               </Link>
               <button
                 type="button"

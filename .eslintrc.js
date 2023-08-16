@@ -43,6 +43,7 @@ module.exports = {
     'react/no-typos': 'error',
     'react/no-unused-prop-types': 'warn',
     'react/no-deprecated': 'warn',
+    'react/no-unescaped-entities': 'off',
     'react/default-props-match-prop-types': [
       'error',
       { allowRequiredDefaults: true },
@@ -51,11 +52,13 @@ module.exports = {
     'unicorn/prefer-module': 'off',
     'unicorn/prevent-abbreviations': 'off',
     'simple-import-sort/imports': 'error',
+    'jsx-a11y/anchor-is-valid': 'off',
+    'sonarjs/no-duplicate-string': 'off',
     'sort-imports': [
       'error',
       {
         ignoreCase: false,
-        ignoreDeclarationSort: false,
+        ignoreDeclarationSort: true,
         ignoreMemberSort: false,
         memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],
         allowSeparatedGroups: false,
