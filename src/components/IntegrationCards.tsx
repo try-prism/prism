@@ -2,29 +2,35 @@ import { Menu, Transition } from '@headlessui/react';
 import { EllipsisHorizontalIcon } from '@heroicons/react/20/solid';
 import { useMergeLink } from '@mergeapi/react-merge-link';
 import axios from 'axios';
+import Image from 'next/image';
 import { Fragment, useCallback, useEffect, useState } from 'react';
 
+// import ShareDriveLogo from '@/images/integrations/sharedrive.png';
+// import DropboxLogo from '@/images/integrations/dropbox.png';
 import { API_BASE_URL } from '@/constant';
+import BoxLogo from '@/images/integrations/box.png';
+import GoogleDriveLogo from '@/images/integrations/googledrive.png';
+import OneDriveLogo from '@/images/integrations/onedrive.png';
 
 const integrations = [
   {
     id: 1,
     name: 'Google Drive',
-    imageUrl: 'https://tailwindui.com/img/logos/48x48/tuple.svg',
+    src: GoogleDriveLogo,
     account: 'corp-admin@google.com',
     date: '2022-12-13',
   },
   {
     id: 2,
-    name: 'One Drive',
-    imageUrl: 'https://tailwindui.com/img/logos/48x48/savvycal.svg',
+    name: 'Box',
+    src: BoxLogo,
     account: 'corp-admin@microsoft.com',
     date: '2022-12-13',
   },
   {
     id: 3,
-    name: 'Confluence',
-    imageUrl: 'https://tailwindui.com/img/logos/48x48/reform.svg',
+    name: 'OneDrive',
+    src: OneDriveLogo,
     account: 'corp-admin@apple.com',
     date: '2022-12-13',
   },
@@ -101,10 +107,10 @@ export default function IntegrationCards() {
             className="overflow-hidden rounded-xl border border-gray-200"
           >
             <div className="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 p-6">
-              <img
-                src={integration.imageUrl}
+              <Image
+                src={integration.src}
                 alt={integration.name}
-                className="h-12 w-12 flex-none rounded-lg bg-white object-cover ring-1 ring-gray-900/10"
+                className="h-12 w-12 flex-none rounded-lg bg-white object-cover ring-1 ring-gray-900/10 p-1"
               />
               <div className="text-sm font-medium leading-6 text-gray-900">
                 {integration.name}

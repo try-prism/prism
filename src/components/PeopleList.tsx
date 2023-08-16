@@ -1,14 +1,21 @@
 import { Menu, Transition } from '@headlessui/react';
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid';
+import Image from 'next/image';
 import { Fragment } from 'react';
+
+import Person1 from '@/images/samples/p1.jpeg';
+import Person2 from '@/images/samples/p2.jpeg';
+import Person3 from '@/images/samples/p3.jpeg';
+import Person4 from '@/images/samples/p4.jpeg';
+import Person5 from '@/images/samples/p5.jpeg';
+import Person6 from '@/images/samples/p6.jpeg';
 
 const people = [
   {
     name: 'Leslie Alexander',
     email: 'leslie.alexander@example.com',
     role: 'Co-Founder / CEO',
-    imageUrl:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+    src: Person1,
     href: '#',
     lastSeen: '3h ago',
     lastSeenDateTime: '2023-01-23T13:23Z',
@@ -17,8 +24,7 @@ const people = [
     name: 'Michael Foster',
     email: 'michael.foster@example.com',
     role: 'Co-Founder / CTO',
-    imageUrl:
-      'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+    src: Person2,
     href: '#',
     lastSeen: '3h ago',
     lastSeenDateTime: '2023-01-23T13:23Z',
@@ -27,8 +33,7 @@ const people = [
     name: 'Dries Vincent',
     email: 'dries.vincent@example.com',
     role: 'Business Relations',
-    imageUrl:
-      'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+    src: Person3,
     href: '#',
     lastSeen: undefined,
   },
@@ -36,8 +41,7 @@ const people = [
     name: 'Lindsay Walton',
     email: 'lindsay.walton@example.com',
     role: 'Front-end Developer',
-    imageUrl:
-      'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+    src: Person4,
     href: '#',
     lastSeen: '3h ago',
     lastSeenDateTime: '2023-01-23T13:23Z',
@@ -46,8 +50,7 @@ const people = [
     name: 'Courtney Henry',
     email: 'courtney.henry@example.com',
     role: 'Designer',
-    imageUrl:
-      'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+    src: Person5,
     href: '#',
     lastSeen: '3h ago',
     lastSeenDateTime: '2023-01-23T13:23Z',
@@ -56,8 +59,7 @@ const people = [
     name: 'Tom Cook',
     email: 'tom.cook@example.com',
     role: 'Director of Product',
-    imageUrl:
-      'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+    src: Person6,
     href: '#',
     lastSeen: undefined,
   },
@@ -91,9 +93,9 @@ export default function PeopleList() {
         {people.map(person => (
           <li key={person.email} className="flex justify-between gap-x-6 py-5">
             <div className="flex min-w-0 gap-x-4">
-              <img
+              <Image
                 className="h-12 w-12 flex-none rounded-full bg-gray-50"
-                src={person.imageUrl}
+                src={person.src}
                 alt=""
               />
               <div className="min-w-0 flex-auto">
