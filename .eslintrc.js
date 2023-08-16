@@ -30,9 +30,10 @@ module.exports = {
     'plugin:react-hooks/recommended',
   ],
   rules: {
-    'no-console': 'error',
+    'no-console': 'off',
     'no-shadow': 'off',
     'no-undef': 'off',
+    'no-unused-vars': 'off',
     'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/jsx-uses-react': 'error',
@@ -57,7 +58,7 @@ module.exports = {
     'sort-imports': [
       'error',
       {
-        ignoreCase: false,
+        ignoreCase: true,
         ignoreDeclarationSort: true,
         ignoreMemberSort: false,
         memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],

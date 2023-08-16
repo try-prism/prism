@@ -1,50 +1,21 @@
 import { Dialog, Transition } from '@headlessui/react';
-import {
-  Bars3BottomLeftIcon,
-  BuildingOffice2Icon,
-  MagnifyingGlassIcon,
-  XMarkIcon,
-} from '@heroicons/react/24/outline';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useState } from 'react';
 
+import { getNavigationItems, Page } from '@/constants/Navigation';
 import PrismLogo from '@/images/prism.svg';
 import PrismBlackLogo from '@/images/prism_black.png';
 
-export interface NavigationItem {
-  name: string;
-  href: string;
-  icon: any;
-  current: boolean;
+interface SidebarProps {
+  selectedPage: Page;
 }
 
-const navItems = [
-  { name: 'Search', href: '#', icon: MagnifyingGlassIcon, current: true },
-  {
-    name: 'My History',
-    href: '#',
-    icon: Bars3BottomLeftIcon,
-    current: false,
-  },
-];
-
-export default function Sidebar() {
+export default function Sidebar({ selectedPage }: SidebarProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [navigation, setNavigation] = useState<NavigationItem[]>(navItems);
-
-  useEffect(() => {
-    setNavigation((old: any) => [
-      ...old,
-      {
-        name: 'Admin Dashboard',
-        href: '#',
-        icon: BuildingOffice2Icon,
-        current: false,
-      },
-    ]);
-  }, []);
+  const navItems = getNavigationItems(selectedPage);
 
   return (
     <>
@@ -111,7 +82,7 @@ export default function Sidebar() {
                     <ul className="flex flex-1 flex-col gap-y-7">
                       <li>
                         <ul className="-mx-2 space-y-1">
-                          {navigation.map(item => (
+                          {navItems.map(item => (
                             <li key={item.name}>
                               <a
                                 href={item.href}
@@ -170,7 +141,7 @@ export default function Sidebar() {
                   Menu
                 </div>
                 <ul className="-mx-2 space-y-1">
-                  {navigation.map(item => (
+                  {navItems.map(item => (
                     <li key={item.name}>
                       <a
                         href={item.href}

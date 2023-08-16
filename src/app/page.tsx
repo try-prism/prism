@@ -1,4 +1,5 @@
 'use client';
+
 import { Dialog } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
@@ -14,10 +15,10 @@ const navigation = [
   { name: 'Product', href: '#' },
   { name: 'Features', href: '#' },
   { name: 'Marketplace', href: '#' },
-  { name: 'Admin', href: '/admin' },
+  { name: 'Search', href: '/search' },
 ];
 
-export default function Example() {
+export default function MainPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
