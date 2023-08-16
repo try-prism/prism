@@ -74,13 +74,13 @@ export default function IntegrationCards() {
     [orgId, orgName, email]
   );
 
-  const { open, isReady } = useMergeLink({
-    linkToken,
-    onSuccess,
-    // tenantConfig: {
-    // apiBaseURL: "https://api-eu.merge.dev" /* OR your specified single tenant API base URL */
-    // },
-  });
+  // const { open, isReady } = useMergeLink({
+  //   linkToken,
+  //   onSuccess,
+  //   tenantConfig: {
+  //   apiBaseURL: "https://api-eu.merge.dev" /* OR your specified single tenant API base URL */
+  //   },
+  // });
 
   return (
     <div className="shadow-md border border-main-black/10 rounded-2xl px-3 pb-3">
@@ -95,8 +95,8 @@ export default function IntegrationCards() {
             <button
               type="button"
               className="relative inline-flex items-center rounded-md bg-purple-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-purple-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
-              disabled={!isReady}
-              onClick={open}
+              // disabled={!isReady}
+              // onClick={open}
             >
               Add
             </button>
