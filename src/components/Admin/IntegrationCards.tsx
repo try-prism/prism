@@ -1,6 +1,6 @@
 import { Menu, Transition } from '@headlessui/react';
 import { EllipsisHorizontalIcon } from '@heroicons/react/20/solid';
-import { useMergeLink } from '@mergeapi/react-merge-link';
+// import { useMergeLink } from '@mergeapi/react-merge-link';
 import axios from 'axios';
 import clsx from 'clsx';
 import Image from 'next/image';
@@ -12,6 +12,11 @@ import { API_BASE_URL } from '@/constant';
 import BoxLogo from '@/images/integrations/box.png';
 import GoogleDriveLogo from '@/images/integrations/googledrive.png';
 import OneDriveLogo from '@/images/integrations/onedrive.png';
+import { Organization } from '@/models/Organization';
+
+interface IntegrationCardsProps {
+  organization: Organization;
+}
 
 const integrations = [
   {
@@ -43,18 +48,10 @@ const integrations = [
   },
 ];
 
-export default function IntegrationCards() {
-  const [linkToken, setLinkToken] = useState<string>('');
-  const [orgId, setOrgId] = useState<string>('');
-  const [orgName, setOrgName] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
-
-  useEffect(() => {
-    setLinkToken('');
-    setOrgId('');
-    setOrgName('');
-    setEmail('');
-  }, []);
+export default function IntegrationCards({
+  organization,
+}: IntegrationCardsProps) {
+  // const [linkToken, setLinkToken] = useState<string>('');
 
   // useEffect(() => {
   //   axios.get(`${API_BASE_URL}/integration/what/generate`).then(({ data }) => {
@@ -62,17 +59,17 @@ export default function IntegrationCards() {
   //   });
   // }, []);
 
-  const onSuccess = useCallback(
-    (public_token: string) => {
-      axios.post(`${API_BASE_URL}/integration`, {
-        public_token,
-        organization_id: orgId,
-        organization_name: orgName,
-        email_address: email,
-      });
-    },
-    [orgId, orgName, email]
-  );
+  // const onSuccess = useCallback(
+  //   (public_token: string) => {
+  //     axios.post(`${API_BASE_URL}/integration`, {
+  //       public_token,
+  //       organization_id: orgId,
+  //       organization_name: orgName,
+  //       email_address: email,
+  //     });
+  //   },
+  //   [orgId, orgName, email]
+  // );
 
   // const { open, isReady } = useMergeLink({
   //   linkToken,
@@ -83,7 +80,7 @@ export default function IntegrationCards() {
   // });
 
   return (
-    <div className="shadow-md border border-main-black/10 rounded-2xl px-3 pb-3">
+    <div className="shadow border border-main-black/10 rounded-2xl px-3 pb-3">
       <div className="border-gray-200 bg-white px-4 py-5 sm:px-6">
         <div className="-ml-4 -mt-2 flex flex-wrap items-center justify-between sm:flex-nowrap">
           <div className="ml-4 mt-2">
