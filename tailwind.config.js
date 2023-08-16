@@ -28,7 +28,10 @@ module.exports = {
           { fontVariationSettings: '"wdth" 125' },
         ],
       },
+      colors: {
+        'main-black': '#131719',
+      },
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/forms')],
 };
