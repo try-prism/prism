@@ -68,8 +68,8 @@ const people = [
 
 export default function PeopleList() {
   return (
-    <div className="shadow-md border border-main-black/10 rounded-2xl px-3 pb-3">
-      <div className="border-b border-gray-200 bg-white px-4 py-5 sm:px-6">
+    <div className="shadow border border-main-black/10 rounded-2xl px-3 py-4">
+      <div className="border-b border-gray-200 bg-white mx-4 pb-5">
         <div className="-ml-4 -mt-2 flex flex-wrap items-center justify-between sm:flex-nowrap">
           <div className="ml-4 mt-2">
             <h3 className="text-base font-semibold leading-6 text-gray-900">
@@ -86,7 +86,7 @@ export default function PeopleList() {
           </div>
         </div>
       </div>
-      <ul className="divide-y divide-gray-100">
+      <ul className="divide-y divide-gray-100 px-4">
         {people.map(person => (
           <li key={person.email} className="flex justify-between gap-x-6 py-5">
             <div className="flex min-w-0 gap-x-4">
