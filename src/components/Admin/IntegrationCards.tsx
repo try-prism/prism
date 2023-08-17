@@ -3,7 +3,6 @@ import { EllipsisHorizontalIcon } from '@heroicons/react/20/solid';
 import { useMergeLink } from '@mergeapi/react-merge-link';
 import clsx from 'clsx';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import { Fragment, useCallback, useEffect, useState } from 'react';
 
 import { INTEGRATION_LOGO_MAPPINGS, TEST_TOKEN } from '@/constant';
@@ -19,8 +18,6 @@ interface IntegrationCardsProps {
 export default function IntegrationCards({
   organization,
 }: IntegrationCardsProps) {
-  const router = useRouter();
-
   const [integrations, setIntegrations] = useState<IntegrationData[]>([]);
   const [linkToken, setLinkToken] = useState<string>('');
   const [showAddSuccessNotification, setShowAddSuccessNotification] =
@@ -73,7 +70,6 @@ export default function IntegrationCards({
     } else {
       setShowRemoveSuccessNotification(true);
     }
-    router.reload();
   };
 
   const onSuccess = useCallback(
@@ -95,9 +91,8 @@ export default function IntegrationCards({
       } else {
         setShowAddSuccessNotification(true);
       }
-      router.reload();
     },
-    [router, token, organization]
+    [token, organization]
   );
 
   const { open, isReady } = useMergeLink({
