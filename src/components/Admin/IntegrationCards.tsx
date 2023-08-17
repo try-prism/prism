@@ -3,6 +3,7 @@ import { EllipsisHorizontalIcon } from '@heroicons/react/20/solid';
 import { useMergeLink } from '@mergeapi/react-merge-link';
 import clsx from 'clsx';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { Fragment, useCallback, useEffect, useState } from 'react';
 
 import { INTEGRATION_LOGO_MAPPINGS, TEST_TOKEN } from '@/constant';
@@ -18,10 +19,18 @@ interface IntegrationCardsProps {
 export default function IntegrationCards({
   organization,
 }: IntegrationCardsProps) {
+  const router = useRouter();
+
   const [integrations, setIntegrations] = useState<IntegrationData[]>([]);
   const [linkToken, setLinkToken] = useState<string>('');
-  const [showSuccessNotification, setShowSuccessNotification] = useState(false);
-  const [showErrorNotification, setShowErrorNotification] = useState(false);
+  const [showAddSuccessNotification, setShowAddSuccessNotification] =
+    useState(false);
+  const [showAddErrorNotification, setShowAddErrorNotification] =
+    useState(false);
+  const [showRemoveSuccessNotification, setShowRemoveSuccessNotification] =
+    useState(false);
+  const [showRemoveErrorNotification, setShowRemoveErrorNotification] =
+    useState(false);
 
   const token = TEST_TOKEN;
 
@@ -47,6 +56,26 @@ export default function IntegrationCards({
     fetchLinkToken();
   }, [token, organization]);
 
+  const removeIntegration = async (accountToken: string) => {
+    const response = await fetch('/api/integration/', {
+      method: 'DELETE',
+      body: JSON.stringify({
+        token: token,
+        organizationId: organization.id,
+        accountToken,
+      }),
+    });
+    const data = await response.json();
+    console.log(data);
+
+    if ('code' in data) {
+      setShowRemoveErrorNotification(true);
+    } else {
+      setShowRemoveSuccessNotification(true);
+    }
+    router.reload();
+  };
+
   const onSuccess = useCallback(
     async (public_token: string) => {
       const response = await fetch('/api/integration/link', {
@@ -62,12 +91,13 @@ export default function IntegrationCards({
       console.log(data);
 
       if ('code' in data) {
-        setShowErrorNotification(true);
+        setShowAddErrorNotification(true);
       } else {
-        setShowSuccessNotification(true);
+        setShowAddSuccessNotification(true);
       }
+      router.reload();
     },
-    [token, organization]
+    [router, token, organization]
   );
 
   const { open, isReady } = useMergeLink({
@@ -81,15 +111,29 @@ export default function IntegrationCards({
         title="Successfully added"
         description="Please wait for few minutes ~ hour depending on the size of your files"
         isError={false}
-        show={showSuccessNotification}
-        setShow={setShowSuccessNotification}
+        show={showAddSuccessNotification}
+        setShow={setShowAddSuccessNotification}
       />
       <Notification
         title="Failed to add integration"
         description="Please try again later"
+        isError={true}
+        show={showAddErrorNotification}
+        setShow={setShowAddErrorNotification}
+      />
+      <Notification
+        title="Success"
+        description="Removed integration successfully"
         isError={false}
-        show={showErrorNotification}
-        setShow={setShowErrorNotification}
+        show={showRemoveSuccessNotification}
+        setShow={setShowRemoveSuccessNotification}
+      />
+      <Notification
+        title="Failed to remove integration"
+        description="Please try again later"
+        isError={true}
+        show={showRemoveErrorNotification}
+        setShow={setShowRemoveErrorNotification}
       />
       <div className="shadow border border-main-black/10 rounded-2xl px-3 pb-3">
         <div className="border-gray-200 bg-white px-4 py-5 sm:px-6">
@@ -146,8 +190,10 @@ export default function IntegrationCards({
                     <Menu.Items className="absolute right-0 z-10 mt-0.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
                       <Menu.Item>
                         {({ active }) => (
-                          <a
-                            href="#"
+                          <button
+                            onClick={async () =>
+                              await removeIntegration(integration.id)
+                            }
                             className={clsx(
                               active ? 'bg-gray-50' : '',
                               'block px-3 py-1 text-sm leading-6 text-gray-900'
@@ -157,7 +203,7 @@ export default function IntegrationCards({
                             <span className="sr-only">
                               , {integration.integration}
                             </span>
-                          </a>
+                          </button>
                         )}
                       </Menu.Item>
                     </Menu.Items>
