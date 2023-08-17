@@ -1,4 +1,5 @@
 import { Organization } from '@/models/Organization';
+import { timestampToDate } from '@/utils';
 
 import SummaryCard from './SummaryCard';
 
@@ -7,15 +8,6 @@ interface AdminInfoProps {
 }
 
 export default function AdminInfo({ organization }: AdminInfoProps) {
-  const date = new Date(Number(organization.updated_at) * 1000);
-  const formattedDate = date.toLocaleString('en-US', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-  });
-
   return (
     <div className="grid grid-cols-1 gap-x-6 gap-y-3 lg:grid-cols-3 xl:gap-x-4">
       <SummaryCard
@@ -46,7 +38,10 @@ export default function AdminInfo({ organization }: AdminInfoProps) {
         title="Files"
         data={[
           { label: 'Total Files', value: organization.document_list.length },
-          { label: 'Last Synced', value: formattedDate },
+          {
+            label: 'Last Synced',
+            value: timestampToDate(organization.updated_at),
+          },
         ]}
       />
     </div>
