@@ -4,22 +4,28 @@ import { API_BASE_URL } from '@/constant';
 import { APIException, APIExceptionCode } from '@/exception/APIException';
 
 export function GET(req: Request) {
-  return new Response('/integration endpoint is working!', {
+  return new Response('/organization/invite endpoint is working!', {
     status: 200,
   });
 }
 
 export async function POST(req: Request) {
-  const { token, organizationId } = await req.json();
+  const { token, organizationId, organizationName, organizationUserEmail } =
+    await req.json();
 
   try {
     const response = await fetch(
-      `${API_BASE_URL}/integration/${organizationId}`,
+      `${API_BASE_URL}/organization/${organizationId}/invite`,
       {
-        method: 'GET',
+        method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
         },
+        body: JSON.stringify({
+          organization_name: organizationName,
+          organization_user_email: organizationUserEmail,
+        }),
       }
     );
 
@@ -42,17 +48,22 @@ export async function POST(req: Request) {
 }
 
 export async function DELETE(req: Request) {
-  const { token, organizationId, accountToken } = await req.json();
+  const { token, organizationId, organizationName, organizationUserId } =
+    await req.json();
 
   try {
     const response = await fetch(
-      `${API_BASE_URL}/integration/${organizationId}`,
+      `${API_BASE_URL}/organization/${organizationId}/invite`,
       {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,
-          'integration-account-token': accountToken,
+          'Content-Type': 'application/json',
         },
+        body: JSON.stringify({
+          organization_name: organizationName,
+          organization_user_id: organizationUserId,
+        }),
       }
     );
 
