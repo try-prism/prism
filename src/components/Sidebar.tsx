@@ -178,7 +178,12 @@ export default function Sidebar({ selectedPage }: SidebarProps) {
               <li className="-mx-6 mt-auto">
                 <a
                   href="/account"
-                  className="flex items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-white hover:bg-gray-800"
+                  className={clsx(
+                    'flex items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-white',
+                    selectedPage === Page.ACCOUNT
+                      ? 'bg-gray-800'
+                      : 'hover:bg-gray-800'
+                  )}
                 >
                   <Image
                     className="h-8 w-8 rounded-full bg-white"

@@ -15,6 +15,7 @@ export enum Page {
   SEARCH,
   HISTORY,
   ADMIN,
+  ACCOUNT,
 }
 
 export const getNavigationItems = (
