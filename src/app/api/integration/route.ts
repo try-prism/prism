@@ -41,4 +41,35 @@ export async function POST(req: Request) {
   }
 }
 
-export async function DELETE(req: Request) {}
+export async function DELETE(req: Request) {
+  const { token, organizationId, accountToken } = await req.json();
+
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/integration/${organizationId}`,
+      {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'integration-account-token': accountToken,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      console.log('Error from API side: ' + response.statusText);
+    }
+
+    const data = await response.json();
+    return NextResponse.json(data);
+  } catch (error: unknown) {
+    console.error('Error retrieving API response: ' + error);
+
+    return NextResponse.json(
+      new APIException(
+        APIExceptionCode.UNKNOWN_ERROR,
+        error instanceof Error ? error.message : 'Unknown Error'
+      ).toJSON()
+    );
+  }
+}
