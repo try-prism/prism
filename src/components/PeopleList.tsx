@@ -1,79 +1,48 @@
 import { Menu, Transition } from '@headlessui/react';
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid';
 import clsx from 'clsx';
-import Image from 'next/image';
-import { Fragment } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 
-import Person1 from '@/images/samples/p1.jpeg';
-import Person2 from '@/images/samples/p2.jpeg';
-import Person3 from '@/images/samples/p3.jpeg';
-import Person4 from '@/images/samples/p4.jpeg';
-import Person5 from '@/images/samples/p5.jpeg';
-import Person6 from '@/images/samples/p6.jpeg';
+import { TEST_TOKEN } from '@/constant';
+import { Organization } from '@/models/Organization';
+import { Convert, User } from '@/models/User';
+import { timestampToDate, timestampToDateDay } from '@/utils';
 
-const people = [
-  {
-    name: 'Leslie Alexander',
-    email: 'leslie.alexander@example.com',
-    role: 'Co-Founder / CEO',
-    src: Person1,
-    href: '#',
-    lastSeen: '3h ago',
-    lastSeenDateTime: '2023-01-23T13:23Z',
-  },
-  {
-    name: 'Michael Foster',
-    email: 'michael.foster@example.com',
-    role: 'Co-Founder / CTO',
-    src: Person2,
-    href: '#',
-    lastSeen: '3h ago',
-    lastSeenDateTime: '2023-01-23T13:23Z',
-  },
-  {
-    name: 'Dries Vincent',
-    email: 'dries.vincent@example.com',
-    role: 'Business Relations',
-    src: Person3,
-    href: '#',
-    lastSeen: undefined,
-  },
-  {
-    name: 'Lindsay Walton',
-    email: 'lindsay.walton@example.com',
-    role: 'Front-end Developer',
-    src: Person4,
-    href: '#',
-    lastSeen: '3h ago',
-    lastSeenDateTime: '2023-01-23T13:23Z',
-  },
-  {
-    name: 'Courtney Henry',
-    email: 'courtney.henry@example.com',
-    role: 'Designer',
-    src: Person5,
-    href: '#',
-    lastSeen: '3h ago',
-    lastSeenDateTime: '2023-01-23T13:23Z',
-  },
-  {
-    name: 'Tom Cook',
-    email: 'tom.cook@example.com',
-    role: 'Director of Product',
-    src: Person6,
-    href: '#',
-    lastSeen: undefined,
-  },
-];
+interface UserListsProps {
+  organization: Organization;
+}
 
-export default function PeopleList() {
+export default function UserList({ organization }: UserListsProps) {
+  const [users, setUsers] = useState<User[]>([]);
+  const token = TEST_TOKEN;
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const response = await fetch('/api/user/batch', {
+        method: 'POST',
+        body: JSON.stringify({ userIds: organization.user_list }),
+      });
+      const data = await response.json();
+
+      if (data.status !== 200) {
+        console.log(data.message);
+      }
+
+      const cleanedUsers = data.users.map((user: any) => Convert.toUser(user));
+
+      setUsers(cleanedUsers);
+    };
+
+    fetchUserData();
+  }, [token, organization]);
+
   return (
     <div className="shadow border border-main-black/10 rounded-2xl px-3 py-4">
       <div className="border-b border-gray-200 bg-white mx-4 pb-5">
         <div className="-ml-4 -mt-2 flex flex-wrap items-center justify-between sm:flex-nowrap">
           <div className="ml-4 mt-2">
             <h3 className="text-base font-semibold leading-6 text-gray-900">
-              People
+              Users
             </h3>
           </div>
           <div className="ml-4 mt-2 flex-shrink-0">
@@ -87,48 +56,38 @@ export default function PeopleList() {
         </div>
       </div>
       <ul className="divide-y divide-gray-100 px-4">
-        {people.map(person => (
-          <li key={person.email} className="flex justify-between gap-x-6 py-5">
+        {users.map(user => (
+          <li key={user.email} className="flex justify-between gap-x-6 py-5">
             <div className="flex min-w-0 gap-x-4">
-              <Image
+              {/* <Image
                 className="h-12 w-12 flex-none rounded-full bg-gray-50"
-                src={person.src}
+                src={user.src}
                 alt=""
-              />
+              /> */}
               <div className="min-w-0 flex-auto">
                 <p className="text-sm font-semibold leading-6 text-gray-900">
-                  <a href={person.href} className="hover:underline">
-                    {person.name}
+                  <a href="#" className="hover:underline">
+                    {user.name}
                   </a>
                 </p>
                 <p className="mt-1 flex text-xs leading-5 text-gray-500">
                   <a
-                    href={`mailto:${person.email}`}
+                    href={`mailto:${user.email}`}
                     className="truncate hover:underline"
                   >
-                    {person.email}
+                    {user.email}
                   </a>
                 </p>
               </div>
             </div>
             <div className="flex shrink-0 items-center gap-x-6">
               <div className="hidden sm:flex sm:flex-col sm:items-end">
-                <p className="text-sm leading-6 text-gray-900">{person.role}</p>
-                {person.lastSeen ? (
-                  <p className="mt-1 text-xs leading-5 text-gray-500">
-                    Last seen{' '}
-                    <time dateTime={person.lastSeenDateTime}>
-                      {person.lastSeen}
-                    </time>
-                  </p>
-                ) : (
-                  <div className="mt-1 flex items-center gap-x-1.5">
-                    <div className="flex-none rounded-full bg-emerald-500/20 p-1">
-                      <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                    </div>
-                    <p className="text-xs leading-5 text-gray-500">Online</p>
-                  </div>
-                )}
+                <p className="text-sm leading-6 text-gray-900">
+                  Added on {timestampToDateDay(user.created_at)}
+                </p>
+                <p className="mt-1 text-xs leading-5 text-gray-500">
+                  Last updated: {timestampToDate(user.updated_at)}
+                </p>
               </div>
               <Menu as="div" className="relative flex-none">
                 <Menu.Button className="-m-2.5 block p-2.5 text-gray-500 hover:text-gray-900">
@@ -158,7 +117,7 @@ export default function PeopleList() {
                           )}
                         >
                           View profile
-                          <span className="sr-only">, {person.name}</span>
+                          <span className="sr-only">, {user.name}</span>
                         </a>
                       )}
                     </Menu.Item>
@@ -171,8 +130,8 @@ export default function PeopleList() {
                             'block px-3 py-1 text-sm leading-6 text-gray-900'
                           )}
                         >
-                          Message
-                          <span className="sr-only">, {person.name}</span>
+                          Remove
+                          <span className="sr-only">, {user.name}</span>
                         </a>
                       )}
                     </Menu.Item>

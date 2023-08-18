@@ -42,7 +42,7 @@ export default function AdminPage() {
           <div className="pl-4 pr-2 flex flex-col gap-y-3 ">
             <AdminInfo organization={organization} />
             <IntegrationCards organization={organization} />
-            <PeopleList />
+            <PeopleList organization={organization} />
           </div>
         </main>
       )}
