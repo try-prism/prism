@@ -38,7 +38,7 @@ export default function IntegrationCards({
 
   useEffect(() => {
     setIntegrations(Object.values(organization.link_id_map));
-  }, [organization]);
+  }, [organization.link_id_map]);
 
   useEffect(() => {
     const fetchLinkToken = async () => {
@@ -56,7 +56,7 @@ export default function IntegrationCards({
     };
 
     fetchLinkToken();
-  }, [token, organization]);
+  }, [token, organization.id]);
 
   const removeIntegration = async (accountToken: string) => {
     const response = await fetch('/api/integration/', {
@@ -99,7 +99,7 @@ export default function IntegrationCards({
         setShowAddSuccessNotification(true);
       }
     },
-    [token, organization, organizationAdminId]
+    [token, organization.id, organization.name, organizationAdminId]
   );
 
   const { open, isReady } = useMergeLink({
