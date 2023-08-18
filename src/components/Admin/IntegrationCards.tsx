@@ -208,9 +208,7 @@ export default function IntegrationCards({
               <dl className="-my-3 divide-y divide-gray-100 px-6 py-4 text-sm leading-6">
                 <div className="flex justify-between gap-x-4 py-2">
                   <dt className="text-gray-500">Account</dt>
-                  <dd className="text-gray-700">
-                    {integration.end_user_email_address}
-                  </dd>
+                  <dd className="text-gray-700">{integration.account_id}</dd>
                 </div>
                 <div className="flex justify-between gap-x-4 py-2">
                   <dt className="text-gray-500">Added Date</dt>
