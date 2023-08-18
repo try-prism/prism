@@ -23,11 +23,13 @@ export async function POST(req: Request) {
       }
     );
 
+    const data = await response.json();
+
     if (!response.ok) {
       console.log('Error from API side: ' + response.statusText);
+      return NextResponse.json(data, { status: response.status });
     }
 
-    const data = await response.json();
     return NextResponse.json(data);
   } catch (error: unknown) {
     console.error('Error retrieving API response: ' + error);
@@ -60,11 +62,13 @@ export async function DELETE(req: Request) {
       }
     );
 
+    const data = await response.json();
+
     if (!response.ok) {
       console.log('Error from API side: ' + response.statusText);
+      return NextResponse.json(data, { status: response.status });
     }
 
-    const data = await response.json();
     return NextResponse.json(data);
   } catch (error: unknown) {
     console.error('Error retrieving API response: ' + error);

@@ -19,3 +19,8 @@ export const timestampToDateDay = (timestamp: string) => {
     day: '2-digit',
   });
 };
+
+export const validateEmail = (email: string) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+};
