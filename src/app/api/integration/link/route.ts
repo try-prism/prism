@@ -10,8 +10,13 @@ export function GET(req: Request) {
 }
 
 export async function POST(req: Request) {
-  const { token, publicToken, organizationId, organizationName } =
-    await req.json();
+  const {
+    token,
+    publicToken,
+    organizationId,
+    organizationName,
+    organizationAdminId,
+  } = await req.json();
 
   try {
     const response = await fetch(`${API_BASE_URL}/integration`, {
@@ -24,6 +29,7 @@ export async function POST(req: Request) {
         public_token: publicToken,
         organization_id: organizationId,
         organization_name: organizationName,
+        organization_admin_id: organizationAdminId,
       }),
     });
 

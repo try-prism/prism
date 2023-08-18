@@ -42,7 +42,8 @@ export async function POST(req: Request) {
 }
 
 export async function DELETE(req: Request) {
-  const { token, organizationId, accountToken } = await req.json();
+  const { token, organizationId, accountToken, organizationAdminId } =
+    await req.json();
 
   try {
     const response = await fetch(
@@ -53,6 +54,9 @@ export async function DELETE(req: Request) {
           Authorization: `Bearer ${token}`,
           'integration-account-token': accountToken,
         },
+        body: JSON.stringify({
+          organizationAdminId,
+        }),
       }
     );
 

@@ -10,8 +10,13 @@ export function GET(req: Request) {
 }
 
 export async function POST(req: Request) {
-  const { token, organizationId, organizationName, organizationUserEmail } =
-    await req.json();
+  const {
+    token,
+    organizationId,
+    organizationName,
+    organizationUserEmail,
+    organizationAdminId,
+  } = await req.json();
 
   try {
     const response = await fetch(
@@ -25,6 +30,7 @@ export async function POST(req: Request) {
         body: JSON.stringify({
           organization_name: organizationName,
           organization_user_email: organizationUserEmail,
+          organization_admin_id: organizationAdminId,
         }),
       }
     );
@@ -48,8 +54,13 @@ export async function POST(req: Request) {
 }
 
 export async function DELETE(req: Request) {
-  const { token, organizationId, organizationName, organizationUserId } =
-    await req.json();
+  const {
+    token,
+    organizationId,
+    organizationName,
+    organizationUserId,
+    organizationAdminId,
+  } = await req.json();
 
   try {
     const response = await fetch(
@@ -63,6 +74,7 @@ export async function DELETE(req: Request) {
         body: JSON.stringify({
           organization_name: organizationName,
           organization_user_id: organizationUserId,
+          organization_admin_id: organizationAdminId,
         }),
       }
     );
