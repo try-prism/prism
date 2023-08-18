@@ -1,18 +1,37 @@
 'use client';
 
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import ReconnectingWebSocket from 'reconnecting-websocket';
 
-import PromptTextArea from '@/components/PromptTextArea';
+import PromptTextArea from '@/components/Search/PromptTextArea';
 import Sidebar from '@/components/Sidebar';
+import { API_BASE_DOMAIN } from '@/constant';
 import { Page } from '@/constants/Navigation';
 
 export default function Search() {
-  const user = 'user';
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [messages, setMessages] = useState<string[]>([]);
+  const socket = useRef<ReconnectingWebSocket | null>(null);
+
+  useEffect(() => {
+    socket.current = new ReconnectingWebSocket(`ws://${API_BASE_DOMAIN}/query`);
+
+    socket.current.addEventListener('open', () => console.log('ws opened'));
+    socket.current.addEventListener('close', () => console.log('ws closed'));
+    socket.current.addEventListener('message', event => {
+      const data = JSON.parse(event.data);
+      setMessages(messages => [...messages, data.message]);
+    });
+
+    return () => {
+      socket.current?.close();
+    };
+  }, []);
 
   const onSubmit = async (userQuery: string) => {
-    console.log(userQuery);
-    console.log(user);
+    console.log(`Message: ${userQuery}`);
+    socket.current?.send(userQuery);
+    setMessages([...messages, userQuery]);
   };
 
   return (
