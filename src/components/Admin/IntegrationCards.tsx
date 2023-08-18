@@ -5,7 +5,11 @@ import clsx from 'clsx';
 import Image from 'next/image';
 import { Fragment, useCallback, useEffect, useState } from 'react';
 
-import { INTEGRATION_LOGO_MAPPINGS, TEST_TOKEN } from '@/constant';
+import {
+  INTEGRATION_LOGO_MAPPINGS,
+  TEST_ADMIN_ID,
+  TEST_TOKEN,
+} from '@/constant';
 import { IntegrationData, Organization } from '@/models/Organization';
 import { timestampToDate } from '@/utils';
 
@@ -30,6 +34,7 @@ export default function IntegrationCards({
     useState(false);
 
   const token = TEST_TOKEN;
+  const organizationAdminId = TEST_ADMIN_ID;
 
   useEffect(() => {
     setIntegrations(Object.values(organization.link_id_map));
@@ -58,8 +63,9 @@ export default function IntegrationCards({
       method: 'DELETE',
       body: JSON.stringify({
         token: token,
-        organizationId: organization.id,
         accountToken,
+        organizationId: organization.id,
+        organizationAdminId,
       }),
     });
     const data = await response.json();
@@ -81,6 +87,7 @@ export default function IntegrationCards({
           publicToken: public_token,
           organizationId: organization.id,
           organizationName: organization.name,
+          organizationAdminId,
         }),
       });
       const data = await response.json();
@@ -92,7 +99,7 @@ export default function IntegrationCards({
         setShowAddSuccessNotification(true);
       }
     },
-    [token, organization]
+    [token, organization, organizationAdminId]
   );
 
   const { open, isReady } = useMergeLink({
@@ -156,7 +163,7 @@ export default function IntegrationCards({
               key={integration.id}
               className="overflow-hidden rounded-xl border border-gray-200"
             >
-              <div className="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 p-6">
+              <div className="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 p-3">
                 <Image
                   src={INTEGRATION_LOGO_MAPPINGS[integration.integration_slug]}
                   alt={integration.integration_slug}

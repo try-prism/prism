@@ -4,32 +4,23 @@ import { API_BASE_URL } from '@/constant';
 import { APIException, APIExceptionCode } from '@/exception/APIException';
 
 export function GET(req: Request) {
-  return new Response('/integration endpoint is working!', {
+  return new Response('/user/batch endpoint is working!', {
     status: 200,
   });
 }
 
 export async function POST(req: Request) {
-  const {
-    token,
-    publicToken,
-    organizationId,
-    organizationName,
-    organizationAdminId,
-  } = await req.json();
+  const { token, userIds } = await req.json();
 
   try {
-    const response = await fetch(`${API_BASE_URL}/integration`, {
+    const response = await fetch(`${API_BASE_URL}/users`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        public_token: publicToken,
-        organization_id: organizationId,
-        organization_name: organizationName,
-        organization_admin_id: organizationAdminId,
+        user_ids: userIds,
       }),
     });
 

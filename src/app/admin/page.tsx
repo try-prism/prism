@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react';
 
 import AdminInfo from '@/components/Admin/AdminInfo';
 import IntegrationCards from '@/components/Admin/IntegrationCards';
-import PeopleList from '@/components/PeopleList';
 import Sidebar from '@/components/Sidebar';
+import UserList from '@/components/UserList';
 import { TEST_ORG_ID, TEST_TOKEN } from '@/constant';
 import { Page } from '@/constants/Navigation';
 import { Convert, Organization } from '@/models/Organization';
@@ -42,7 +42,7 @@ export default function AdminPage() {
           <div className="pl-4 pr-2 flex flex-col gap-y-3 ">
             <AdminInfo organization={organization} />
             <IntegrationCards organization={organization} />
-            <PeopleList />
+            <UserList organization={organization} />
           </div>
         </main>
       )}

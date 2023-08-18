@@ -9,3 +9,13 @@ export const timestampToDate = (timestamp: string) => {
     minute: '2-digit',
   });
 };
+
+export const timestampToDateDay = (timestamp: string) => {
+  const date = new Date(Number(timestamp) * 1000);
+
+  return date.toLocaleString('en-US', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  });
+};
