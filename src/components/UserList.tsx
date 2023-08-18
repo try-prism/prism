@@ -3,7 +3,7 @@ import { EllipsisVerticalIcon } from '@heroicons/react/20/solid';
 import clsx from 'clsx';
 import { Fragment, useEffect, useState } from 'react';
 
-import { TEST_TOKEN } from '@/constant';
+import { TEST_ADMIN_ID, TEST_TOKEN } from '@/constant';
 import { Organization } from '@/models/Organization';
 import { Convert, User } from '@/models/User';
 import { timestampToDate, timestampToDateDay } from '@/utils';
@@ -15,6 +15,7 @@ interface UserListsProps {
 export default function UserList({ organization }: UserListsProps) {
   const [users, setUsers] = useState<User[]>([]);
   const token = TEST_TOKEN;
+  const organizationAdminId = TEST_ADMIN_ID;
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -35,6 +36,18 @@ export default function UserList({ organization }: UserListsProps) {
 
     fetchUserData();
   }, [token, organization]);
+
+  const removeUser = async (userId: string) => {
+    const response = await fetch('/api/user', {
+      method: 'DELETE',
+      body: JSON.stringify({ token, userId, organizationAdminId }),
+    });
+    const data = await response.json();
+
+    if (data.status !== 200) {
+      console.log(data.message);
+    }
+  };
 
   return (
     <div className="shadow border border-main-black/10 rounded-2xl px-3 py-4">
@@ -116,15 +129,15 @@ export default function UserList({ organization }: UserListsProps) {
                             'block px-3 py-1 text-sm leading-6 text-gray-900'
                           )}
                         >
-                          View profile
+                          Edit Profile
                           <span className="sr-only">, {user.name}</span>
                         </a>
                       )}
                     </Menu.Item>
                     <Menu.Item>
                       {({ active }) => (
-                        <a
-                          href="#"
+                        <button
+                          onClick={async () => removeUser(user.id)}
                           className={clsx(
                             active ? 'bg-gray-50' : '',
                             'block px-3 py-1 text-sm leading-6 text-gray-900'
@@ -132,7 +145,7 @@ export default function UserList({ organization }: UserListsProps) {
                         >
                           Remove
                           <span className="sr-only">, {user.name}</span>
-                        </a>
+                        </button>
                       )}
                     </Menu.Item>
                   </Menu.Items>

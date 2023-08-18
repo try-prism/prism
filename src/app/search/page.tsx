@@ -10,8 +10,9 @@ import { Page } from '@/constants/Navigation';
 
 export default function Search() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const [messages, setMessages] = useState<string[]>([]);
   const socket = useRef<ReconnectingWebSocket | null>(null);
+
+  const [messages, setMessages] = useState<string[]>([]);
 
   useEffect(() => {
     socket.current = new ReconnectingWebSocket(`ws://${API_BASE_DOMAIN}/query`);
