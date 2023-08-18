@@ -71,10 +71,13 @@ export default function IntegrationCards({
     const data = await response.json();
     console.log(data);
 
-    if ('code' in data) {
-      setShowRemoveErrorNotification(true);
-    } else {
+    if (data.status === 200) {
       setShowRemoveSuccessNotification(true);
+      setIntegrations(integrations =>
+        integrations.filter(integration => integration.id !== accountToken)
+      );
+    } else {
+      setShowRemoveErrorNotification(true);
     }
   };
 
@@ -93,10 +96,30 @@ export default function IntegrationCards({
       const data = await response.json();
       console.log(data);
 
-      if ('code' in data) {
-        setShowAddErrorNotification(true);
-      } else {
+      const integrationItem = data.integration_item;
+
+      if (data.status === 200) {
         setShowAddSuccessNotification(true);
+        setIntegrations(integrations => [
+          ...integrations,
+          {
+            created: integrationItem.created,
+            integration: integrationItem.integration,
+            end_user_organization_name:
+              integrationItem.end_user_organization_name,
+            end_user_email_address: integrationItem.end_user_email_address,
+            id: integrationItem.id,
+            category: integrationItem.category,
+            is_duplicate: integrationItem.is_duplicate,
+            end_user_origin_id: integrationItem.end_user_origin_id,
+            integration_slug: integrationItem.integration_slug,
+            status: integrationItem.status,
+            webhook_listener_url: integrationItem.webhook_listener_url,
+            account_id: integrationItem.account_id,
+          },
+        ]);
+      } else {
+        setShowAddErrorNotification(true);
       }
     },
     [token, organization.id, organization.name, organizationAdminId]
