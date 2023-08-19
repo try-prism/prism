@@ -1,5 +1,9 @@
 import '@/styles/tailwind.css';
 
+import AmplifyProvider from '@/components/AmplifyProvider';
+import BackgroundProvider from '@/components/BackgroundProvider';
+import UserContextProvider from '@/contexts/UserContext';
+
 interface RootLayoutProps {
   children: React.ReactNode;
 }
@@ -11,8 +15,10 @@ export const metadata = {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en" className="min-h-full bg-main-black">
-      <body>{children}</body>
-    </html>
+    <AmplifyProvider>
+      <UserContextProvider>
+        <BackgroundProvider>{children}</BackgroundProvider>
+      </UserContextProvider>
+    </AmplifyProvider>
   );
 }

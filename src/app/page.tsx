@@ -22,7 +22,7 @@ export default function MainPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <div className="bg-main-black">
+    <div className="bg-main-black min-h-screen">
       <header className="absolute inset-x-0 top-0 z-50">
         <nav
           className="flex items-center justify-between p-6 lg:px-8"
@@ -61,10 +61,10 @@ export default function MainPage() {
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
             <Link
-              href="#"
+              href="/register"
               className="text-sm font-semibold leading-6 text-white"
             >
-              Sign up for demo{' '}
+              Sign up
               <span className="text-purple-500 ml-1" aria-hidden="true">
                 &rarr;
               </span>
@@ -130,22 +130,6 @@ export default function MainPage() {
               Bring your firm's scattered documents into a single knowledge
               base.
             </p>
-            <div className="mt-10 flex flex-col gap-y-6 w-72">
-              <Link
-                href="#"
-                className="flex items-center gap-x-5 text-center rounded-md bg-purple-700 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-purple-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
-              >
-                <IoMail className="text-2xl w-7"></IoMail>
-                Sign-up Using Your Email
-              </Link>
-              <Link
-                href="#"
-                className="flex items-center gap-x-5 text-center rounded-md bg-purple-700 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-purple-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
-              >
-                <FaGoogle className="text-xl w-7"></FaGoogle>
-                Sign-up Using Google
-              </Link>
-            </div>
           </div>
           <div className="mt-16 sm:mt-24 lg:mt-0 lg:flex-shrink-0 lg:flex-grow"></div>
         </div>

@@ -1,7 +1,8 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
+const withMT = require('@material-tailwind/react/utils/withMT');
 
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+module.exports = withMT({
   content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
   theme: {
     fontSize: {
@@ -31,7 +32,10 @@ module.exports = {
       colors: {
         'main-black': '#131719',
       },
+      gridTemplateColumns: {
+        'search-page': '2rem minmax(0px, 1fr) 2rem',
+      },
     },
   },
   plugins: [require('@tailwindcss/forms')],
-};
+});

@@ -1,0 +1,26 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-prism-dev-164636-authRole",
+      "UnauthRoleArn": "arn:aws:iam::602172831580:role/amplify-prism-dev-164636-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::602172831580:role/amplify-prism-dev-164636-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-prism-dev-164636-deployment",
+      "UnauthRoleName": "amplify-prism-dev-164636-unauthRole",
+      "StackName": "amplify-prism-dev-164636",
+      "StackId": "arn:aws:cloudformation:us-east-1:602172831580:stack/amplify-prism-dev-164636/79579590-3e21-11ee-83c5-0e552cb61243",
+      "AmplifyAppId": "d509joxshurgn"
+    },
+    "categories": {
+      "auth": {
+        "prism67a0b4f4": {},
+        "prism2dd3552a": {
+          "userPoolId": "us-east-1_XWeFtvwry",
+          "userPoolName": "prism-userpool-dev",
+          "webClientId": "49bc2jftdh3fbpm1d66aojnqsc",
+          "nativeClientId": "49bc2jftdh3fbpm1d66aojnqsc"
+        }
+      }
+    }
+  }
+}
