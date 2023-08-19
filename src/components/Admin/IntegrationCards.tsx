@@ -116,6 +116,7 @@ export default function IntegrationCards({
             status: integrationItem.status,
             webhook_listener_url: integrationItem.webhook_listener_url,
             account_id: integrationItem.account_id,
+            account_token: integrationItem.account_token,
           },
         ]);
       } else {
@@ -217,7 +218,7 @@ export default function IntegrationCards({
                         {({ active }) => (
                           <button
                             onClick={async () =>
-                              await removeIntegration(integration.id)
+                              await removeIntegration(integration.account_token)
                             }
                             className={clsx(
                               active ? 'bg-gray-50' : '',

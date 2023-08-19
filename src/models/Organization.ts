@@ -41,6 +41,7 @@ export interface IntegrationData {
   status: string;
   webhook_listener_url: string;
   account_id: string;
+  account_token: string;
 }
 
 // Converts JSON strings to/from your types
@@ -271,6 +272,7 @@ const typeMap: any = {
       { json: 'status', js: 'status', typ: '' },
       { json: 'webhook_listener_url', js: 'webhook_listener_url', typ: '' },
       { json: 'account_id', js: 'account_id', typ: '' },
+      { json: 'account_token', js: 'account_token', typ: '' },
     ],
     false
   ),

@@ -55,9 +55,10 @@ export async function DELETE(req: Request) {
         headers: {
           Authorization: `Bearer ${token}`,
           'integration-account-token': accountToken,
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          organizationAdminId,
+          organization_admin_id: organizationAdminId,
         }),
       }
     );
