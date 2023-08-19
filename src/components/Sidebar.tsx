@@ -84,7 +84,7 @@ export default function Sidebar({ selectedPage }: SidebarProps) {
                         <ul className="-mx-2 space-y-1">
                           {navItems.map(item => (
                             <li key={item.name}>
-                              <a
+                              <Link
                                 href={item.href}
                                 className={clsx(
                                   item.current
@@ -98,13 +98,13 @@ export default function Sidebar({ selectedPage }: SidebarProps) {
                                   aria-hidden="true"
                                 />
                                 {item.name}
-                              </a>
+                              </Link>
                             </li>
                           ))}
                         </ul>
                       </li>
                       <li className="-mx-6 mt-auto">
-                        <a
+                        <Link
                           href="#"
                           className="flex items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-white hover:bg-gray-800"
                         >
@@ -115,7 +115,7 @@ export default function Sidebar({ selectedPage }: SidebarProps) {
                           />
                           <span className="sr-only">Your profile</span>
                           <span aria-hidden="true">Tom Cook</span>
-                        </a>
+                        </Link>
                       </li>
                     </ul>
                   </nav>
@@ -143,7 +143,7 @@ export default function Sidebar({ selectedPage }: SidebarProps) {
                 <ul className="-mx-2 space-y-1">
                   {navItems.map(item => (
                     <li key={item.name}>
-                      <a
+                      <Link
                         href={item.href}
                         className={clsx(
                           item.current
@@ -157,7 +157,7 @@ export default function Sidebar({ selectedPage }: SidebarProps) {
                           aria-hidden="true"
                         />
                         {item.name}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -176,7 +176,7 @@ export default function Sidebar({ selectedPage }: SidebarProps) {
                 </ul>
               </li>
               <li className="-mx-6 mt-auto">
-                <a
+                <Link
                   href="/account"
                   className={clsx(
                     'flex items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-white',
@@ -192,7 +192,7 @@ export default function Sidebar({ selectedPage }: SidebarProps) {
                   />
                   <span className="sr-only">Your profile</span>
                   <span aria-hidden="true">Hwuiwon Kim</span>
-                </a>
+                </Link>
               </li>
             </ul>
           </nav>
