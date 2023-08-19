@@ -21,8 +21,8 @@ export default function SummaryCard({ title, data }: SummaryCardProps) {
         <dl className="divide-y divide-gray-100 text-sm leading-6 pt-5">
           {data.map(item => (
             <div key={item.label} className="flex justify-between gap-x-4 py-2">
-              <dt className="text-gray-500">{item.label}</dt>
-              <dd className="text-gray-700">{item.value}</dd>
+              <dt className="text-gray-600">{item.label}</dt>
+              <dd className="text-gray-900">{item.value}</dd>
             </div>
           ))}
         </dl>

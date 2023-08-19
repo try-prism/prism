@@ -56,6 +56,7 @@ export default function Search() {
     return () => {
       socket.current?.close();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const sendQuery = (message: string) => {
@@ -66,17 +67,11 @@ export default function Search() {
     }
   };
 
-  // const onSubmit = async (userQuery: string) => {
-  //   console.log(`Message: ${userQuery}`);
-  //   socket.current?.send(userQuery);
-  //   setMessages([...messages, userQuery]);
-  // };
-
   return (
     <div className="bg-white min-h-screen">
       <Sidebar selectedPage={Page.SEARCH} />
       <main className="xl:pl-72 py-2">
-        <div className="grid-cols-search-page max-w-3xl mx-auto px-3 pt-16 pb-4 grid gap-x-2 gap-y-3">
+        <div className="grid-cols-search-page max-w-3xl mx-auto px-3 pt-16 pb-4 grid gap-x-2 gap-y-3 pb-28">
           {mockQueries.map(query =>
             query.sender === Sender.USER ? (
               <>
