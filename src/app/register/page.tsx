@@ -1,8 +1,10 @@
 'use client';
-import { Logo } from '@/components/Logo';
-import { FormEventHandler, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
+
 import axios from 'axios';
+import { useSearchParams } from 'next/navigation';
+import { FormEventHandler, useState } from 'react';
+
+import { Logo } from '@/components/Logo';
 import { API_BASE_URL } from '@/constant';
 
 export default function RegisterPage() {
@@ -40,26 +42,6 @@ export default function RegisterPage() {
           <form className="space-y-6" onSubmit={registerNewUser}>
             <div>
               <label
-                htmlFor="what"
-                className="block text-sm font-medium leading-6 text-white"
-              >
-                User Id
-              </label>
-              <div className="mt-2">
-                <input
-                  id="userId"
-                  name="userId"
-                  value={id}
-                  type="userId"
-                  readOnly
-                  disabled
-                  className="block w-full px-2 rounded-md border-0 py-1.5 text-blue shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-blue-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label
                 htmlFor="email"
                 className="block text-sm font-medium leading-6 text-white"
               >
@@ -74,55 +56,62 @@ export default function RegisterPage() {
                   value={email}
                   autoComplete="email"
                   required
-                  className="block w-full rounded-md border-0 py-1.5 text-main-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-purple-500 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
 
-            <div className="flex justify-between">
+            <div className="flex justify-between gap-x-3">
               <div>
-                <label
-                  htmlFor="first name"
-                  className="block text-sm font-medium leading-6 text-white"
-                >
-                  First name
-                </label>
-                <input
-                  id="firstName"
-                  name="firstName"
-                  type="text"
-                  autoComplete="given-name"
-                  required
-                  className="mt-2 block w-full rounded-md border-0 py-1.5 text-main-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6"
-                  value={firstName}
-                  onChange={e => setFirstName(e.target.value)}
-                />
+                <div className="flex items-center justify-between">
+                  <label
+                    htmlFor="firstName"
+                    className="block text-sm font-medium leading-6 text-white"
+                  >
+                    First Name
+                  </label>
+                </div>
+                <div className="mt-2">
+                  <input
+                    id="firstName"
+                    name="firstName"
+                    type="text"
+                    autoComplete="given-name"
+                    required
+                    value={firstName}
+                    onChange={e => setFirstName(e.target.value)}
+                    className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-purple-500 sm:text-sm sm:leading-6"
+                  />
+                </div>
               </div>
-
               <div>
-                <label
-                  htmlFor="last name"
-                  className="block text-sm font-medium leading-6 text-white"
-                >
-                  Last name
-                </label>
-                <input
-                  id="lastName"
-                  name="lastName"
-                  type="text"
-                  autoComplete="family-name"
-                  required
-                  className="mt-2 block w-full rounded-md border-0 py-1.5 text-main-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6"
-                  value={lastName}
-                  onChange={e => setLastName(e.target.value)}
-                />
+                <div className="flex items-center justify-between">
+                  <label
+                    htmlFor="lastName"
+                    className="block text-sm font-medium leading-6 text-white"
+                  >
+                    Last Name
+                  </label>
+                </div>
+                <div className="mt-2">
+                  <input
+                    id="lastName"
+                    name="lastName"
+                    type="text"
+                    autoComplete="family-name"
+                    required
+                    value={lastName}
+                    onChange={e => setLastName(e.target.value)}
+                    className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-purple-500 sm:text-sm sm:leading-6"
+                  />
+                </div>
               </div>
             </div>
 
             <div>
               <button
                 type="submit"
-                className="flex w-full justify-center rounded-md bg-purple-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-purple-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
+                className="flex w-full justify-center rounded-md bg-purple-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-purple-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-500"
               >
                 Register
               </button>

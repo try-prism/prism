@@ -119,7 +119,7 @@ export default function UserList({ organization }: UserListsProps) {
         show={showErrorNotification}
         setShow={setShowErrorNotification}
       />
-      <div className="shadow border border-main-black/10 rounded-2xl px-3 py-4">
+      <div className="shadow border border-main-black/10 rounded-2xl px-5 py-4">
         <div className="border-b border-gray-200 bg-white mx-4 pb-5">
           <div className="-ml-4 -mt-2 flex flex-wrap items-center justify-between sm:flex-nowrap">
             <div className="ml-4 mt-2">
@@ -130,7 +130,7 @@ export default function UserList({ organization }: UserListsProps) {
             <div className="ml-4 mt-2 flex-shrink-0">
               <button
                 type="button"
-                className="relative inline-flex items-center rounded-md bg-purple-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-purple-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
+                className="relative inline-flex items-center rounded-md bg-purple-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-purple-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
                 onClick={() => setShowUserInviteModal(true)}
               >
                 Invite
@@ -153,7 +153,7 @@ export default function UserList({ organization }: UserListsProps) {
                       {user.name}
                     </a>
                   </p>
-                  <p className="mt-1 flex text-xs leading-5 text-gray-500">
+                  <p className="mt-1 flex text-xs leading-5 text-gray-600">
                     <a
                       href={`mailto:${user.email}`}
                       className="truncate hover:underline"
@@ -168,12 +168,12 @@ export default function UserList({ organization }: UserListsProps) {
                   <p className="text-sm leading-6 text-gray-900">
                     Added on {timestampToDateDay(user.created_at)}
                   </p>
-                  <p className="mt-1 text-xs leading-5 text-gray-500">
+                  <p className="mt-1 text-xs leading-5 text-gray-600">
                     Last updated: {timestampToDate(user.updated_at)}
                   </p>
                 </div>
                 <Menu as="div" className="relative flex-none">
-                  <Menu.Button className="-m-2.5 block p-2.5 text-gray-500 hover:text-gray-900">
+                  <Menu.Button className="-m-2.5 block p-2.5 text-gray-600 hover:text-gray-900">
                     <span className="sr-only">Open options</span>
                     <EllipsisVerticalIcon
                       className="h-5 w-5"

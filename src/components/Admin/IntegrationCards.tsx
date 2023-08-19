@@ -174,7 +174,7 @@ export default function IntegrationCards({
             <div className="ml-4 mt-2 flex-shrink-0">
               <button
                 type="button"
-                className="relative inline-flex items-center rounded-md bg-purple-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-purple-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
+                className="relative inline-flex items-center rounded-md bg-purple-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-purple-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
                 disabled={!isReady}
                 onClick={open}
               >
@@ -199,7 +199,7 @@ export default function IntegrationCards({
                   {integration.integration}
                 </div>
                 <Menu as="div" className="relative ml-auto">
-                  <Menu.Button className="-m-2.5 block p-2.5 text-gray-400 hover:text-gray-500">
+                  <Menu.Button className="-m-2.5 block p-2.5 text-gray-400 hover:text-gray-600">
                     <span className="sr-only">Open options</span>
                     <EllipsisHorizontalIcon
                       className="h-5 w-5"
@@ -240,21 +240,21 @@ export default function IntegrationCards({
               </div>
               <dl className="-my-3 divide-y divide-gray-100 px-6 py-4 text-sm leading-6">
                 <div className="flex justify-between gap-x-4 py-2">
-                  <dt className="text-gray-500">Account</dt>
+                  <dt className="text-gray-600">Account</dt>
                   <dd className="text-gray-700">{integration.account_id}</dd>
                 </div>
                 <div className="flex justify-between gap-x-4 py-2">
-                  <dt className="text-gray-500">Added Date</dt>
+                  <dt className="text-gray-600">Added Date</dt>
                   <dd className="flex items-start gap-x-2 text-gray-700">
                     {timestampToDate(integration.created)}
                   </dd>
                 </div>
                 <div className="flex justify-between gap-x-4 py-2">
-                  <dt className="text-gray-500">Status</dt>
+                  <dt className="text-gray-600">Status</dt>
                   <dd className="text-gray-700">{integration.status}</dd>
                 </div>
                 <div className="flex justify-between gap-x-4 py-2">
-                  <dt className="text-gray-500">Category</dt>
+                  <dt className="text-gray-600">Category</dt>
                   <dd className="text-gray-700">{integration.category}</dd>
                 </div>
               </dl>
