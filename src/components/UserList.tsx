@@ -1,6 +1,7 @@
 import { Menu, Transition } from '@headlessui/react';
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid';
 import clsx from 'clsx';
+import Link from 'next/link';
 import { Fragment, useEffect, useState } from 'react';
 
 import { TEST_ADMIN_ID, TEST_TOKEN } from '@/constant';
@@ -149,17 +150,17 @@ export default function UserList({ organization }: UserListsProps) {
               /> */}
                 <div className="min-w-0 flex-auto">
                   <p className="text-sm font-semibold leading-6 text-gray-900">
-                    <a href="#" className="hover:underline">
+                    <Link href="#" className="hover:underline">
                       {user.name}
-                    </a>
+                    </Link>
                   </p>
                   <p className="mt-1 flex text-xs leading-5 text-gray-600">
-                    <a
+                    <Link
                       href={`mailto:${user.email}`}
                       className="truncate hover:underline"
                     >
                       {user.email}
-                    </a>
+                    </Link>
                   </p>
                 </div>
               </div>
@@ -192,7 +193,7 @@ export default function UserList({ organization }: UserListsProps) {
                     <Menu.Items className="absolute right-0 z-10 mt-2 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
                       <Menu.Item>
                         {({ active }) => (
-                          <a
+                          <Link
                             href="#"
                             className={clsx(
                               active ? 'bg-gray-50' : '',
@@ -201,7 +202,7 @@ export default function UserList({ organization }: UserListsProps) {
                           >
                             Edit Profile
                             <span className="sr-only">, {user.name}</span>
-                          </a>
+                          </Link>
                         )}
                       </Menu.Item>
                       <Menu.Item>

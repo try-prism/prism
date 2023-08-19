@@ -5,9 +5,9 @@ import awsExports from '@/aws-exports';
 
 Amplify.configure({
   Auth: {
-    region: awsExports.REGION,
-    userPoolId: awsExports.USER_POOL_ID,
-    userPoolWebClientId: awsExports.USER_POOL_APP_CLIENT_ID,
+    region: awsExports.aws_cognito_region,
+    userPoolId: awsExports.aws_user_pools_id,
+    userPoolWebClientId: awsExports.aws_user_pools_web_client_id,
   },
 });
 
