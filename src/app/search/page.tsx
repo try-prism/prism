@@ -1,8 +1,7 @@
 'use client';
-
 import { Tooltip } from '@material-tailwind/react';
 import Image from 'next/image';
-import { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import ReconnectingWebSocket from 'reconnecting-websocket';
 
 import PromptTextArea from '@/components/Search/PromptTextArea';
@@ -71,10 +70,10 @@ export default function Search() {
     <div className="bg-white min-h-screen">
       <Sidebar selectedPage={Page.SEARCH} />
       <main className="xl:pl-72 py-2">
-        <div className="grid-cols-search-page max-w-3xl mx-auto px-3 pt-16 pb-4 grid gap-x-2 gap-y-3 pb-28">
-          {mockQueries.map(query =>
+        <div className="grid-cols-search-page max-w-3xl mx-auto px-3 pt-16 grid gap-x-2 gap-y-3 pb-28">
+          {mockQueries.map((query, index) =>
             query.sender === Sender.USER ? (
-              <>
+              <React.Fragment key={index}>
                 <div className="col-start-2 grid gap-2 opacity-100 transform-none">
                   <div className="rounded-xl px-3 py-2 break-words text-stone-900 transition-all grid gap-3 grid-cols-1 max-w-[75ch] bg-main-black/30 place-self-end">
                     <div className="contents">
@@ -89,9 +88,9 @@ export default function Search() {
                     )}
                   </div>
                 </div>
-              </>
+              </React.Fragment>
             ) : (
-              <>
+              <React.Fragment key={index}>
                 <div className="flex items-end col-start-1 pb-1 opacity-100 transform-none">
                   <div className="font-bold rounded-full flex items-center justify-center h-8 w-8 bg-main-black">
                     <Image className="w-6" src={PrismLogo} alt="" />
@@ -130,7 +129,7 @@ export default function Search() {
                     </div>
                   </div>
                 </div>
-              </>
+              </React.Fragment>
             )
           )}
         </div>
