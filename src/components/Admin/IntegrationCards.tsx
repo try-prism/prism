@@ -73,8 +73,10 @@ export default function IntegrationCards({
 
     if (data.status === 200) {
       setShowRemoveSuccessNotification(true);
-      setIntegrations(integrations =>
-        integrations.filter(integration => integration.id !== accountToken)
+      setIntegrations(
+        integrations.filter(
+          integration => integration.account_token !== accountToken
+        )
       );
     } else {
       setShowRemoveErrorNotification(true);

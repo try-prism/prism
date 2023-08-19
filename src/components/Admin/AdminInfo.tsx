@@ -15,7 +15,7 @@ export default function AdminInfo({ organization }: AdminInfoProps) {
         data={[
           { label: 'Name', value: organization.name },
           { label: 'Contact Email', value: organization.email },
-          { label: 'Admin Account', value: organization.admin_id },
+          { label: 'Admin Account', value: organization.admin_email },
         ]}
       />
       <SummaryCard

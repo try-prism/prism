@@ -20,6 +20,7 @@ export interface Organization {
   name: string;
   email: string;
   admin_id: string;
+  admin_email: string;
   user_list: string[];
   invited_user_list: string[];
   link_id_map: { [key: string]: IntegrationData };
@@ -245,6 +246,7 @@ const typeMap: any = {
       { json: 'name', js: 'name', typ: '' },
       { json: 'email', js: 'email', typ: '' },
       { json: 'admin_id', js: 'admin_id', typ: '' },
+      { json: 'admin_email', js: 'admin_email', typ: '' },
       { json: 'user_list', js: 'user_list', typ: a('') },
       { json: 'invited_user_list', js: 'invited_user_list', typ: a('') },
       { json: 'link_id_map', js: 'link_id_map', typ: m(r('IntegrationData')) },
