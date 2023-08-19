@@ -12,8 +12,8 @@ export const API_BASE_DOMAIN = '127.0.0.1:8000';
 export const API_BASE_URL = 'http://127.0.0.1:8000/v1';
 
 export const TEST_TOKEN = 'test-token';
-export const TEST_ORG_ID = 'e5bd43fc-44f6-456a-be57-50f4ab33a019';
-export const TEST_ADMIN_ID = 'hwuiwon@tryprism.ai';
+export const TEST_ORG_ID = '43a99d63_35af_4e50_acea_089f95d3a0ef';
+export const TEST_ADMIN_ID = '4d2cda5a-c712-4984-9beb-9e16a664350e';
 
 interface IntegrationLogos {
   [key: string]: StaticImageData;
