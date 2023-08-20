@@ -3,20 +3,18 @@ import { NextResponse } from 'next/server';
 import { API_BASE_URL } from '@/constant';
 import { APIException, APIExceptionCode } from '@/exception/APIException';
 
-export function GET(req: Request) {
-  return new Response('/organization/invite endpoint is working!', {
-    status: 200,
-  });
-}
-
-export async function POST(req: Request) {
+export async function POST(
+  req: Request,
+  { params }: { params: { id: string } }
+) {
   const {
     token,
-    organizationId,
     organizationName,
     organizationUserEmail,
     organizationAdminId,
   } = await req.json();
+
+  const organizationId = params.id;
 
   try {
     const response = await fetch(
@@ -55,14 +53,14 @@ export async function POST(req: Request) {
   }
 }
 
-export async function DELETE(req: Request) {
-  const {
-    token,
-    organizationId,
-    organizationName,
-    organizationUserId,
-    organizationAdminId,
-  } = await req.json();
+export async function DELETE(
+  req: Request,
+  { params }: { params: { id: string } }
+) {
+  const { token, organizationName, organizationUserId, organizationAdminId } =
+    await req.json();
+
+  const organizationId = params.id;
 
   try {
     const response = await fetch(

@@ -14,8 +14,8 @@ export default function AccountPage() {
 
   useEffect(() => {
     const fetchUserData = async () => {
-      const response = await fetch('/api/user', {
-        method: 'POST',
+      const response = await fetch(`/api/user/${userId}`, {
+        method: 'GET',
         body: JSON.stringify({ token, userId }),
       });
       const data = await response.json();

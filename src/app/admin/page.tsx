@@ -17,8 +17,8 @@ export default function AdminPage() {
 
   useEffect(() => {
     const fetchOrganizationData = async () => {
-      const response = await fetch('/api/organization/data', {
-        method: 'POST',
+      const response = await fetch(`/api/organization/${organizationId}`, {
+        method: 'GET',
         body: JSON.stringify({ token, organizationId }),
       });
       const data = await response.json();

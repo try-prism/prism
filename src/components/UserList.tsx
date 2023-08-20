@@ -26,7 +26,7 @@ export default function UserList({ organization }: UserListsProps) {
 
   useEffect(() => {
     const fetchUserData = async () => {
-      const response = await fetch('/api/user/batch', {
+      const response = await fetch('/api/users', {
         method: 'POST',
         body: JSON.stringify({ userIds: organization.user_list }),
       });
@@ -45,11 +45,10 @@ export default function UserList({ organization }: UserListsProps) {
   }, [token, organization.user_list]);
 
   const addUser = async (userEmail: string) => {
-    const response = await fetch('/api/organization/invite', {
+    const response = await fetch(`/api/${organization.id}/organization`, {
       method: 'POST',
       body: JSON.stringify({
         token,
-        organizationId: organization.id,
         organizationName: organization.name,
         organizationUserEmail: userEmail,
         organizationAdminId,
@@ -79,9 +78,9 @@ export default function UserList({ organization }: UserListsProps) {
   };
 
   const removeUser = async (userId: string) => {
-    const response = await fetch('/api/user', {
+    const response = await fetch(`/api/user/${userId}`, {
       method: 'DELETE',
-      body: JSON.stringify({ token, userId, organizationAdminId }),
+      body: JSON.stringify({ token, organizationAdminId }),
     });
     const data = await response.json();
 

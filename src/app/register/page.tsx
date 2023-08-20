@@ -1,11 +1,9 @@
 'use client';
 
-import axios from 'axios';
 import { useSearchParams } from 'next/navigation';
 import { FormEventHandler, useState } from 'react';
 
 import { Logo } from '@/components/Logo';
-import { API_BASE_URL } from '@/constant';
 
 export default function RegisterPage() {
   const searchParams = useSearchParams();
@@ -15,14 +13,17 @@ export default function RegisterPage() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
 
-  const registerNewUser: FormEventHandler = event => {
+  const registerNewUser: FormEventHandler = async event => {
     event.preventDefault();
 
-    axios.post(`${API_BASE_URL}/user`, {
-      id,
-      email,
-      first_name: firstName,
-      last_name: lastName,
+    await fetch('/api/user', {
+      method: 'POST',
+      body: JSON.stringify({
+        id,
+        email,
+        firstName,
+        lastName,
+      }),
     });
   };
 

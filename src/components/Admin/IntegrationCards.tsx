@@ -42,10 +42,13 @@ export default function IntegrationCards({
 
   useEffect(() => {
     const fetchLinkToken = async () => {
-      const response = await fetch('/api/integration/token', {
-        method: 'POST',
-        body: JSON.stringify({ token, organizationId: organization.id }),
-      });
+      const response = await fetch(
+        `/api/integration/${organization.id}/generate`,
+        {
+          method: 'GET',
+          body: JSON.stringify({ token }),
+        }
+      );
       const data = await response.json();
 
       if (data.status !== 200) {
@@ -59,12 +62,11 @@ export default function IntegrationCards({
   }, [token, organization.id]);
 
   const removeIntegration = async (accountToken: string) => {
-    const response = await fetch('/api/integration/', {
+    const response = await fetch(`/api/integration/${organization.id}`, {
       method: 'DELETE',
       body: JSON.stringify({
-        token: token,
+        token,
         accountToken,
-        organizationId: organization.id,
         organizationAdminId,
       }),
     });
@@ -85,10 +87,10 @@ export default function IntegrationCards({
 
   const onSuccess = useCallback(
     async (public_token: string) => {
-      const response = await fetch('/api/integration/link', {
+      const response = await fetch('/api/integration', {
         method: 'POST',
         body: JSON.stringify({
-          token: token,
+          token,
           publicToken: public_token,
           organizationId: organization.id,
           organizationName: organization.name,

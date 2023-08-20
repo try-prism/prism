@@ -3,14 +3,12 @@ import { NextResponse } from 'next/server';
 import { API_BASE_URL } from '@/constant';
 import { APIException, APIExceptionCode } from '@/exception/APIException';
 
-export function GET(req: Request) {
-  return new Response('/organization/data endpoint is working!', {
-    status: 200,
-  });
-}
-
-export async function POST(req: Request) {
-  const { token, organizationId } = await req.json();
+export async function GET(
+  req: Request,
+  { params }: { params: { id: string } }
+) {
+  const { token } = await req.json();
+  const organizationId = params.id;
 
   try {
     const response = await fetch(
