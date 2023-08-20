@@ -241,21 +241,21 @@ export default function IntegrationCards({
               <dl className="-my-3 divide-y divide-gray-100 px-6 py-4 text-sm leading-6">
                 <div className="flex justify-between gap-x-4 py-2">
                   <dt className="text-gray-600">Account</dt>
-                  <dd className="text-gray-700">{integration.account_id}</dd>
+                  <dd className="text-gray-900">{integration.account_id}</dd>
                 </div>
                 <div className="flex justify-between gap-x-4 py-2">
                   <dt className="text-gray-600">Added Date</dt>
-                  <dd className="flex items-start gap-x-2 text-gray-700">
+                  <dd className="flex items-start gap-x-2 text-gray-900">
                     {timestampToDate(integration.created)}
                   </dd>
                 </div>
                 <div className="flex justify-between gap-x-4 py-2">
                   <dt className="text-gray-600">Status</dt>
-                  <dd className="text-gray-700">{integration.status}</dd>
+                  <dd className="text-gray-900">{integration.status}</dd>
                 </div>
                 <div className="flex justify-between gap-x-4 py-2">
                   <dt className="text-gray-600">Category</dt>
-                  <dd className="text-gray-700">{integration.category}</dd>
+                  <dd className="text-gray-900">{integration.category}</dd>
                 </div>
               </dl>
             </li>

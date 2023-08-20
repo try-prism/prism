@@ -12,8 +12,8 @@ export const API_BASE_DOMAIN = '127.0.0.1:8000/v1';
 export const API_BASE_URL = 'http://127.0.0.1:8000/v1';
 
 export const TEST_TOKEN = 'test-token';
-export const TEST_ORG_ID = '43a99d63_35af_4e50_acea_089f95d3a0ef';
-export const TEST_ADMIN_ID = '4d2cda5a-c712-4984-9beb-9e16a664350e';
+export const TEST_ORG_ID = 'p_4fc4bae9_eddb_4950_b2b9_c7074e2678c1';
+export const TEST_ADMIN_ID = '0b0bba07-e34b-4fe4-9e2b-d9a2f8533968';
 
 interface IntegrationLogos {
   [key: string]: StaticImageData;
