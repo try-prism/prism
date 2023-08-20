@@ -30,7 +30,7 @@ export default function Footer() {
               </div>
               <div className="ml-4">
                 <p className="text-base font-semibold">Prism AI</p>
-                <p className="mt-1 text-sm">AI-driven Knowledge Base</p>
+                <p className="mt-1 text-sm">AI-driven Knowledge Management</p>
               </div>
             </div>
             <nav className="mt-11 flex gap-8">
@@ -44,7 +44,10 @@ export default function Footer() {
             </div>
             <div className="ml-8 lg:w-64">
               <p className="text-base font-semibold text-gray-900">
-                <Link href="#">
+                <Link
+                  href="https://www.linkedin.com/company/tryprism/"
+                  target="_blank"
+                >
                   <span className="absolute inset-0 sm:rounded-2xl" />
                   Follow our LinkedIn
                 </Link>
@@ -64,7 +67,7 @@ export default function Footer() {
                 placeholder="Email address"
                 autoComplete="email"
                 required
-                className="block w-full appearance-none rounded-lg border border-gray-200 bg-white py-[calc(theme(spacing.2)-1px)] px-[calc(theme(spacing.3)-1px)] text-gray-900 placeholder:text-gray-400 focus:border-cyan-500 focus:outline-none focus:ring-cyan-500 sm:text-sm"
+                className="block w-full appearance-none rounded-lg border border-gray-200 bg-white py-[calc(theme(spacing.2)-1px)] px-[calc(theme(spacing.3)-1px)] text-gray-900 placeholder:text-gray-400 focus:border-purple-500 focus:outline-none focus:ring-purple-500 sm:text-sm"
               />
             </div>
             <button
