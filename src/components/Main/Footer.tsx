@@ -1,36 +1,83 @@
+import Image from 'next/image';
 import Link from 'next/link';
 
-const navigation = [
-  {
-    name: 'LinkedIn',
-    href: 'https://www.linkedin.com/company/tryprism',
-    icon: (props: any) => (
-      <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
-        <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z" />{' '}
-      </svg>
-    ),
-  },
-];
+import { NavLinks } from '@/components/Main/NavLinks';
+import qrCode from '@/images/qr-code.svg';
+
+import { Logo } from '../Logo';
+
+function QrCodeBorder(props: React.ComponentPropsWithoutRef<'svg'>) {
+  return (
+    <svg viewBox="0 0 96 96" fill="none" aria-hidden="true" {...props}>
+      <path
+        d="M1 17V9a8 8 0 0 1 8-8h8M95 17V9a8 8 0 0 0-8-8h-8M1 79v8a8 8 0 0 0 8 8h8M95 79v8a8 8 0 0 1-8 8h-8"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900">
-      <div className="mx-auto max-w-7xl px-6 py-12 md:flex md:items-center md:justify-between lg:px-8">
-        <div className="flex justify-center space-x-6 md:order-2">
-          {navigation.map(item => (
-            <Link
-              key={item.name}
-              href={item.href}
-              className="text-gray-400 hover:text-gray-500"
-            >
-              <span className="sr-only">{item.name}</span>
-              <item.icon className="h-6 w-6" aria-hidden="true" />
-            </Link>
-          ))}
+    <footer className="border-t border-gray-200 bg-white">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col items-start justify-between gap-y-12 pb-6 pt-16 lg:flex-row lg:items-center lg:py-16">
+          <div>
+            <div className="flex items-center text-gray-900">
+              <div className="flex-none fill-purple-500 text-black">
+                <Logo isBlack />
+              </div>
+              <div className="ml-4">
+                <p className="text-base font-semibold">Prism AI</p>
+                <p className="mt-1 text-sm">AI-driven Knowledge Base</p>
+              </div>
+            </div>
+            <nav className="mt-11 flex gap-8">
+              <NavLinks />
+            </nav>
+          </div>
+          <div className="group relative -mx-4 flex items-center self-stretch p-4 transition-colors hover:bg-gray-100 sm:self-auto sm:rounded-2xl lg:mx-0 lg:self-auto lg:p-6">
+            <div className="relative flex h-24 w-24 flex-none items-center justify-center">
+              <QrCodeBorder className="absolute inset-0 h-full w-full stroke-gray-300 transition-colors group-hover:stroke-purple-500" />
+              <Image src={qrCode} alt="" unoptimized />
+            </div>
+            <div className="ml-8 lg:w-64">
+              <p className="text-base font-semibold text-gray-900">
+                <Link href="#">
+                  <span className="absolute inset-0 sm:rounded-2xl" />
+                  Follow our LinkedIn
+                </Link>
+              </p>
+              <p className="mt-1 text-sm text-gray-700">
+                Scan the QR code to open our LinkedIn profile.
+              </p>
+            </div>
+          </div>
         </div>
-        <div className="mt-8 md:order-1 md:mt-0">
-          <p className="text-center text-xs leading-5 text-gray-500">
-            &copy; 2023 Prism AI, Inc. All rights reserved.
+        <div className="flex flex-col items-center border-t border-gray-200 pb-12 pt-8 md:flex-row-reverse md:justify-between md:pt-6">
+          <form className="flex w-full justify-center md:w-auto">
+            <div className="w-60 min-w-0 shrink">
+              <input
+                type="text"
+                aria-label="Email address"
+                placeholder="Email address"
+                autoComplete="email"
+                required
+                className="block w-full appearance-none rounded-lg border border-gray-200 bg-white py-[calc(theme(spacing.2)-1px)] px-[calc(theme(spacing.3)-1px)] text-gray-900 placeholder:text-gray-400 focus:border-cyan-500 focus:outline-none focus:ring-cyan-500 sm:text-sm"
+              />
+            </div>
+            <button
+              type="submit"
+              color="purple"
+              className="inline-flex justify-center rounded-md py-2 px-3 text-sm font-semibold outline-2 outline-offset-2 transition-colors ml-4 flex-none relative overflow-hidden bg-purple-500 text-white before:absolute before:inset-0 active:before:bg-transparent hover:before:bg-white/10 active:bg-purple-600 active:text-white/80 before:transition-colors"
+            >
+              <span className="hidden lg:inline">Join our newsletter</span>
+              <span className="lg:hidden">Join newsletter</span>
+            </button>
+          </form>
+          <p className="mt-6 text-sm text-gray-500 md:mt-0">
+            &copy; Copyright {new Date().getFullYear()}. All rights reserved.
           </p>
         </div>
       </div>
