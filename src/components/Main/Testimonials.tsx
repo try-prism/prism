@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import GeorgiaTechLogo from '@/images/logos/georgiatech.svg';
+import GeorgiaTechLogo from '@/images/partners/georgiatech.svg';
 
 export default function Testimonials() {
   return (

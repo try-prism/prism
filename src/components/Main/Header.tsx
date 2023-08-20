@@ -6,7 +6,7 @@ import Link from 'next/link';
 import React from 'react';
 
 import { NavLinks } from '@/components/Main/NavLinks';
-import PrismLogo from '@/images/prism.svg';
+import PrismLogo from '@/images/prism/prism.svg';
 
 function MobileNavLink(
   props: Omit<

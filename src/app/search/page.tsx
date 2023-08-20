@@ -9,7 +9,7 @@ import Sidebar from '@/components/Sidebar';
 import { API_BASE_DOMAIN } from '@/constant';
 import { Page } from '@/constants/Navigation';
 import { UserContext } from '@/contexts/UserContext';
-import PrismLogo from '@/images/prism.svg';
+import PrismLogo from '@/images/prism/prism.svg';
 
 interface Source {
   name: string;

@@ -6,8 +6,8 @@ import Link from 'next/link';
 import { Fragment, useState } from 'react';
 
 import { getNavigationItems, Page } from '@/constants/Navigation';
-import PrismLogo from '@/images/prism.svg';
-import PrismBlackLogo from '@/images/prism_black.png';
+import PrismLogo from '@/images/prism/prism.svg';
+import PrismBlackLogo from '@/images/prism/prism_black.svg';
 
 interface SidebarProps {
   selectedPage: Page;

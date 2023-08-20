@@ -1,7 +1,7 @@
 import Image from 'next/image';
 
-import PrismLogo from '@/images/prism.svg';
-import PrismBlackLogo from '@/images/prism_black.svg';
+import PrismLogo from '@/images/prism/prism.svg';
+import PrismBlackLogo from '@/images/prism/prism_black.svg';
 
 interface LogoProps {
   isBlack?: boolean;
@@ -10,7 +10,7 @@ interface LogoProps {
 export function Logo({ isBlack }: LogoProps) {
   if (isBlack) {
     return (
-      <Image className="mx-auto h-10 w-auto" src={PrismBlackLogo} alt="" />
+      <Image className="mx-auto h-14 w-auto" src={PrismBlackLogo} alt="" />
     );
   }
   return <Image className="mx-auto h-10 w-auto" src={PrismLogo} alt="" />;
