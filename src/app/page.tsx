@@ -15,8 +15,8 @@ import Testimonials from '@/components/Main/Testimonials';
 import PrismLogo from '@/images/prism.svg';
 
 const navigation = [
-  { name: 'Product', href: '#' },
-  { name: 'Features', href: '#' },
+  { name: 'Product', href: '#product' },
+  { name: 'Features', href: '#features' },
   { name: 'Dashboard', href: '/search' },
 ];
 
