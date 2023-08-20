@@ -5,6 +5,8 @@ import {
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 
+import LogoCloud from './LogoCloud';
+
 const features = [
   {
     name: 'Precision-Oriented Search',
@@ -73,6 +75,7 @@ export default function Features() {
           </div>
         </div>
       </div>
+      <LogoCloud />
     </section>
   );
 }

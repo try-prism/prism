@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { NavLinks } from '@/components/Main/NavLinks';
-import qrCode from '@/images/qr-code.svg';
+import qrCode from '@/images/prism/qr-code.svg';
 
 import { Logo } from '../Logo';
 
