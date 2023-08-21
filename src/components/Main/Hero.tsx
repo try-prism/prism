@@ -1,8 +1,10 @@
-import { ChevronRightIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import Link from 'next/link';
 
 import DemoScreenshot from '@/images/demo.png';
+import AppleLogo from '@/images/previous/apple.png';
+import BainLogo from '@/images/previous/bain.png';
+import GoogleLogo from '@/images/previous/google.png';
 
 export default function Hero() {
   return (
@@ -49,24 +51,10 @@ export default function Hero() {
             }}
           />
         </div>
-        <div className="mx-auto max-w-7xl px-6 pb-24 pt-10 lg:flex lg:px-8 lg:pt-40">
+        <div className="mx-auto max-w-7xl px-6 pb-24 pt-20 lg:flex lg:px-8 lg:pt-40">
           <div className="mx-auto max-w-2xl flex-shrink-0 lg:mx-0 lg:max-w-xl lg:pt-8">
-            <div className="mt-24 sm:mt-32 lg:mt-16">
-              <Link href="#" className="inline-flex space-x-6">
-                <span className="rounded-full bg-purple-500/10 px-3 py-1 text-sm font-semibold leading-6 text-purple-400 ring-1 ring-inset ring-purple-500/20">
-                  Beta
-                </span>
-                <span className="inline-flex items-center space-x-2 text-sm font-medium leading-6 text-gray-300">
-                  <span>Prism AI</span>
-                  <ChevronRightIcon
-                    className="h-5 w-5 text-gray-500"
-                    aria-hidden="true"
-                  />
-                </span>
-              </Link>
-            </div>
             <h1 className="mt-10 text-4xl font-bold tracking-tight text-white sm:text-6xl">
-              AI-driven <br /> Knowledge Base
+              AI-driven <br /> Knowledge Management
             </h1>
             <p className="mt-6 text-lg leading-8 text-gray-300">
               Making it a breeze for businesses to find and understand their
@@ -86,6 +74,24 @@ export default function Hero() {
               >
                 Learn more <span aria-hidden="true">→</span>
               </Link>
+            </div>
+
+            <div className="relative mt-20 lg:col-span-7 xl:col-span-6 hidden lg:block">
+              <p className="text-center text-sm font-semibold text-white lg:text-left pb-5">
+                Built by people from
+              </p>
+              <ul className="flex items-center justify-center gap-x-8 xl:flex-row xl:gap-x-12 xl:gap-y-0 mx-auto max-w-7xl">
+                {[AppleLogo, GoogleLogo, BainLogo].map((logo, idx) => (
+                  <ul
+                    className="flex flex-col items-center gap-y-8 sm:flex-row sm:gap-x-12 sm:gap-y-0"
+                    key={idx}
+                  >
+                    <li className="flex">
+                      <Image src={logo} alt="" className="h-20 w-auto" />
+                    </li>
+                  </ul>
+                ))}
+              </ul>
             </div>
           </div>
           <div className="mx-auto mt-16 flex max-w-2xl sm:mt-24 lg:ml-10 lg:mr-0 lg:mt-0 lg:max-w-none lg:flex-none xl:ml-32">
