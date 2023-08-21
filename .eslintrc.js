@@ -52,6 +52,7 @@ module.exports = {
     'unicorn/filename-case': 'off',
     'unicorn/prefer-module': 'off',
     'unicorn/prevent-abbreviations': 'off',
+    'unicorn/no-abusive-eslint-disable': 'off',
     'simple-import-sort/imports': 'error',
     'jsx-a11y/anchor-is-valid': 'off',
     'sonarjs/no-duplicate-string': 'off',
