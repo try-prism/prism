@@ -17,7 +17,7 @@ export default function Testimonials() {
             </p>
           </blockquote>
           <figcaption className="mt-10">
-            <div className="mt-4 flex items-center justify-center space-x-3 text-base">
+            <div className="mt-4 flex items-center justify-center space-x-3 text-base flex-col lg:flex-row">
               <div className="font-semibold text-white">Anonymous</div>
               <svg
                 viewBox="0 0 2 2"
