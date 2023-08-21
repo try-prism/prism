@@ -74,7 +74,8 @@ export default function Hero() {
             </p>
             <div className="mt-10 flex items-center gap-x-6">
               <Link
-                href="/contact"
+                href="https://forms.gle/GUFawpY56ULb6tuP8"
+                target="_blank"
                 className="rounded-md bg-purple-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-purple-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-400"
               >
                 Request demo
