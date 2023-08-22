@@ -1,4 +1,5 @@
 'use client';
+
 import { Tooltip } from '@material-tailwind/react';
 import Image from 'next/image';
 import React, { useContext, useEffect, useRef, useState } from 'react';
@@ -38,8 +39,12 @@ export default function Search() {
   useEffect(() => {
     socket.current = new ReconnectingWebSocket(`ws://${API_BASE_DOMAIN}/query`);
 
-    socket.current.addEventListener('open', () => console.log('ws opened'));
-    socket.current.addEventListener('close', () => console.log('ws closed'));
+    socket.current.addEventListener('open', () =>
+      console.log('Connected to the server')
+    );
+    socket.current.addEventListener('close', () =>
+      console.log('Disconnected with the server')
+    );
     socket.current.addEventListener('message', (event: MessageEvent) => {
       const data = JSON.parse(event.data);
       setQueries([
@@ -71,7 +76,7 @@ export default function Search() {
       <Sidebar selectedPage={Page.SEARCH} />
       <main className="xl:pl-72 py-2">
         <div className="grid-cols-search-page max-w-3xl mx-auto px-3 pt-16 grid gap-x-2 gap-y-3 pb-28">
-          {mockQueries.map((query, index) =>
+          {queries.map((query, index) =>
             query.sender === Sender.USER ? (
               <React.Fragment key={index}>
                 <div className="col-start-2 grid gap-2 opacity-100 transform-none">

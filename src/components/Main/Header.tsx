@@ -31,7 +31,7 @@ export default function Header() {
 
   const logout = () => {
     Auth.signOut();
-    setCurrentUser();
+    setCurrentUser(undefined);
   };
 
   return (

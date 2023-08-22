@@ -53,6 +53,7 @@ module.exports = {
     'unicorn/prefer-module': 'off',
     'unicorn/prevent-abbreviations': 'off',
     'unicorn/no-abusive-eslint-disable': 'off',
+    'unicorn/no-useless-undefined': 'off',
     'simple-import-sort/imports': 'error',
     'jsx-a11y/anchor-is-valid': 'off',
     'sonarjs/no-duplicate-string': 'off',
