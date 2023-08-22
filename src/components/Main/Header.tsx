@@ -1,11 +1,14 @@
 import { Popover } from '@headlessui/react';
 import { Bars3Icon, ChevronUpIcon } from '@heroicons/react/24/outline';
+import { Button } from '@material-tailwind/react';
+import { Auth } from 'aws-amplify';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import React, { useContext, useState } from 'react';
 
 import { NavLinks } from '@/components/Main/NavLinks';
+import { UserContext } from '@/contexts/UserContext';
 import PrismLogo from '@/images/prism/prism.svg';
 
 function MobileNavLink(
@@ -24,6 +27,13 @@ function MobileNavLink(
 }
 
 export default function Header() {
+  const { currentUser, setCurrentUser } = useContext(UserContext)!;
+
+  const logout = () => {
+    Auth.signOut();
+    setCurrentUser();
+  };
+
   return (
     <header className="absolute inset-x-0 top-0 z-50">
       <nav
@@ -87,12 +97,21 @@ export default function Header() {
                           </MobileNavLink>
                         </div>
                         <div className="mt-8 flex flex-col gap-4">
-                          <Link
-                            href="/login"
-                            className="inline-flex justify-center rounded-md py-2 px-3 text-sm font-semibold outline-2 outline-offset-2 transition-colors flex-none relative overflow-hidden bg-purple-500 text-white before:absolute before:inset-0 active:before:bg-transparent hover:before:bg-white/10 active:bg-purple-600 active:text-white/80 before:transition-colors"
-                          >
-                            Log in
-                          </Link>
+                          {currentUser ? (
+                            <button
+                              className="hidden lg:block inline-flex justify-center rounded-md py-2 px-3 text-sm font-semibold outline-2 outline-offset-2 transition-colors flex-none relative overflow-hidden bg-purple-500 text-white before:absolute before:inset-0 hover:before:bg-white/10 before:transition-colors"
+                              onClick={logout}
+                            >
+                              Log out
+                            </button>
+                          ) : (
+                            <Link
+                              href="/login"
+                              className="inline-flex justify-center rounded-md py-2 px-3 text-sm font-semibold outline-2 outline-offset-2 transition-colors flex-none relative overflow-hidden bg-purple-500 text-white before:absolute before:inset-0 active:before:bg-transparent hover:before:bg-white/10 active:bg-purple-600 active:text-white/80 before:transition-colors"
+                            >
+                              Log in
+                            </Link>
+                          )}
                         </div>
                       </Popover.Panel>
                     </>
@@ -101,12 +120,21 @@ export default function Header() {
               </>
             )}
           </Popover>
-          <Link
-            href="/login"
-            className="hidden lg:block inline-flex justify-center rounded-md py-2 px-3 text-sm font-semibold outline-2 outline-offset-2 transition-colors flex-none relative overflow-hidden bg-purple-500 text-white before:absolute before:inset-0 hover:before:bg-white/10 before:transition-colors"
-          >
-            Log in
-          </Link>
+          {currentUser ? (
+            <Button
+              className="hidden lg:block inline-flex justify-center rounded-md py-2 px-3 text-sm font-semibold outline-2 outline-offset-2 transition-colors flex-none relative overflow-hidden bg-purple-500 text-white before:absolute before:inset-0 hover:before:bg-white/10 before:transition-colors"
+              onClick={logout}
+            >
+              Log out
+            </Button>
+          ) : (
+            <Link
+              href="/login"
+              className="hidden lg:block inline-flex justify-center rounded-md py-2 px-3 text-sm font-semibold outline-2 outline-offset-2 transition-colors flex-none relative overflow-hidden bg-purple-500 text-white before:absolute before:inset-0 hover:before:bg-white/10 before:transition-colors"
+            >
+              Log in
+            </Link>
+          )}
         </div>
       </nav>
     </header>

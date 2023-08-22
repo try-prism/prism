@@ -6,6 +6,8 @@ import { createContext, useEffect, useMemo, useState } from 'react';
 export interface User {
   email: string;
   name: string;
+  userId: string;
+  organizationId: string;
 }
 
 type UserContextData = {
@@ -42,19 +44,27 @@ export default function UserContextProvider({
   useEffect(() => {
     Auth.currentAuthenticatedUser()
       .then(newUser => {
-        const { email, user_id, organization_id, given_name, family_name } =
-          newUser.attributes;
+        const {
+          email,
+          'custom:user_id': userId,
+          'custom:organization_id': organizationId,
+          given_name,
+          family_name,
+        } = newUser.attributes;
         setCurrentUser({
           email,
           name: `${given_name} ${family_name}`,
+          userId,
+          organizationId,
         });
       })
       .catch(() => {
+        console.log(path);
         if (!pagesNotRequiringLogin.has(path)) {
           router.push('/login');
         }
       });
-  }, []);
+  }, [path, router]);
 
   return (
     <UserContext.Provider value={userContextProviderValue}>

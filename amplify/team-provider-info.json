@@ -14,7 +14,31 @@
     "categories": {
       "auth": {
         "prism67a0b4f4": {},
-        "prism2dd3552a": {
+        "prism89ccba2f": {
+          "userPoolId": "us-east-1_XWeFtvwry",
+          "userPoolName": "prism-userpool-dev",
+          "webClientId": "49bc2jftdh3fbpm1d66aojnqsc",
+          "nativeClientId": "49bc2jftdh3fbpm1d66aojnqsc"
+        },
+        "prismb9d9fe2f": {
+          "userPoolId": "us-east-1_XWeFtvwry",
+          "userPoolName": "prism-userpool-dev",
+          "webClientId": "49bc2jftdh3fbpm1d66aojnqsc",
+          "nativeClientId": "49bc2jftdh3fbpm1d66aojnqsc"
+        },
+        "prismb7a5ef4c": {
+          "userPoolId": "us-east-1_XWeFtvwry",
+          "userPoolName": "prism-userpool-dev",
+          "webClientId": "49bc2jftdh3fbpm1d66aojnqsc",
+          "nativeClientId": "49bc2jftdh3fbpm1d66aojnqsc"
+        },
+        "prism95e76a04": {
+          "userPoolId": "us-east-1_XWeFtvwry",
+          "userPoolName": "prism-userpool-dev",
+          "webClientId": "49bc2jftdh3fbpm1d66aojnqsc",
+          "nativeClientId": "49bc2jftdh3fbpm1d66aojnqsc"
+        },
+        "prism1d56f682": {
           "userPoolId": "us-east-1_XWeFtvwry",
           "userPoolName": "prism-userpool-dev",
           "webClientId": "49bc2jftdh3fbpm1d66aojnqsc",

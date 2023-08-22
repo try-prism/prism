@@ -1,0 +1,18 @@
+{
+  "authSelections": "userPoolOnly",
+  "resourceName": "prism1d56f682",
+  "serviceType": "imported",
+  "region": "us-east-1",
+  "usernameAttributes": ["email"],
+  "requiredAttributes": ["given_name", "family_name", "email"],
+  "passwordPolicyMinLength": 8,
+  "passwordPolicyCharacters": [
+    "Requires Lowercase",
+    "Requires Uppercase",
+    "Requires Numbers",
+    "Requires Symbols"
+  ],
+  "mfaConfiguration": "OFF",
+  "autoVerifiedAttributes": ["email"],
+  "mfaTypes": []
+}

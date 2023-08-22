@@ -2,11 +2,17 @@
 import { CognitoUser } from '@aws-amplify/auth';
 import { Auth } from 'aws-amplify';
 import { useRouter } from 'next/navigation';
-import { FormEventHandler, useState } from 'react';
+import { FormEventHandler, useContext, useState } from 'react';
 
 import { Logo } from '@/components/Logo';
+import { API_BASE_URL, TEST_TOKEN } from '@/constant';
+import { AlertContext, AlertType } from '@/contexts/AlertContext';
+import { UserContext } from '@/contexts/UserContext';
 
 export default function LoginPage() {
+  const token = TEST_TOKEN;
+  const { setCurrentUser } = useContext(UserContext)!;
+  const setAlertMessage = useContext(AlertContext)!;
   const router = useRouter();
 
   const [user, setUser] = useState<CognitoUser>();
@@ -25,11 +31,33 @@ export default function LoginPage() {
     event.preventDefault();
 
     try {
-      const currentUser: CognitoUser = await Auth.signIn(email, password);
+      const currentUser = await Auth.signIn(email, password);
       setUser(currentUser);
       if (currentUser.challengeName === 'NEW_PASSWORD_REQUIRED') {
         setChangingPassword(true);
       } else {
+        const userInfo = await Auth.currentUserInfo();
+        console.log('info', userInfo);
+        const {
+          email,
+          'custom:user_id': userId,
+          'custom:organization_id': organizationId,
+          given_name,
+          family_name,
+        } = userInfo.attributes;
+        setCurrentUser({
+          email,
+          name: `${given_name} ${family_name}`,
+          userId,
+          organizationId,
+        });
+
+        await fetch(`${API_BASE_URL}/user/${userId}/cookie`, {
+          method: 'POST',
+          headers: {
+            Authorization: token,
+          },
+        });
         router.push('/search');
       }
     } catch (error) {
@@ -41,9 +69,18 @@ export default function LoginPage() {
     event.preventDefault();
 
     if (newPassword === confirmPassword) {
-      Auth.changePassword(user, password, newPassword);
-      setPassword('');
-      setChangingPassword(false);
+      try {
+        await Auth.completeNewPassword(user, newPassword);
+        setPassword('');
+        setChangingPassword(false);
+        setAlertMessage({
+          type: AlertType.ACTION,
+          message: 'Successfully changed password.',
+          duration: 3000,
+        });
+      } catch {
+        console.log('Password change failed.');
+      }
     } else {
       setError('Passwords do not match');
     }
