@@ -63,7 +63,7 @@ export async function DELETE(
   const { organizationName, organizationUserId, organizationAdminId } =
     await req.json();
 
-  const userId = params.id;
+  const organizationId = params.id;
 
   try {
     if (!auth) {
@@ -71,7 +71,7 @@ export async function DELETE(
     }
 
     const response = await fetch(
-      `${API_BASE_URL}/organization/${userId}/invite`,
+      `${API_BASE_URL}/organization/${organizationId}/invite`,
       {
         method: 'DELETE',
         headers: {
