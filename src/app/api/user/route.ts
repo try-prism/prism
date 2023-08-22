@@ -5,13 +5,12 @@ import { APIException, APIExceptionCode } from '@/exception/APIException';
 
 // Register a new user.
 export async function POST(req: Request) {
-  const { token, id, email, firstName, lastName } = await req.json();
+  const { id, email, firstName, lastName } = await req.json();
 
   try {
     const response = await fetch(`${API_BASE_URL}/user`, {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${token}`,
         'Content-type': 'application/json',
       },
       body: JSON.stringify({

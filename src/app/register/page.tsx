@@ -10,7 +10,6 @@ import { Whitelist } from '@/models/Whitelist';
 
 export default function RegisterPage() {
   const setAlertMessage = useContext(AlertContext)!;
-  const token = TEST_TOKEN;
   const router = useRouter();
   const searchParams = useSearchParams();
   const id = searchParams.get('id') ?? '';
@@ -24,9 +23,6 @@ export default function RegisterPage() {
     const getInvitationData = async () => {
       const response = await fetch(`/api/user/${id}/invitation`, {
         method: 'GET',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
       });
       const whitelistUser: Whitelist = await response.json();
       setOrganizationName(whitelistUser.org_name);
@@ -34,7 +30,7 @@ export default function RegisterPage() {
     };
 
     getInvitationData();
-  }, [id, token]);
+  }, [id]);
 
   const registerNewUser: FormEventHandler = async event => {
     event.preventDefault();

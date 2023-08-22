@@ -46,7 +46,9 @@ export default function IntegrationCards({
         `/api/integration/${organization.id}/generate`,
         {
           method: 'GET',
-          body: JSON.stringify({ token }),
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
       const data = await response.json();
@@ -64,8 +66,10 @@ export default function IntegrationCards({
   const removeIntegration = async (accountToken: string) => {
     const response = await fetch(`/api/integration/${organization.id}`, {
       method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify({
-        token,
         accountToken,
         organizationAdminId,
       }),
@@ -89,8 +93,10 @@ export default function IntegrationCards({
     async (public_token: string) => {
       const response = await fetch('/api/integration', {
         method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify({
-          token,
           publicToken: public_token,
           organizationId: organization.id,
           organizationName: organization.name,

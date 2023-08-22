@@ -1,4 +1,3 @@
-import { headers } from 'next/headers';
 import { NextResponse } from 'next/server';
 
 import { API_BASE_URL } from '@/constant';
@@ -8,18 +7,11 @@ export async function GET(
   req: Request,
   { params }: { params: { id: string } }
 ) {
-  const auth = headers().get('Authorization');
-  try {
-    if (!auth) {
-      throw new Error(`Missing authorization header`);
-    }
-    const userId = params.id;
+  const userId = params.id;
 
+  try {
     const response = await fetch(`${API_BASE_URL}/user/${userId}/invitation`, {
       method: 'GET',
-      headers: {
-        Authorization: auth,
-      },
     });
 
     const data = await response.json();

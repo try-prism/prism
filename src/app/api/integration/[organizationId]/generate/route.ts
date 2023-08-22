@@ -1,3 +1,4 @@
+import { headers } from 'next/headers';
 import { NextResponse } from 'next/server';
 
 import { API_BASE_URL } from '@/constant';
@@ -7,16 +8,20 @@ export async function GET(
   req: Request,
   { params }: { params: { organizationId: string } }
 ) {
-  const { token } = await req.json();
+  const auth = headers().get('Authorization');
   const organizationId = params.organizationId;
 
   try {
+    if (!auth) {
+      throw new Error(`Missing authorization header`);
+    }
+
     const response = await fetch(
       `${API_BASE_URL}/integration/${organizationId}/generate`,
       {
         method: 'GET',
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: auth,
         },
       }
     );

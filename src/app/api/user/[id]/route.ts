@@ -49,14 +49,19 @@ export async function DELETE(
   req: Request,
   { params }: { params: { id: string } }
 ) {
-  const { token, organizationAdminId } = await req.json();
+  const auth = headers().get('Authorization');
+  const { organizationAdminId } = await req.json();
   const userId = params.id;
 
   try {
+    if (!auth) {
+      throw new Error(`Missing authorization header`);
+    }
+
     const response = await fetch(`${API_BASE_URL}/user/${userId}`, {
       method: 'DELETE',
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: auth,
         'org-admin-id': organizationAdminId,
       },
     });

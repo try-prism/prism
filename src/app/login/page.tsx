@@ -5,12 +5,10 @@ import { useRouter } from 'next/navigation';
 import { FormEventHandler, useContext, useState } from 'react';
 
 import { Logo } from '@/components/Logo';
-import { API_BASE_URL, TEST_TOKEN } from '@/constant';
 import { AlertContext, AlertType } from '@/contexts/AlertContext';
 import { UserContext } from '@/contexts/UserContext';
 
 export default function LoginPage() {
-  const token = TEST_TOKEN;
   const { setCurrentUser } = useContext(UserContext)!;
   const setAlertMessage = useContext(AlertContext)!;
   const router = useRouter();

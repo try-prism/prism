@@ -1,3 +1,4 @@
+import { headers } from 'next/headers';
 import { NextResponse } from 'next/server';
 
 import { API_BASE_URL } from '@/constant';
@@ -5,18 +6,22 @@ import { APIException, APIExceptionCode } from '@/exception/APIException';
 
 export async function GET(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { organizationId: string } }
 ) {
-  const { token } = await req.json();
-  const organizationId = params.id;
+  const auth = headers().get('Authorization');
+  const organizationId = params.organizationId;
 
   try {
+    if (!auth) {
+      throw new Error(`Missing authorization header`);
+    }
+
     const response = await fetch(
       `${API_BASE_URL}/organization/${organizationId}`,
       {
         method: 'GET',
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: auth,
         },
       }
     );

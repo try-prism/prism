@@ -28,6 +28,9 @@ export default function UserList({ organization }: UserListsProps) {
     const fetchUserData = async () => {
       const response = await fetch('/api/users', {
         method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify({ userIds: organization.user_list }),
       });
       const data = await response.json();
@@ -45,15 +48,20 @@ export default function UserList({ organization }: UserListsProps) {
   }, [token, organization.user_list]);
 
   const addUser = async (userEmail: string) => {
-    const response = await fetch(`/api/${organization.id}/organization`, {
-      method: 'POST',
-      body: JSON.stringify({
-        token,
-        organizationName: organization.name,
-        organizationUserEmail: userEmail,
-        organizationAdminId,
-      }),
-    });
+    const response = await fetch(
+      `/api/organization/${organization.id}/invite`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          organizationName: organization.name,
+          organizationUserEmail: userEmail,
+          organizationAdminId,
+        }),
+      }
+    );
     const data = await response.json();
 
     if (data.status === 200) {

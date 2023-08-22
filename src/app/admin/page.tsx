@@ -19,7 +19,9 @@ export default function AdminPage() {
     const fetchOrganizationData = async () => {
       const response = await fetch(`/api/organization/${organizationId}`, {
         method: 'GET',
-        body: JSON.stringify({ token, organizationId }),
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
       const data = await response.json();
 
