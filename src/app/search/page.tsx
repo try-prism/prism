@@ -37,7 +37,13 @@ export default function Search() {
   const socket = useRef<ReconnectingWebSocket | null>(null);
 
   useEffect(() => {
-    socket.current = new ReconnectingWebSocket(`ws://${API_BASE_DOMAIN}/query`);
+    if (!currentUser) {
+      return;
+    }
+
+    socket.current = new ReconnectingWebSocket(
+      `ws://${API_BASE_DOMAIN}/query?user_id=${currentUser.userId}&org_id=${currentUser.organizationId}`
+    );
 
     socket.current.addEventListener('open', () =>
       console.log('Connected to the server')
@@ -61,7 +67,7 @@ export default function Search() {
       socket.current?.close();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [currentUser]);
 
   const sendQuery = (message: string) => {
     socket.current?.send(message);

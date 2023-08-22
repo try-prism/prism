@@ -1,40 +1,18 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useContext } from 'react';
 
 import Sidebar from '@/components/Sidebar';
-import { TEST_ADMIN_ID, TEST_TOKEN } from '@/constant';
 import { Page } from '@/constants/Navigation';
-import { Convert, User } from '@/models/User';
+import { UserContext } from '@/contexts/UserContext';
 
 export default function AccountPage() {
-  const [user, setUser] = useState<User>();
-  const userId = TEST_ADMIN_ID;
-  const token = TEST_TOKEN;
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      const response = await fetch(`/api/user/${userId}`, {
-        method: 'GET',
-        body: JSON.stringify({ token, userId }),
-      });
-      const data = await response.json();
-
-      if (data.status !== 200) {
-        console.log(data.message);
-      }
-
-      const userData = Convert.toUser(data.user);
-      setUser(userData);
-    };
-
-    fetchUserData();
-  }, [token, userId]);
+  const { currentUser } = useContext(UserContext)!;
 
   return (
     <div className="bg-white min-h-screen">
       <Sidebar selectedPage={Page.ACCOUNT} />
-      {user && (
+      {currentUser && (
         <main className="xl:pl-72 py-2">
           <div className="pl-4 pr-2 flex flex-col gap-y-3">
             <div className="shadow border border-main-black/10 rounded-2xl px-3 py-4">
@@ -46,7 +24,7 @@ export default function AccountPage() {
                       <h2 className="text-base font-semibold leading-7 text-stone-900">
                         Personal Information
                       </h2>
-                      <p className="mt-1 text-sm leading-6 text-gray-400">
+                      <p className="mt-1 text-sm leading-6 text-gray-700">
                         Contact organization admin to if you want to change your
                         contact information
                       </p>
@@ -66,7 +44,7 @@ export default function AccountPage() {
                               htmlFor="first-name"
                               className="block text-lg py-1.5 font-medium leading-6 text-stone-900"
                             >
-                              {user.name}
+                              {currentUser.name}
                             </label>
                           </div>
                         </div>
@@ -83,7 +61,7 @@ export default function AccountPage() {
                               htmlFor="first-name"
                               className="block text-lg py-1.5 font-medium leading-6 text-stone-900"
                             >
-                              {user.email}
+                              {currentUser.email}
                             </label>
                           </div>
                         </div>
@@ -96,7 +74,7 @@ export default function AccountPage() {
                       <h2 className="text-base font-semibold leading-7 text-stone-900">
                         Change password
                       </h2>
-                      <p className="mt-1 text-sm leading-6 text-gray-400">
+                      <p className="mt-1 text-sm leading-6 text-gray-700">
                         Update your password associated with your account.
                       </p>
                     </div>
@@ -116,7 +94,7 @@ export default function AccountPage() {
                               name="current_password"
                               type="password"
                               autoComplete="current-password"
-                              className="block w-full rounded-md border border-gray-300 bg-white/5 py-1.5 text-stone-900 shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                              className="block w-full rounded-md border border-gray-300 bg-white/5 py-1.5 text-stone-900 shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-purple-500 sm:text-sm sm:leading-6"
                             />
                           </div>
                         </div>
@@ -134,7 +112,7 @@ export default function AccountPage() {
                               name="new_password"
                               type="password"
                               autoComplete="new-password"
-                              className="block w-full rounded-md border border-gray-300 bg-white/5 py-1.5 text-stone-900 shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                              className="block w-full rounded-md border border-gray-300 bg-white/5 py-1.5 text-stone-900 shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-purple-500 sm:text-sm sm:leading-6"
                             />
                           </div>
                         </div>
@@ -152,7 +130,7 @@ export default function AccountPage() {
                               name="confirm_password"
                               type="password"
                               autoComplete="new-password"
-                              className="block w-full rounded-md border border-gray-300 bg-white/5 py-1.5 text-stone-900 shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                              className="block w-full rounded-md border border-gray-300 bg-white/5 py-1.5 text-stone-900 shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-purple-500 sm:text-sm sm:leading-6"
                             />
                           </div>
                         </div>
@@ -161,7 +139,7 @@ export default function AccountPage() {
                       <div className="mt-8 flex">
                         <button
                           type="submit"
-                          className="rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                          className="rounded-md bg-purple-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-purple-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-500"
                         >
                           Save
                         </button>
@@ -174,7 +152,7 @@ export default function AccountPage() {
                       <h2 className="text-base font-semibold leading-7 text-stone-900">
                         Log out other sessions
                       </h2>
-                      <p className="mt-1 text-sm leading-6 text-gray-400">
+                      <p className="mt-1 text-sm leading-6 text-gray-700">
                         Please enter your password to confirm you would like to
                         log out of your other sessions across all of your
                         devices.
@@ -196,7 +174,7 @@ export default function AccountPage() {
                               name="password"
                               type="password"
                               autoComplete="current-password"
-                              className="block w-full rounded-md border border-gray-300 bg-white/5 py-1.5 text-stone-900 shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                              className="block w-full rounded-md border border-gray-300 bg-white/5 py-1.5 text-stone-900 shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-purple-500 sm:text-sm sm:leading-6"
                             />
                           </div>
                         </div>

@@ -52,12 +52,6 @@ export default function LoginPage() {
           organizationId,
         });
 
-        await fetch(`${API_BASE_URL}/user/${userId}/cookie`, {
-          method: 'POST',
-          headers: {
-            Authorization: token,
-          },
-        });
         router.push('/search');
       }
     } catch (error) {
