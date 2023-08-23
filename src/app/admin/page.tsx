@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from 'react';
 
+import AdminIntegrationCards from '@/components/Admin/AdminIntegrationCards';
 import AdminOverview from '@/components/Admin/AdminOverview';
 import AdminSettingsTab from '@/components/Admin/AdminSettingsTab';
 import AdminUserList from '@/components/Admin/AdminUserList';
-import IntegrationCards from '@/components/Admin/IntegrationCards';
 import Sidebar from '@/components/Sidebar';
 import { TEST_ORG_ID, TEST_TOKEN } from '@/constant';
 import { AdminSettings } from '@/constants/AdminSettings';
@@ -55,7 +55,7 @@ export default function AdminPage() {
               <AdminOverview organization={organization} />
             )}
             {currentTab === AdminSettings.INTEGRATIONS && (
-              <IntegrationCards organization={organization} />
+              <AdminIntegrationCards organization={organization} />
             )}
             {currentTab === AdminSettings.USERS && (
               <AdminUserList organization={organization} />
