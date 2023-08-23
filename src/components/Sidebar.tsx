@@ -3,7 +3,7 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Fragment, useContext, useState } from 'react';
+import { Fragment, useContext, useMemo, useState } from 'react';
 
 import { getNavigationItems, Page } from '@/constants/Navigation';
 import { UserContext } from '@/contexts/UserContext';
@@ -17,7 +17,9 @@ interface SidebarProps {
 export default function Sidebar({ selectedPage }: SidebarProps) {
   const { currentUser } = useContext(UserContext)!;
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const navItems = getNavigationItems(selectedPage);
+  const navItems = useMemo(() => {
+    return getNavigationItems(selectedPage);
+  }, [selectedPage]);
 
   return (
     currentUser && (
