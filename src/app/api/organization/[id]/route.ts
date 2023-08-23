@@ -6,10 +6,10 @@ import { APIException, APIExceptionCode } from '@/exception/APIException';
 
 export async function GET(
   req: Request,
-  { params }: { params: { organizationId: string } }
+  { params }: { params: { id: string } }
 ) {
   const auth = headers().get('Authorization');
-  const organizationId = params.organizationId;
+  const organizationId = params.id;
 
   try {
     if (!auth) {

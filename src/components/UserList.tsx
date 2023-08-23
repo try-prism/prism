@@ -204,7 +204,7 @@ export default function UserList({ organization }: UserListsProps) {
                             href="#"
                             className={clsx(
                               active ? 'bg-gray-50' : '',
-                              'block px-3 py-1 text-sm leading-6 text-gray-900'
+                              'block px-5 py-1 text-sm leading-6 text-gray-900 w-full text-right'
                             )}
                           >
                             Edit Profile
@@ -218,7 +218,7 @@ export default function UserList({ organization }: UserListsProps) {
                             onClick={async () => removeUser(user.id)}
                             className={clsx(
                               active ? 'bg-gray-50' : '',
-                              'block px-3 py-1 text-sm leading-6 text-gray-900'
+                              'block px-5 py-1 text-sm leading-6 text-gray-900 w-full text-right'
                             )}
                           >
                             Remove

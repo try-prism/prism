@@ -6,10 +6,10 @@ import { APIException, APIExceptionCode } from '@/exception/APIException';
 
 export async function GET(
   req: Request,
-  { params }: { params: { organizationId: string } }
+  { params }: { params: { id: string } }
 ) {
   const auth = headers().get('Authorization');
-  const organizationId = params.organizationId;
+  const organizationId = params.id;
 
   try {
     if (!auth) {
@@ -48,11 +48,11 @@ export async function GET(
 
 export async function DELETE(
   req: Request,
-  { params }: { params: { organizationId: string } }
+  { params }: { params: { id: string } }
 ) {
   const auth = headers().get('Authorization');
   const { accountToken, organizationAdminId } = await req.json();
-  const organizationId = params.organizationId;
+  const organizationId = params.id;
 
   try {
     if (!auth) {

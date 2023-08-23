@@ -14,6 +14,7 @@ import { IntegrationData, Organization } from '@/models/Organization';
 import { timestampToDate } from '@/utils';
 
 import Notification from '../Common/Notification';
+import StatusBadge from './StatusBadge';
 
 interface IntegrationCardsProps {
   organization: Organization;
@@ -172,7 +173,7 @@ export default function IntegrationCards({
         setShow={setShowRemoveErrorNotification}
       />
       <div className="shadow border border-main-black/10 rounded-2xl px-3 pb-3">
-        <div className="border-gray-200 bg-white px-4 py-5 sm:px-6">
+        <div className="bg-white px-4 py-5 sm:px-6">
           <div className="-ml-4 -mt-2 flex flex-wrap items-center justify-between sm:flex-nowrap">
             <div className="ml-4 mt-2">
               <h3 className="text-base font-semibold leading-6 text-gray-900">
@@ -191,7 +192,7 @@ export default function IntegrationCards({
             </div>
           </div>
         </div>
-        <ul className="grid grid-cols-1 gap-x-6 gap-y-8 lg:grid-cols-3 xl:gap-x-4">
+        <ul className="grid grid-cols-1 gap-x-6 gap-y-8 lg:grid-cols-3 xl:gap-x-4 px-4 pb-4">
           {integrations.map(integration => (
             <li
               key={integration.id}
@@ -232,7 +233,7 @@ export default function IntegrationCards({
                             }
                             className={clsx(
                               active ? 'bg-gray-50' : '',
-                              'block px-3 py-1 text-sm leading-6 text-gray-900'
+                              'block px-5 py-1 text-sm leading-6 text-gray-900 w-full text-right'
                             )}
                           >
                             Remove
@@ -259,7 +260,7 @@ export default function IntegrationCards({
                 </div>
                 <div className="flex justify-between gap-x-4 py-2">
                   <dt className="text-gray-600">Status</dt>
-                  <dd className="text-gray-900">{integration.status}</dd>
+                  <StatusBadge status={integration.status} />
                 </div>
                 <div className="flex justify-between gap-x-4 py-2">
                   <dt className="text-gray-600">Category</dt>
