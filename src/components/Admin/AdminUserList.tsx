@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 
 import { TEST_TOKEN } from '@/constant';
 import { UserContext } from '@/contexts/UserContext';
@@ -16,6 +16,7 @@ interface AdminUserListProps {
 
 export default function AdminUserList({ organization }: AdminUserListProps) {
   const { currentUser } = useContext(UserContext)!;
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const [users, setUsers] = useState<User[]>([]);
   const [selectedPeople, setSelectedPeople] = useState<User[]>([]);
@@ -24,6 +25,19 @@ export default function AdminUserList({ organization }: AdminUserListProps) {
   const [showErrorNotification, setShowErrorNotification] = useState(false);
 
   const token = TEST_TOKEN;
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if ((event.metaKey || event.ctrlKey) && event.key === 'k') {
+        event.preventDefault();
+        inputRef.current?.focus();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -139,7 +153,21 @@ export default function AdminUserList({ organization }: AdminUserListProps) {
             and email.
           </p>
         </div>
-        <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+        <div className="relative flex">
+          <input
+            ref={inputRef}
+            type="text"
+            name="search"
+            id="search"
+            className="block w-full rounded-md border-0 py-1.5 pr-14 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-purple-600 sm:text-sm sm:leading-6"
+          />
+          <div className="absolute inset-y-0 right-0 flex py-1.5 pr-1.5">
+            <kbd className="inline-flex items-center rounded border border-gray-200 px-1 font-sans text-xs text-gray-400">
+              ⌘K
+            </kbd>
+          </div>
+        </div>
+        <div className="mt-4 sm:ml-5 sm:mt-0 sm:flex-none">
           <button
             type="button"
             onClick={() => setShowUserInviteModal(true)}

@@ -7,7 +7,6 @@ import AdminSettingsTab from '@/components/Admin/AdminSettingsTab';
 import AdminUserList from '@/components/Admin/AdminUserList';
 import IntegrationCards from '@/components/Admin/IntegrationCards';
 import Sidebar from '@/components/Sidebar';
-import UserList from '@/components/UserList';
 import { TEST_ORG_ID, TEST_TOKEN } from '@/constant';
 import { AdminSettings } from '@/constants/AdminSettings';
 import { Page } from '@/constants/Navigation';
