@@ -2,8 +2,9 @@
 
 import { useEffect, useState } from 'react';
 
-import AdminInfo from '@/components/Admin/AdminInfo';
+import AdminOverview from '@/components/Admin/AdminOverview';
 import AdminSettingsTab from '@/components/Admin/AdminSettingsTab';
+import AdminUserList from '@/components/Admin/AdminUserList';
 import IntegrationCards from '@/components/Admin/IntegrationCards';
 import Sidebar from '@/components/Sidebar';
 import UserList from '@/components/UserList';
@@ -52,13 +53,13 @@ export default function AdminPage() {
               setCurrentTab={setCurrentTab}
             />
             {currentTab === AdminSettings.OVERVIEW && (
-              <AdminInfo organization={organization} />
+              <AdminOverview organization={organization} />
             )}
             {currentTab === AdminSettings.INTEGRATIONS && (
               <IntegrationCards organization={organization} />
             )}
             {currentTab === AdminSettings.USERS && (
-              <UserList organization={organization} />
+              <AdminUserList organization={organization} />
             )}
           </div>
         </main>
