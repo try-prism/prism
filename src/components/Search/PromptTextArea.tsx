@@ -1,12 +1,15 @@
+import clsx from 'clsx';
 import { RefObject } from 'react';
 
 interface PromptTextAreaProperties {
   textareaRef: RefObject<HTMLTextAreaElement>;
+  isWaiting: boolean;
   onSubmit: (userQuery: string) => void;
 }
 
 export default function PromptTextArea({
   textareaRef,
+  isWaiting,
   onSubmit,
 }: PromptTextAreaProperties) {
   return (
@@ -23,7 +26,8 @@ export default function PromptTextArea({
               error_.preventDefault();
               if (
                 textareaRef.current &&
-                textareaRef.current.value.trim().length > 0
+                textareaRef.current.value.trim().length > 0 &&
+                !isWaiting
               ) {
                 onSubmit(textareaRef.current.value);
                 textareaRef.current.value = '';
@@ -37,13 +41,17 @@ export default function PromptTextArea({
             error_.preventDefault();
             if (
               textareaRef.current &&
-              textareaRef.current.value.trim().length > 0
+              textareaRef.current.value.trim().length > 0 &&
+              !isWaiting
             ) {
               onSubmit(textareaRef.current.value);
               textareaRef.current.value = '';
             }
           }}
-          className="inline-flex items-center rounded-md bg-purple-500 px-1.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-purple-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
+          className={clsx(
+            'inline-flex items-center rounded-md bg-purple-500 px-1.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-purple-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600',
+            isWaiting ? 'disabled bg-gray-300' : 'enabled'
+          )}
         >
           <svg
             aria-hidden="true"

@@ -42,7 +42,7 @@ export default function AdminPage() {
     };
 
     fetchOrganizationData();
-  }, [currentUser, currentUser?.organizationId]);
+  }, [currentUser]);
 
   return (
     <div className="bg-white min-h-screen">

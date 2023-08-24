@@ -129,7 +129,7 @@ export default function AdminIntegrationCards({
         setShowAddErrorNotification(true);
       }
     },
-    [currentUser, organization.id, organization.name, currentUser?.userId]
+    [organization.id, organization.name, currentUser]
   );
 
   const { open, isReady } = useMergeLink({

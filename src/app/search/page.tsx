@@ -32,6 +32,7 @@ interface Query {
 export default function Search() {
   const { currentUser } = useContext(UserContext)!;
   const [queries, setQueries] = useState<Query[]>([]);
+  const [isWaiting, setIsWaiting] = useState<boolean>(false);
 
   const textareaReference = useRef<HTMLTextAreaElement>(null);
   const socket = useRef<ReconnectingWebSocket | null>(null);
@@ -42,7 +43,12 @@ export default function Search() {
     }
 
     socket.current = new ReconnectingWebSocket(
-      `ws://${API_BASE_DOMAIN}/query?user_id=${currentUser.userId}&org_id=${currentUser.organizationId}`
+      `ws://${API_BASE_DOMAIN}/query?user_id=${currentUser.userId}&org_id=${currentUser.organizationId}`,
+      undefined,
+      {
+        maxRetries: 5,
+        connectionTimeout: 5000,
+      }
     );
 
     socket.current.addEventListener('open', () =>
@@ -53,28 +59,29 @@ export default function Search() {
     );
     socket.current.addEventListener('message', (event: MessageEvent) => {
       const data = JSON.parse(event.data);
-      setQueries(prevQueries => [
-        ...prevQueries,
+      setQueries(previousQueries => [
+        ...previousQueries,
         {
           sender: Sender.CHAT_ENGINE,
           message: data.response,
           sources: data.sources,
         },
       ]);
+      setIsWaiting(false);
     });
 
     return () => {
       socket.current?.close();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser]);
 
   const sendQuery = (message: string) => {
     socket.current?.send(message);
-    setQueries(prevQueries => [
-      ...prevQueries,
+    setQueries(previousQueries => [
+      ...previousQueries,
       { sender: Sender.USER, message },
     ]);
+    setIsWaiting(true);
     if (textareaReference.current) {
       textareaReference.current.value = '';
     }
@@ -150,6 +157,7 @@ export default function Search() {
         <div className="fixed inset-x-0 bottom-0 mx-auto max-w-5xl sm:justify-center lg:pb-5 lg:pl-72">
           <PromptTextArea
             textareaRef={textareaReference}
+            isWaiting={isWaiting}
             onSubmit={sendQuery}
           />
         </div>
