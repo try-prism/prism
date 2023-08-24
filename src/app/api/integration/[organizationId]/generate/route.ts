@@ -5,7 +5,7 @@ import { API_BASE_URL } from '@/constant';
 import { APIException, APIExceptionCode } from '@/exception/APIException';
 
 export async function GET(
-  req: Request,
+  request: Request,
   { params }: { params: { organizationId: string } }
 ) {
   const auth = headers().get('Authorization');

@@ -6,7 +6,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { Fragment } from 'react';
 
-interface NotificationProps {
+interface NotificationProperties {
   title: string;
   description: string;
   isError: boolean;
@@ -20,7 +20,7 @@ export default function Notification({
   isError,
   show,
   setShow,
-}: NotificationProps) {
+}: NotificationProperties) {
   return (
     <>
       {/* Global notification live region, render this permanently at the end of the document */}

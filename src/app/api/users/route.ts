@@ -4,9 +4,9 @@ import { NextResponse } from 'next/server';
 import { API_BASE_URL } from '@/constant';
 import { APIException, APIExceptionCode } from '@/exception/APIException';
 
-export async function POST(req: Request) {
+export async function POST(request: Request) {
   const auth = headers().get('Authorization');
-  const { userIds } = await req.json();
+  const { userIds } = await request.json();
 
   try {
     if (!auth) {

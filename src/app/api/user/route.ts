@@ -4,8 +4,8 @@ import { API_BASE_URL } from '@/constant';
 import { APIException, APIExceptionCode } from '@/exception/APIException';
 
 // Register a new user.
-export async function POST(req: Request) {
-  const { id, email, firstName, lastName } = await req.json();
+export async function POST(request: Request) {
+  const { id, email, firstName, lastName } = await request.json();
 
   try {
     const response = await fetch(`${API_BASE_URL}/user`, {

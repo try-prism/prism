@@ -6,7 +6,7 @@ import {
   getAdminNavigationItems,
 } from '@/constants/AdminSettings';
 
-interface AdminSettingsTabProps {
+interface AdminSettingsTabProperties {
   currentTab: AdminSettings;
   setCurrentTab: (tab: AdminSettings) => void;
 }
@@ -14,7 +14,7 @@ interface AdminSettingsTabProps {
 export default function AdminSettingsTab({
   currentTab,
   setCurrentTab,
-}: AdminSettingsTabProps) {
+}: AdminSettingsTabProperties) {
   const tabs = useMemo(() => {
     return getAdminNavigationItems(currentTab);
   }, [currentTab]);
@@ -34,7 +34,9 @@ export default function AdminSettingsTab({
             name="current-tab"
             className="block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-purple-500 focus:outline-none focus:ring-purple-500 sm:text-sm"
             defaultValue={tabs.find(tab => tab.current)?.name}
-            onChange={e => setCurrentTab(e.target.value as AdminSettings)}
+            onChange={error_ =>
+              setCurrentTab(error_.target.value as AdminSettings)
+            }
           >
             {tabs.map(tab => (
               <option key={tab.name}>{tab.name}</option>

@@ -5,12 +5,12 @@ import { API_BASE_URL } from '@/constant';
 import { APIException, APIExceptionCode } from '@/exception/APIException';
 
 export async function POST(
-  req: Request,
+  request: Request,
   { params }: { params: { id: string } }
 ) {
   const auth = headers().get('Authorization');
   const { organizationName, organizationUserEmail, organizationAdminId } =
-    await req.json();
+    await request.json();
 
   const organizationId = params.id;
 
@@ -56,12 +56,12 @@ export async function POST(
 }
 
 export async function DELETE(
-  req: Request,
+  request: Request,
   { params }: { params: { id: string } }
 ) {
   const auth = headers().get('Authorization');
   const { organizationName, organizationUserId, organizationAdminId } =
-    await req.json();
+    await request.json();
 
   const organizationId = params.id;
 

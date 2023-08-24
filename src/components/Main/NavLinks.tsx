@@ -5,13 +5,13 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
 import { useRef, useState } from 'react';
 
-interface NavLinksProps {
+interface NavLinksProperties {
   isDark?: boolean;
 }
 
-export function NavLinks({ isDark }: NavLinksProps) {
+export function NavLinks({ isDark }: NavLinksProperties) {
   let [hoveredIndex, setHoveredIndex] = useState<number>();
-  let timeoutRef = useRef<number | null>(null);
+  let timeoutReference = useRef<number | null>(null);
 
   return [
     ['Product', '#product'],
@@ -26,13 +26,13 @@ export function NavLinks({ isDark }: NavLinksProps) {
         isDark ? 'text-white' : 'text-gray-700'
       )}
       onMouseEnter={() => {
-        if (timeoutRef.current) {
-          window.clearTimeout(timeoutRef.current);
+        if (timeoutReference.current) {
+          window.clearTimeout(timeoutReference.current);
         }
         setHoveredIndex(index);
       }}
       onMouseLeave={() => {
-        timeoutRef.current = window.setTimeout(() => {
+        timeoutReference.current = window.setTimeout(() => {
           setHoveredIndex(999);
         }, 200);
       }}

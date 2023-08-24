@@ -4,7 +4,7 @@ import { Fragment, useState } from 'react';
 
 import { validateEmail } from '@/utils';
 
-interface UserInviteModalProps {
+interface UserInviteModalProperties {
   showUserInviteModal: boolean;
   setShowUserInviteModal: (showUserInviteModal: boolean) => void;
   addUser: (userEmail: string) => Promise<any>;
@@ -14,7 +14,7 @@ export default function UserInviteModal({
   showUserInviteModal,
   setShowUserInviteModal,
   addUser,
-}: UserInviteModalProps) {
+}: UserInviteModalProperties) {
   const [userEmail, setUserEmail] = useState<string>('');
 
   return (
@@ -78,7 +78,9 @@ export default function UserInviteModal({
                               id="email"
                               className="block w-full rounded-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                               placeholder="you@example.com"
-                              onChange={e => setUserEmail(e.target.value)}
+                              onChange={error_ =>
+                                setUserEmail(error_.target.value)
+                              }
                             />
                           </div>
                         </div>

@@ -4,7 +4,7 @@ import {
   MagnifyingGlassIcon,
 } from '@heroicons/react/24/outline';
 
-export interface NavigationElementProps {
+export interface NavigationElementProperties {
   name: string;
   href: string;
   icon: any;
@@ -20,7 +20,7 @@ export enum Page {
 
 export const getNavigationItems = (
   selected: Page
-): NavigationElementProps[] => [
+): NavigationElementProperties[] => [
   {
     name: 'Search',
     href: '/search',

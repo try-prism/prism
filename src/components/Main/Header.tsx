@@ -5,14 +5,14 @@ import { Auth } from 'aws-amplify';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 
 import { NavLinks } from '@/components/Main/NavLinks';
 import { UserContext } from '@/contexts/UserContext';
 import PrismLogo from '@/images/prism/prism.svg';
 
 function MobileNavLink(
-  props: Omit<
+  properties: Omit<
     React.ComponentPropsWithoutRef<typeof Popover.Button<typeof Link>>,
     'as' | 'className'
   >
@@ -21,7 +21,7 @@ function MobileNavLink(
     <Popover.Button
       as={Link}
       className="block text-base leading-7 tracking-tight text-gray-900"
-      {...props}
+      {...properties}
     />
   );
 }

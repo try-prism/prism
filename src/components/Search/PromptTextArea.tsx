@@ -1,6 +1,6 @@
 import { RefObject } from 'react';
 
-interface PromptTextAreaProps {
+interface PromptTextAreaProperties {
   textareaRef: RefObject<HTMLTextAreaElement>;
   onSubmit: (userQuery: string) => void;
 }
@@ -8,7 +8,7 @@ interface PromptTextAreaProps {
 export default function PromptTextArea({
   textareaRef,
   onSubmit,
-}: PromptTextAreaProps) {
+}: PromptTextAreaProperties) {
   return (
     <form className="mx-4">
       <div className="flex items-center rounded-2xl bg-white px-3 py-2 shadow-md border border-gray-300">
@@ -18,9 +18,9 @@ export default function PromptTextArea({
           rows={1}
           className="mr-3 block w-full resize-none rounded-lg border-none bg-white p-2.5 text-sm text-gray-900 focus:ring-0 focus-visible:ring-0"
           placeholder="Start typing your question"
-          onKeyDown={e => {
-            if (e.key === 'Enter' && !e.shiftKey) {
-              e.preventDefault();
+          onKeyDown={error_ => {
+            if (error_.key === 'Enter' && !error_.shiftKey) {
+              error_.preventDefault();
               if (
                 textareaRef.current &&
                 textareaRef.current.value.trim().length > 0
@@ -33,8 +33,8 @@ export default function PromptTextArea({
         />
         <button
           type="submit"
-          onClick={e => {
-            e.preventDefault();
+          onClick={error_ => {
+            error_.preventDefault();
             if (
               textareaRef.current &&
               textareaRef.current.value.trim().length > 0

@@ -1,22 +1,24 @@
 import clsx from 'clsx';
 import { useContext, useEffect, useRef, useState } from 'react';
 
+import UserInviteModal from './UserInviteModal';
+import Notification from '../Common/Notification';
+
 import { TEST_TOKEN } from '@/constant';
 import { UserContext } from '@/contexts/UserContext';
 import { Organization } from '@/models/Organization';
 import { Convert, User } from '@/models/User';
 import { timestampToDate, timestampToDateDay } from '@/utils';
 
-import Notification from '../Common/Notification';
-import UserInviteModal from './UserInviteModal';
-
-interface AdminUserListProps {
+interface AdminUserListProperties {
   organization: Organization;
 }
 
-export default function AdminUserList({ organization }: AdminUserListProps) {
+export default function AdminUserList({
+  organization,
+}: AdminUserListProperties) {
   const { currentUser } = useContext(UserContext)!;
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputReference = useRef<HTMLInputElement>(null);
 
   const [users, setUsers] = useState<User[]>([]);
   const [selectedPeople, setSelectedPeople] = useState<User[]>([]);
@@ -30,7 +32,7 @@ export default function AdminUserList({ organization }: AdminUserListProps) {
     const handleKeyDown = (event: KeyboardEvent) => {
       if ((event.metaKey || event.ctrlKey) && event.key === 'k') {
         event.preventDefault();
-        inputRef.current?.focus();
+        inputReference.current?.focus();
       }
     };
     window.addEventListener('keydown', handleKeyDown);
@@ -155,7 +157,7 @@ export default function AdminUserList({ organization }: AdminUserListProps) {
         </div>
         <div className="relative flex">
           <input
-            ref={inputRef}
+            ref={inputReference}
             type="text"
             name="search"
             id="search"
@@ -251,9 +253,9 @@ export default function AdminUserList({ organization }: AdminUserListProps) {
                           className="absolute left-4 top-1/2 -mt-2 h-4 w-4 rounded border-gray-300 text-purple-600 focus:ring-purple-600"
                           value={user.email}
                           checked={selectedPeople.includes(user)}
-                          onChange={e =>
+                          onChange={error_ =>
                             setSelectedPeople(
-                              e.target.checked
+                              error_.target.checked
                                 ? [...selectedPeople, user]
                                 : selectedPeople.filter(p => p !== user)
                             )
@@ -280,12 +282,9 @@ export default function AdminUserList({ organization }: AdminUserListProps) {
                         {timestampToDate(user.updated_at)}
                       </td>
                       <td className="whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-3">
-                        <a
-                          href="#"
-                          className="text-purple-600 hover:text-purple-900"
-                        >
+                        <button className="text-purple-600 hover:text-purple-900">
                           Edit<span className="sr-only">, {user.name}</span>
-                        </a>
+                        </button>
                       </td>
                     </tr>
                   ))}

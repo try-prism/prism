@@ -104,7 +104,7 @@ export default function LoginPage() {
               </label>
               <div className="mt-2">
                 <input
-                  onChange={e => setNewPassword(e.target.value)}
+                  onChange={error_ => setNewPassword(error_.target.value)}
                   type="password"
                   value={newPassword}
                   autoComplete="new-password"
@@ -123,7 +123,7 @@ export default function LoginPage() {
               <span className="text-red-50">{error}</span>
               <div className="mt-2">
                 <input
-                  onChange={e => setConfirmPassword(e.target.value)}
+                  onChange={error_ => setConfirmPassword(error_.target.value)}
                   type="password"
                   value={confirmPassword}
                   autoComplete="new-password"
@@ -152,7 +152,7 @@ export default function LoginPage() {
               </label>
               <div className="mt-2">
                 <input
-                  onChange={e => setEmail(e.target.value)}
+                  onChange={error_ => setEmail(error_.target.value)}
                   id="email"
                   name="email"
                   type="email"
@@ -172,7 +172,7 @@ export default function LoginPage() {
               </label>
               <div className="mt-2">
                 <input
-                  onChange={e => setPassword(e.target.value)}
+                  onChange={error_ => setPassword(error_.target.value)}
                   id="password"
                   name="password"
                   type="password"
