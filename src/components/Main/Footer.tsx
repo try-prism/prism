@@ -2,10 +2,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
+import { Logo } from '../Logo';
+
 import { NavLinks } from '@/components/Main/NavLinks';
 import qrCode from '@/images/prism/qr-code.svg';
-
-import { Logo } from '../Logo';
 
 function QrCodeBorder(properties: React.ComponentPropsWithoutRef<'svg'>) {
   return (

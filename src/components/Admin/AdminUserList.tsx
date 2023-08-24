@@ -1,14 +1,14 @@
 import clsx from 'clsx';
 import { useContext, useEffect, useRef, useState } from 'react';
 
+import UserInviteModal from './UserInviteModal';
+import Notification from '../Common/Notification';
+
 import { TEST_TOKEN } from '@/constant';
 import { UserContext } from '@/contexts/UserContext';
 import { Organization } from '@/models/Organization';
 import { Convert, User } from '@/models/User';
 import { timestampToDate, timestampToDateDay } from '@/utils';
-
-import Notification from '../Common/Notification';
-import UserInviteModal from './UserInviteModal';
 
 interface AdminUserListProperties {
   organization: Organization;

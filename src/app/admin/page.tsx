@@ -1,33 +1,38 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import AdminIntegrationCards from '@/components/Admin/AdminIntegrationCards';
 import AdminOverview from '@/components/Admin/AdminOverview';
 import AdminSettingsTab from '@/components/Admin/AdminSettingsTab';
 import AdminUserList from '@/components/Admin/AdminUserList';
 import Sidebar from '@/components/Sidebar';
-import { TEST_ORG_ID, TEST_TOKEN } from '@/constant';
+import { TEST_TOKEN } from '@/constant';
 import { AdminSettings } from '@/constants/AdminSettings';
 import { Page } from '@/constants/Navigation';
+import { UserContext } from '@/contexts/UserContext';
 import { Convert, Organization } from '@/models/Organization';
 
 export default function AdminPage() {
+  const { currentUser } = useContext(UserContext)!;
+
   const [organization, setOrganization] = useState<Organization>();
   const [currentTab, setCurrentTab] = useState<AdminSettings>(
     AdminSettings.OVERVIEW
   );
-  const organizationId = TEST_ORG_ID;
   const token = TEST_TOKEN;
 
   useEffect(() => {
     const fetchOrganizationData = async () => {
-      const response = await fetch(`/api/organization/${organizationId}`, {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `/api/organization/${currentUser?.organizationId}`,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       const data = await response.json();
 
       if (data.status !== 200) {
@@ -39,7 +44,7 @@ export default function AdminPage() {
     };
 
     fetchOrganizationData();
-  }, [token, organizationId]);
+  }, [token, currentUser?.organizationId]);
 
   return (
     <div className="bg-white min-h-screen">

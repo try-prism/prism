@@ -13,7 +13,7 @@ module.exports = {
     es6: true,
     node: true,
   },
-  plugins: ['@typescript-eslint', 'simple-import-sort'],
+  plugins: ['@typescript-eslint'],
   settings: {
     react: {
       version: 'detect',
@@ -179,14 +179,15 @@ module.exports = {
         ignoreRestSiblings: true,
       },
     ],
-    'sort-imports': [
+    'import/order': [
       'error',
       {
-        ignoreCase: true,
-        ignoreDeclarationSort: true,
-        ignoreMemberSort: false,
-        memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],
-        allowSeparatedGroups: false,
+        groups: ['builtin', 'external', ['parent', 'sibling'], 'index'],
+        alphabetize: {
+          order: 'asc',
+          caseInsensitive: true /* ignore case. Options: [true, false] */,
+        },
+        'newlines-between': 'always',
       },
     ],
   },

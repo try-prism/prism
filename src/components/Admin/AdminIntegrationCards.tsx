@@ -5,13 +5,13 @@ import clsx from 'clsx';
 import Image from 'next/image';
 import { Fragment, useCallback, useContext, useEffect, useState } from 'react';
 
+import StatusBadge from './StatusBadge';
+import Notification from '../Common/Notification';
+
 import { INTEGRATION_LOGO_MAPPINGS, TEST_TOKEN } from '@/constant';
 import { UserContext } from '@/contexts/UserContext';
 import { IntegrationData, Organization } from '@/models/Organization';
 import { timestampToDate } from '@/utils';
-
-import Notification from '../Common/Notification';
-import StatusBadge from './StatusBadge';
 
 interface AdminIntegrationCardsProperties {
   organization: Organization;
