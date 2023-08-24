@@ -6,7 +6,9 @@ import MaterialThemeProvider from '@/components/MaterialThemeProvider';
 import AlertContextProvider from '@/contexts/AlertContext';
 import UserContextProvider from '@/contexts/UserContext';
 
-interface RootLayoutProps {
+import React from 'react';
+
+interface RootLayoutProperties {
   children: React.ReactNode;
 }
 
@@ -15,7 +17,7 @@ export const metadata = {
   description: 'AI-driven knowledge management platform',
 };
 
-export default function RootLayout({ children }: RootLayoutProps) {
+export default function RootLayout({ children }: RootLayoutProperties) {
   return (
     <AmplifyProvider>
       <UserContextProvider>

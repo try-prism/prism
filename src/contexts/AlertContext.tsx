@@ -1,15 +1,6 @@
 'use client';
 import { CheckCircleIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import { createContext, useState } from 'react';
-
-export const AlertContext = createContext<
-  | ((options: { type: AlertType; message: string; duration: number }) => void)
-  | undefined
->(undefined);
-
-interface AlertContextProviderProps {
-  children: React.ReactNode;
-}
+import React, { createContext, useState } from 'react';
 
 export enum AlertType {
   ACTION,
@@ -21,9 +12,18 @@ interface Alert {
   message: string;
 }
 
+export const AlertContext = createContext<
+  | ((options: { type: AlertType; message: string; duration: number }) => void)
+  | undefined
+>(undefined);
+
+interface AlertContextProviderProperties {
+  children: React.ReactNode;
+}
+
 export default function AlertContextProvider({
   children,
-}: AlertContextProviderProps) {
+}: AlertContextProviderProperties) {
   const [alert, setAlert] = useState<Alert>();
 
   return (

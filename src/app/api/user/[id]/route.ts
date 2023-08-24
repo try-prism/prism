@@ -6,7 +6,7 @@ import { APIException, APIExceptionCode } from '@/exception/APIException';
 
 // Retrieve a user's details.
 export async function GET(
-  req: Request,
+  request: Request,
   { params }: { params: { id: string } }
 ) {
   const auth = headers().get('Authorization');
@@ -46,11 +46,11 @@ export async function GET(
 
 // Delete a user's account.
 export async function DELETE(
-  req: Request,
+  request: Request,
   { params }: { params: { id: string } }
 ) {
   const auth = headers().get('Authorization');
-  const { organizationAdminId } = await req.json();
+  const { organizationAdminId } = await request.json();
   const userId = params.id;
 
   try {

@@ -1,11 +1,12 @@
 'use client';
 import { usePathname } from 'next/navigation';
+import React from 'react';
 
-interface RootLayoutProps {
+interface RootLayoutProperties {
   children: React.ReactNode;
 }
 
-export default function BackgroundProvider({ children }: RootLayoutProps) {
+export default function BackgroundProvider({ children }: RootLayoutProperties) {
   const path = usePathname();
   return (
     <html

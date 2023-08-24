@@ -4,10 +4,10 @@ import { NextResponse } from 'next/server';
 import { API_BASE_URL } from '@/constant';
 import { APIException, APIExceptionCode } from '@/exception/APIException';
 
-export async function POST(req: Request) {
+export async function POST(request: Request) {
   const auth = headers().get('Authorization');
   const { publicToken, organizationId, organizationName, organizationAdminId } =
-    await req.json();
+    await request.json();
 
   try {
     if (!auth) {

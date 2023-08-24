@@ -10,11 +10,11 @@ import { UserContext } from '@/contexts/UserContext';
 import PrismLogo from '@/images/prism/prism.svg';
 import PrismBlackLogo from '@/images/prism/prism_black.svg';
 
-interface SidebarProps {
+interface SidebarProperties {
   selectedPage: Page;
 }
 
-export default function Sidebar({ selectedPage }: SidebarProps) {
+export default function Sidebar({ selectedPage }: SidebarProperties) {
   const { currentUser } = useContext(UserContext)!;
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const navItems = useMemo(() => {

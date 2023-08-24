@@ -12,11 +12,11 @@ const COLOR_MAPPING: ColorMapping = {
   FAIL: 'bg-red-100 text-red-700',
 };
 
-interface StatusBadgeProps {
+interface StatusBadgeProperties {
   status: string;
 }
 
-export default function StatusBadge({ status }: StatusBadgeProps) {
+export default function StatusBadge({ status }: StatusBadgeProperties) {
   return (
     <span
       className={clsx(

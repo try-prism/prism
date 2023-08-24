@@ -1,7 +1,7 @@
 'use client';
 import { Auth } from 'aws-amplify';
 import { usePathname, useRouter } from 'next/navigation';
-import { createContext, useEffect, useMemo, useState } from 'react';
+import React, { createContext, useEffect, useMemo, useState } from 'react';
 
 export interface User {
   email: string;
@@ -19,7 +19,7 @@ export const UserContext = createContext<UserContextData | undefined>(
   undefined
 );
 
-interface UserContextProviderProps {
+interface UserContextProviderProperties {
   children: React.ReactNode;
 }
 
@@ -27,7 +27,7 @@ const pagesNotRequiringLogin = new Set(['/', '/login', '/register']);
 
 export default function UserContextProvider({
   children,
-}: UserContextProviderProps) {
+}: UserContextProviderProperties) {
   const [currentUser, setCurrentUser] = useState<User>();
   const router = useRouter();
   const path = usePathname();

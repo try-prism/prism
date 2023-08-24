@@ -1,11 +1,13 @@
 import { Organization } from '@/models/Organization';
 import { timestampToDate } from '@/utils';
 
-interface AdminOverviewProps {
+interface AdminOverviewProperties {
   organization: Organization;
 }
 
-export default function AdminOverview({ organization }: AdminOverviewProps) {
+export default function AdminOverview({
+  organization,
+}: AdminOverviewProperties) {
   return (
     <div>
       <dl className="grid grid-cols-1 sm:grid-cols-3">

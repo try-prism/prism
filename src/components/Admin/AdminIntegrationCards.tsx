@@ -5,24 +5,21 @@ import clsx from 'clsx';
 import Image from 'next/image';
 import { Fragment, useCallback, useContext, useEffect, useState } from 'react';
 
-import {
-  INTEGRATION_LOGO_MAPPINGS,
-  TEST_ADMIN_ID,
-  TEST_TOKEN,
-} from '@/constant';
+import { INTEGRATION_LOGO_MAPPINGS, TEST_TOKEN } from '@/constant';
 import { UserContext } from '@/contexts/UserContext';
 import { IntegrationData, Organization } from '@/models/Organization';
 import { timestampToDate } from '@/utils';
 
+import Notification from '../Common/Notification';
 import StatusBadge from './StatusBadge';
 
-interface AdminIntegrationCardsProps {
+interface AdminIntegrationCardsProperties {
   organization: Organization;
 }
 
 export default function AdminIntegrationCards({
   organization,
-}: AdminIntegrationCardsProps) {
+}: AdminIntegrationCardsProperties) {
   const { currentUser } = useContext(UserContext)!;
   const [integrations, setIntegrations] = useState<IntegrationData[]>([]);
   const [linkToken, setLinkToken] = useState<string>('');
@@ -36,7 +33,6 @@ export default function AdminIntegrationCards({
     useState(false);
 
   const token = TEST_TOKEN;
-  const organizationAdminId = TEST_ADMIN_ID;
 
   useEffect(() => {
     setIntegrations(Object.values(organization.link_id_map));
@@ -73,7 +69,7 @@ export default function AdminIntegrationCards({
       },
       body: JSON.stringify({
         accountToken,
-        organizationAdminId,
+        organizationAdminId: currentUser?.userId,
       }),
     });
     const data = await response.json();
@@ -102,7 +98,7 @@ export default function AdminIntegrationCards({
           publicToken: public_token,
           organizationId: organization.id,
           organizationName: organization.name,
-          organizationAdminId,
+          organizationAdminId: currentUser?.userId,
         }),
       });
       const data = await response.json();
@@ -135,7 +131,7 @@ export default function AdminIntegrationCards({
         setShowAddErrorNotification(true);
       }
     },
-    [token, organization.id, organization.name, organizationAdminId]
+    [token, organization.id, organization.name, currentUser?.userId]
   );
 
   const { open, isReady } = useMergeLink({
@@ -145,6 +141,34 @@ export default function AdminIntegrationCards({
 
   return (
     <>
+      <Notification
+        title="Successfully added"
+        description="Please wait for few minutes ~ hour depending on the size of your files"
+        isError={false}
+        show={showAddSuccessNotification}
+        setShow={setShowAddSuccessNotification}
+      />
+      <Notification
+        title="Failed to add integration"
+        description="Please try again later"
+        isError={true}
+        show={showAddErrorNotification}
+        setShow={setShowAddErrorNotification}
+      />
+      <Notification
+        title="Success"
+        description="Removed integration successfully"
+        isError={false}
+        show={showRemoveSuccessNotification}
+        setShow={setShowRemoveSuccessNotification}
+      />
+      <Notification
+        title="Failed to remove integration"
+        description="Please try again later"
+        isError={true}
+        show={showRemoveErrorNotification}
+        setShow={setShowRemoveErrorNotification}
+      />
       <div className="sm:flex sm:items-center pt-2">
         <div className="sm:flex-auto">
           <h1 className="text-base font-semibold leading-6 text-gray-900">

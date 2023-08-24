@@ -17,6 +17,11 @@ interface Source {
   url: string;
 }
 
+enum Sender {
+  USER,
+  CHAT_ENGINE,
+}
+
 interface Query {
   sender: Sender;
   message: string;
@@ -24,16 +29,11 @@ interface Query {
   related?: string[];
 }
 
-enum Sender {
-  USER,
-  CHAT_ENGINE,
-}
-
 export default function Search() {
   const { currentUser } = useContext(UserContext)!;
   const [queries, setQueries] = useState<Query[]>([]);
 
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const textareaReference = useRef<HTMLTextAreaElement>(null);
   const socket = useRef<ReconnectingWebSocket | null>(null);
 
   useEffect(() => {
@@ -72,8 +72,8 @@ export default function Search() {
   const sendQuery = (message: string) => {
     socket.current?.send(message);
     setQueries([...queries, { sender: Sender.USER, message }]);
-    if (textareaRef.current) {
-      textareaRef.current.value = '';
+    if (textareaReference.current) {
+      textareaReference.current.value = '';
     }
   };
 
@@ -145,7 +145,10 @@ export default function Search() {
           )}
         </div>
         <div className="fixed inset-x-0 bottom-0 mx-auto max-w-5xl sm:justify-center lg:pb-5 lg:pl-72">
-          <PromptTextArea textareaRef={textareaRef} onSubmit={sendQuery} />
+          <PromptTextArea
+            textareaRef={textareaReference}
+            onSubmit={sendQuery}
+          />
         </div>
       </main>
     </div>
@@ -159,6 +162,7 @@ const getAbbreviatedName = (fullName: string): string => {
     .join('');
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const mockQueries: Query[] = [
   {
     sender: Sender.USER,

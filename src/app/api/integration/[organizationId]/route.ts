@@ -5,7 +5,7 @@ import { API_BASE_URL } from '@/constant';
 import { APIException, APIExceptionCode } from '@/exception/APIException';
 
 export async function GET(
-  req: Request,
+  request: Request,
   { params }: { params: { id: string } }
 ) {
   const auth = headers().get('Authorization');
@@ -47,11 +47,11 @@ export async function GET(
 }
 
 export async function DELETE(
-  req: Request,
+  request: Request,
   { params }: { params: { id: string } }
 ) {
   const auth = headers().get('Authorization');
-  const { accountToken, organizationAdminId } = await req.json();
+  const { accountToken, organizationAdminId } = await request.json();
   const organizationId = params.id;
 
   try {

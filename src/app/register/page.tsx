@@ -11,8 +11,8 @@ import { Whitelist } from '@/models/Whitelist';
 export default function RegisterPage() {
   const setAlertMessage = useContext(AlertContext)!;
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const id = searchParams.get('id') ?? '';
+  const searchParameters = useSearchParams();
+  const id = searchParameters.get('id') ?? '';
 
   const [email, setEmail] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -112,7 +112,7 @@ export default function RegisterPage() {
                     autoComplete="given-name"
                     required
                     value={firstName}
-                    onChange={e => setFirstName(e.target.value)}
+                    onChange={error_ => setFirstName(error_.target.value)}
                     className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-purple-500 sm:text-sm sm:leading-6"
                   />
                 </div>
@@ -134,7 +134,7 @@ export default function RegisterPage() {
                     autoComplete="family-name"
                     required
                     value={lastName}
-                    onChange={e => setLastName(e.target.value)}
+                    onChange={error_ => setLastName(error_.target.value)}
                     className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-purple-500 sm:text-sm sm:leading-6"
                   />
                 </div>

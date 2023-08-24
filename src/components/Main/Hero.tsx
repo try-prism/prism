@@ -81,10 +81,10 @@ export default function Hero() {
                 Built by people from
               </p>
               <ul className="flex items-center justify-center gap-x-8 xl:flex-row xl:gap-x-12 xl:gap-y-0 mx-auto max-w-7xl">
-                {[AppleLogo, GoogleLogo, BainLogo].map((logo, idx) => (
+                {[AppleLogo, GoogleLogo, BainLogo].map((logo, index) => (
                   <ul
                     className="flex flex-col items-center gap-y-8 sm:flex-row sm:gap-x-12 sm:gap-y-0"
-                    key={idx}
+                    key={index}
                   >
                     <li className="flex">
                       <Image src={logo} alt="" className="h-20 w-auto" />

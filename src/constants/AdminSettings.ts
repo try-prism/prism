@@ -5,14 +5,14 @@ export enum AdminSettings {
   INTEGRATIONS = 'Integrations',
 }
 
-export interface AdminNavigationElementProps {
+export interface AdminNavigationElementProperties {
   name: string;
   current: boolean;
 }
 
 export const getAdminNavigationItems = (
   selected: AdminSettings
-): AdminNavigationElementProps[] => [
+): AdminNavigationElementProperties[] => [
   {
     name: AdminSettings.OVERVIEW,
     current: selected === AdminSettings.OVERVIEW,

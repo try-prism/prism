@@ -1,5 +1,6 @@
 'use client';
 import { Amplify } from 'aws-amplify';
+import React from 'react';
 
 import awsExports from '@/aws-exports';
 
