@@ -36,7 +36,6 @@ export default function LoginPage() {
         setChangingPassword(true);
       } else {
         const userInfo = await Auth.currentUserInfo();
-        console.log('info', userInfo);
         const {
           email,
           'custom:user_id': userId,

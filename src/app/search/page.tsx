@@ -53,8 +53,8 @@ export default function Search() {
     );
     socket.current.addEventListener('message', (event: MessageEvent) => {
       const data = JSON.parse(event.data);
-      setQueries([
-        ...queries,
+      setQueries(prevQueries => [
+        ...prevQueries,
         {
           sender: Sender.CHAT_ENGINE,
           message: data.response,
@@ -71,7 +71,10 @@ export default function Search() {
 
   const sendQuery = (message: string) => {
     socket.current?.send(message);
-    setQueries([...queries, { sender: Sender.USER, message }]);
+    setQueries(prevQueries => [
+      ...prevQueries,
+      { sender: Sender.USER, message },
+    ]);
     if (textareaReference.current) {
       textareaReference.current.value = '';
     }

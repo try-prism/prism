@@ -59,9 +59,8 @@ export default function UserContextProvider({
         });
       })
       .catch(() => {
-        console.log(path);
         if (!pagesNotRequiringLogin.has(path)) {
-          router.push('/login');
+          router.replace('/login');
         }
       });
   }, [path, router]);
