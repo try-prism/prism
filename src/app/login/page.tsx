@@ -35,22 +35,23 @@ export default function LoginPage() {
       if (currentUser.challengeName === 'NEW_PASSWORD_REQUIRED') {
         setChangingPassword(true);
       } else {
-        const userInfo = await Auth.currentUserInfo();
-        const {
-          email,
-          'custom:user_id': userId,
-          'custom:organization_id': organizationId,
-          given_name,
-          family_name,
-        } = userInfo.attributes;
-        setCurrentUser({
-          email,
-          name: `${given_name} ${family_name}`,
-          userId,
-          organizationId,
+        Auth.currentAuthenticatedUser().then(newUser => {
+          const {
+            email,
+            'custom:user_id': userId,
+            'custom:organization_id': organizationId,
+            given_name,
+            family_name,
+          } = newUser.attributes;
+          setCurrentUser({
+            email,
+            name: `${given_name} ${family_name}`,
+            userId,
+            organizationId,
+            token: newUser.signInUserSession.idToken.jwtToken,
+          });
+          router.push('/search');
         });
-
-        router.push('/search');
       }
     } catch (error) {
       console.error('Error logging in:', error);

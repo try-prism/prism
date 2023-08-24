@@ -4,7 +4,6 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import UserInviteModal from './UserInviteModal';
 import Notification from '../Common/Notification';
 
-import { TEST_TOKEN } from '@/constant';
 import { UserContext } from '@/contexts/UserContext';
 import { Organization } from '@/models/Organization';
 import { Convert, User } from '@/models/User';
@@ -26,8 +25,6 @@ export default function AdminUserList({
   const [showSuccessNotification, setShowSuccessNotification] = useState(false);
   const [showErrorNotification, setShowErrorNotification] = useState(false);
 
-  const token = TEST_TOKEN;
-
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if ((event.metaKey || event.ctrlKey) && event.key === 'k') {
@@ -46,7 +43,7 @@ export default function AdminUserList({
       const response = await fetch('/api/users', {
         method: 'POST',
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${currentUser?.token}`,
         },
         body: JSON.stringify({ userIds: organization.user_list }),
       });
@@ -62,7 +59,7 @@ export default function AdminUserList({
     };
 
     fetchUserData();
-  }, [token, organization.user_list]);
+  }, [currentUser, organization.user_list]);
 
   const addUser = async (userEmail: string) => {
     const response = await fetch(
@@ -70,7 +67,7 @@ export default function AdminUserList({
       {
         method: 'POST',
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${currentUser?.token}`,
         },
         body: JSON.stringify({
           organizationName: organization.name,
@@ -105,7 +102,10 @@ export default function AdminUserList({
   const removeUser = async (userId: string) => {
     const response = await fetch(`/api/user/${userId}`, {
       method: 'DELETE',
-      body: JSON.stringify({ token, organizationAdminId: currentUser?.userId }),
+      body: JSON.stringify({
+        token: currentUser?.token,
+        organizationAdminId: currentUser?.userId,
+      }),
     });
     const data = await response.json();
 

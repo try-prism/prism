@@ -7,7 +7,6 @@ import AdminOverview from '@/components/Admin/AdminOverview';
 import AdminSettingsTab from '@/components/Admin/AdminSettingsTab';
 import AdminUserList from '@/components/Admin/AdminUserList';
 import Sidebar from '@/components/Sidebar';
-import { TEST_TOKEN } from '@/constant';
 import { AdminSettings } from '@/constants/AdminSettings';
 import { Page } from '@/constants/Navigation';
 import { UserContext } from '@/contexts/UserContext';
@@ -20,7 +19,6 @@ export default function AdminPage() {
   const [currentTab, setCurrentTab] = useState<AdminSettings>(
     AdminSettings.OVERVIEW
   );
-  const token = TEST_TOKEN;
 
   useEffect(() => {
     const fetchOrganizationData = async () => {
@@ -29,7 +27,7 @@ export default function AdminPage() {
         {
           method: 'GET',
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${currentUser?.token}`,
           },
         }
       );
@@ -44,7 +42,7 @@ export default function AdminPage() {
     };
 
     fetchOrganizationData();
-  }, [token, currentUser?.organizationId]);
+  }, [currentUser, currentUser?.organizationId]);
 
   return (
     <div className="bg-white min-h-screen">

@@ -8,7 +8,7 @@ import { Fragment, useCallback, useContext, useEffect, useState } from 'react';
 import StatusBadge from './StatusBadge';
 import Notification from '../Common/Notification';
 
-import { INTEGRATION_LOGO_MAPPINGS, TEST_TOKEN } from '@/constant';
+import { INTEGRATION_LOGO_MAPPINGS } from '@/constant';
 import { UserContext } from '@/contexts/UserContext';
 import { IntegrationData, Organization } from '@/models/Organization';
 import { timestampToDate } from '@/utils';
@@ -32,8 +32,6 @@ export default function AdminIntegrationCards({
   const [showRemoveErrorNotification, setShowRemoveErrorNotification] =
     useState(false);
 
-  const token = TEST_TOKEN;
-
   useEffect(() => {
     setIntegrations(Object.values(organization.link_id_map));
   }, [organization.link_id_map]);
@@ -45,7 +43,7 @@ export default function AdminIntegrationCards({
         {
           method: 'GET',
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${currentUser?.token}`,
           },
         }
       );
@@ -59,13 +57,13 @@ export default function AdminIntegrationCards({
     };
 
     fetchLinkToken();
-  }, [token, organization.id]);
+  }, [currentUser, organization.id]);
 
   const removeIntegration = async (accountToken: string) => {
     const response = await fetch(`/api/integration/${organization.id}`, {
       method: 'DELETE',
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${currentUser?.token}`,
       },
       body: JSON.stringify({
         accountToken,
@@ -92,7 +90,7 @@ export default function AdminIntegrationCards({
       const response = await fetch('/api/integration', {
         method: 'POST',
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${currentUser?.token}`,
         },
         body: JSON.stringify({
           publicToken: public_token,
@@ -131,7 +129,7 @@ export default function AdminIntegrationCards({
         setShowAddErrorNotification(true);
       }
     },
-    [token, organization.id, organization.name, currentUser?.userId]
+    [currentUser, organization.id, organization.name, currentUser?.userId]
   );
 
   const { open, isReady } = useMergeLink({

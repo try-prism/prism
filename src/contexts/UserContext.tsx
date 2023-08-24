@@ -8,6 +8,7 @@ export interface User {
   name: string;
   userId: string;
   organizationId: string;
+  token: string;
 }
 
 type UserContextData = {
@@ -56,6 +57,7 @@ export default function UserContextProvider({
           name: `${given_name} ${family_name}`,
           userId,
           organizationId,
+          token: newUser.signInUserSession.idToken.jwtToken,
         });
       })
       .catch(() => {
