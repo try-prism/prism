@@ -1,5 +1,5 @@
 import { Dialog, Transition } from '@headlessui/react';
-import { XMarkIcon } from '@heroicons/react/24/outline';
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -77,7 +77,7 @@ export default function Sidebar({ selectedPage }: SidebarProps) {
                     </div>
                   </Transition.Child>
                   {/* Sidebar component, swap this element with another sidebar if you like */}
-                  <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 ring-1 ring-white/10">
+                  <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-4 ring-1 ring-white/10">
                     <div className="flex h-16 shrink-0 items-center">
                       <Link href="/">
                         <Image className="h-8 w-auto" src={PrismLogo} alt="" />
@@ -89,7 +89,7 @@ export default function Sidebar({ selectedPage }: SidebarProps) {
                           <ul className="-mx-2 space-y-1">
                             {navItems.map(item => (
                               <li key={item.name}>
-                                <Link
+                                <a
                                   href={item.href}
                                   className={clsx(
                                     item.current
@@ -103,15 +103,33 @@ export default function Sidebar({ selectedPage }: SidebarProps) {
                                     aria-hidden="true"
                                   />
                                   {item.name}
-                                </Link>
+                                </a>
                               </li>
                             ))}
                           </ul>
                         </li>
+                        <li>
+                          <div className="text-xs font-semibold leading-6 text-gray-400">
+                            My Organization
+                          </div>
+                          <ul className="-mx-2 mt-2 space-y-1 flex items-center p-2 gap-x-3 text-gray-400 group flex gap-x-3 rounded-md text-sm leading-6 font-semibold">
+                            <Image
+                              className="h-6 w-6 rounded-full bg-white"
+                              src={PrismBlackLogo}
+                              alt=""
+                            />
+                            Prism AI
+                          </ul>
+                        </li>
                         <li className="-mx-6 mt-auto">
                           <Link
-                            href="#"
-                            className="flex items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-white hover:bg-gray-800"
+                            href="/account"
+                            className={clsx(
+                              'flex items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-white',
+                              selectedPage === Page.ACCOUNT
+                                ? 'bg-gray-800'
+                                : 'hover:bg-gray-800'
+                            )}
                           >
                             <Image
                               className="h-8 w-8 rounded-full bg-white"
@@ -119,7 +137,7 @@ export default function Sidebar({ selectedPage }: SidebarProps) {
                               alt=""
                             />
                             <span className="sr-only">Your profile</span>
-                            <span aria-hidden="true">Tom Cook</span>
+                            <span aria-hidden="true">{currentUser.name}</span>
                           </Link>
                         </li>
                       </ul>
@@ -130,6 +148,16 @@ export default function Sidebar({ selectedPage }: SidebarProps) {
             </div>
           </Dialog>
         </Transition.Root>
+        <div className="sticky top-0 z-40 flex items-center gap-x-6 bg-gray-900 px-4 py-4 shadow-sm sm:px-6 xl:hidden">
+          <button
+            type="button"
+            className="-m-2.5 p-2.5 text-gray-400 xl:hidden"
+            onClick={() => setSidebarOpen(true)}
+          >
+            <span className="sr-only">Open sidebar</span>
+            <Bars3Icon className="h-6 w-6" aria-hidden="true" />
+          </button>
+        </div>
         {/* Static sidebar for desktop */}
         <div className="hidden xl:fixed xl:inset-2 xl:z-50 xl:flex xl:w-72 xl:flex-col">
           {/* Sidebar component, swap this element with another sidebar if you like */}

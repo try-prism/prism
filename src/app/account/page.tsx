@@ -14,7 +14,7 @@ export default function AccountPage() {
       <Sidebar selectedPage={Page.ACCOUNT} />
       {currentUser && (
         <main className="xl:pl-72 py-2">
-          <div className="pl-4 pr-2 flex flex-col gap-y-3">
+          <div className="pl-2 lg:pl-4 pr-2 flex flex-col gap-y-3">
             <div className="shadow border border-main-black/10 rounded-2xl px-3 py-4">
               <div className="bg-white mx-4 pb-5">
                 {/* Settings forms */}
