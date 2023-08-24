@@ -89,7 +89,7 @@ export default function Sidebar({ selectedPage }: SidebarProps) {
                           <ul className="-mx-2 space-y-1">
                             {navItems.map(item => (
                               <li key={item.name}>
-                                <a
+                                <Link
                                   href={item.href}
                                   className={clsx(
                                     item.current
@@ -103,7 +103,7 @@ export default function Sidebar({ selectedPage }: SidebarProps) {
                                     aria-hidden="true"
                                   />
                                   {item.name}
-                                </a>
+                                </Link>
                               </li>
                             ))}
                           </ul>

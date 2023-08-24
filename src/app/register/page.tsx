@@ -1,10 +1,10 @@
 'use client';
 
+import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { FormEventHandler, useContext, useEffect, useState } from 'react';
 
 import { Logo } from '@/components/Logo';
-import { TEST_TOKEN } from '@/constant';
 import { AlertContext, AlertType } from '@/contexts/AlertContext';
 import { Whitelist } from '@/models/Whitelist';
 
@@ -57,9 +57,11 @@ export default function RegisterPage() {
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <div className="mx-auto h-10 w-auto">
-            <Logo />
-          </div>
+          <Link href="/">
+            <div className="mx-auto h-10 w-auto">
+              <Logo />
+            </div>
+          </Link>
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">
             You are invited to join{' '}
             <span className="text-purple-500">{organizationName}</span>

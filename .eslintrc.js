@@ -33,7 +33,6 @@ module.exports = {
     'no-console': 'off',
     'no-shadow': 'off',
     'no-undef': 'off',
-    'no-unused-vars': 'off',
     'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/jsx-uses-react': 'error',
