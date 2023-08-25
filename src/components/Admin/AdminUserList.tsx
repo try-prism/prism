@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 
 import UserInviteModal from './UserInviteModal';
 import Notification from '../Common/Notification';
@@ -126,7 +126,7 @@ export default function AdminUserList({
   };
 
   return (
-    <>
+    <React.Fragment>
       <UserInviteModal
         showUserInviteModal={showUserInviteModal}
         setShowUserInviteModal={setShowUserInviteModal}
@@ -296,6 +296,6 @@ export default function AdminUserList({
           </div>
         </div>
       </div>
-    </>
+    </React.Fragment>
   );
 }

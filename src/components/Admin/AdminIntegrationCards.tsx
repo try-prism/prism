@@ -3,7 +3,13 @@ import { EllipsisHorizontalIcon } from '@heroicons/react/20/solid';
 import { useMergeLink } from '@mergeapi/react-merge-link';
 import clsx from 'clsx';
 import Image from 'next/image';
-import { Fragment, useCallback, useContext, useEffect, useState } from 'react';
+import React, {
+  Fragment,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 
 import StatusBadge from './StatusBadge';
 import Notification from '../Common/Notification';
@@ -140,7 +146,7 @@ export default function AdminIntegrationCards({
   });
 
   return (
-    <>
+    <React.Fragment>
       <Notification
         title="Successfully added"
         description="Please wait for few minutes ~ hour depending on the size of your files"
@@ -279,6 +285,6 @@ export default function AdminIntegrationCards({
           </div>
         </div>
       </div>
-    </>
+    </React.Fragment>
   );
 }

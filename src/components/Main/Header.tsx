@@ -51,7 +51,7 @@ export default function Header() {
         <div className="flex items-center gap-6">
           <Popover className="lg:hidden">
             {({ open }) => (
-              <>
+              <React.Fragment>
                 <Popover.Button
                   className="relative z-10 -m-2 inline-flex items-center rounded-lg stroke-gray-900 p-2 hover:bg-gray-200/50 hover:stroke-gray-600 active:stroke-gray-900 ui-not-focus-visible:outline-none"
                   aria-label="Toggle site navigation"
@@ -66,7 +66,7 @@ export default function Header() {
                 </Popover.Button>
                 <AnimatePresence initial={false}>
                   {open && (
-                    <>
+                    <React.Fragment>
                       <Popover.Overlay
                         static
                         as={motion.div}
@@ -114,10 +114,10 @@ export default function Header() {
                           )}
                         </div>
                       </Popover.Panel>
-                    </>
+                    </React.Fragment>
                   )}
                 </AnimatePresence>
-              </>
+              </React.Fragment>
             )}
           </Popover>
           {currentUser ? (

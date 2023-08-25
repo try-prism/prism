@@ -2,7 +2,12 @@
 
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { FormEventHandler, useContext, useEffect, useState } from 'react';
+import React, {
+  FormEventHandler,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 
 import { Logo } from '@/components/Logo';
 import { AlertContext, AlertType } from '@/contexts/AlertContext';
@@ -54,7 +59,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <>
+    <React.Fragment>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <Link href="/">
@@ -152,6 +157,6 @@ export default function RegisterPage() {
           </form>
         </div>
       </div>
-    </>
+    </React.Fragment>
   );
 }

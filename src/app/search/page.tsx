@@ -31,11 +31,21 @@ interface Query {
 
 export default function Search() {
   const { currentUser } = useContext(UserContext)!;
+  const conversationReference = useRef<HTMLDivElement>(null);
   const [queries, setQueries] = useState<Query[]>([]);
   const [isWaiting, setIsWaiting] = useState<boolean>(false);
 
   const textareaReference = useRef<HTMLTextAreaElement>(null);
   const socket = useRef<ReconnectingWebSocket | null>(null);
+
+  useEffect(() => {
+    if (conversationReference.current) {
+      conversationReference.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'end',
+      });
+    }
+  }, [queries]);
 
   useEffect(() => {
     if (!currentUser) {
@@ -76,7 +86,7 @@ export default function Search() {
   }, [currentUser]);
 
   const sendQuery = (message: string) => {
-    socket.current?.send(message);
+    socket.current?.send(message.trim());
     setQueries(previousQueries => [
       ...previousQueries,
       { sender: Sender.USER, message },
@@ -91,7 +101,10 @@ export default function Search() {
     <div className="bg-white min-h-screen">
       <Sidebar selectedPage={Page.SEARCH} />
       <main className="xl:pl-72 py-2">
-        <div className="grid-cols-search-page max-w-3xl mx-auto px-3 pt-16 grid gap-x-2 gap-y-3 pb-28">
+        <div
+          ref={conversationReference}
+          className="grid-cols-search-page max-w-3xl mx-auto px-3 pt-16 grid gap-x-2 gap-y-3 pb-28"
+        >
           {queries.map((query, index) =>
             query.sender === Sender.USER ? (
               <React.Fragment key={index}>
@@ -103,7 +116,7 @@ export default function Search() {
                   </div>
                 </div>
                 <div className="flex items-end col-start-3 pb-1 opacity-100 transform-none">
-                  <div className="font-bold rounded-full flex items-center justify-center h-8 w-8 text-[14px] bg-purple-300 text-main-black">
+                  <div className="font-bold rounded-full flex items-center justify-center h-8 w-8 text-[14px] bg-purple-500 text-white">
                     {getAbbreviatedName(
                       currentUser?.name ?? 'Anonymous Person'
                     )}

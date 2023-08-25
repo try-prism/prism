@@ -3,7 +3,7 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Fragment, useContext, useMemo, useState } from 'react';
+import React, { Fragment, useContext, useMemo, useState } from 'react';
 
 import { getNavigationItems, Page } from '@/constants/Navigation';
 import { UserContext } from '@/contexts/UserContext';
@@ -23,7 +23,7 @@ export default function Sidebar({ selectedPage }: SidebarProperties) {
 
   return (
     currentUser && (
-      <>
+      <React.Fragment>
         <Transition.Root show={sidebarOpen} as={Fragment}>
           <Dialog
             as="div"
@@ -231,7 +231,7 @@ export default function Sidebar({ selectedPage }: SidebarProperties) {
             </nav>
           </div>
         </div>
-      </>
+      </React.Fragment>
     )
   );
 }

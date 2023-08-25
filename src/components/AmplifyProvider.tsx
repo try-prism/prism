@@ -13,5 +13,5 @@ Amplify.configure({
 });
 
 export default function AmplifyProvider({ children }: React.PropsWithChildren) {
-  return <>{children}</>;
+  return <React.Fragment>{children}</React.Fragment>;
 }

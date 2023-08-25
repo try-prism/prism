@@ -4,7 +4,7 @@ import {
   CheckCircleIcon,
   ExclamationCircleIcon,
 } from '@heroicons/react/24/outline';
-import { Fragment } from 'react';
+import React, { Fragment } from 'react';
 
 interface NotificationProperties {
   title: string;
@@ -22,7 +22,7 @@ export default function Notification({
   setShow,
 }: NotificationProperties) {
   return (
-    <>
+    <React.Fragment>
       {/* Global notification live region, render this permanently at the end of the document */}
       <div
         aria-live="assertive"
@@ -78,6 +78,6 @@ export default function Notification({
           </Transition>
         </div>
       </div>
-    </>
+    </React.Fragment>
   );
 }
