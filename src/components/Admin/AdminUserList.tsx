@@ -58,6 +58,8 @@ export default function AdminUserList({
       setUsers(cleanedUsers);
     };
 
+    if (!currentUser) return;
+
     fetchUserData();
   }, [currentUser, organization.user_list]);
 

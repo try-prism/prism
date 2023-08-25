@@ -48,11 +48,11 @@ export async function GET(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { organizationId: string } }
 ) {
   const auth = headers().get('Authorization');
   const { accountToken, organizationAdminId } = await request.json();
-  const organizationId = params.id;
+  const organizationId = params.organizationId;
 
   try {
     if (!auth) {

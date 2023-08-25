@@ -41,6 +41,7 @@ export default function AdminPage() {
       setOrganization(org);
     };
 
+    if (!currentUser) return;
     fetchOrganizationData();
   }, [currentUser]);
 

@@ -56,6 +56,8 @@ export default function AdminIntegrationCards({
       setLinkToken(data.link_token);
     };
 
+    if (!currentUser) return;
+
     fetchLinkToken();
   }, [currentUser, organization.id]);
 
