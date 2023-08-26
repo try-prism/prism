@@ -1,6 +1,7 @@
 'use client';
 
 import { Tooltip } from '@material-tailwind/react';
+import clsx from 'clsx';
 import Image from 'next/image';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import ReconnectingWebSocket from 'reconnecting-websocket';
@@ -24,7 +25,7 @@ enum Sender {
 
 interface Query {
   sender: Sender;
-  message: string;
+  message?: string;
   sources?: Source[];
   related?: string[];
 }
@@ -69,14 +70,14 @@ export default function Search() {
     );
     socket.current.addEventListener('message', (event: MessageEvent) => {
       const data = JSON.parse(event.data);
-      setQueries(previousQueries => [
-        ...previousQueries,
-        {
+      setQueries(previousQueries => {
+        previousQueries[previousQueries.length - 1] = {
           sender: Sender.CHAT_ENGINE,
           message: data.response,
           sources: data.sources,
-        },
-      ]);
+        };
+        return previousQueries;
+      });
       setIsWaiting(false);
     });
 
@@ -90,6 +91,7 @@ export default function Search() {
     setQueries(previousQueries => [
       ...previousQueries,
       { sender: Sender.USER, message },
+      { sender: Sender.CHAT_ENGINE },
     ]);
     setIsWaiting(true);
     if (textareaReference.current) {
@@ -131,10 +133,34 @@ export default function Search() {
                   </div>
                 </div>
                 <div className="col-start-2 grid gap-2 opacity-100 transform-none">
-                  <div className="rounded-xl px-3 py-2 break-words text-stone-900 transition-all grid gap-3 grid-cols-1 max-w-[75ch] bg-main-black/5 place-self-start">
+                  <div className="rounded-xl px-3 py-2 break-words text-stone-900 transition-all w-full grid gap-3 grid-cols-1 bg-main-black/5 place-self-start">
                     <div className="contents">
                       <h1 className="font-bold">Answer</h1>
-                      <p className="whitespace-pre-wrap">{query.message}</p>
+                      {query.message ? (
+                        <p className="whitespace-pre-wrap">{query.message}</p>
+                      ) : (
+                        <div
+                          role="status"
+                          className="space-y-2.5 animate-pulse max-w-lg"
+                        >
+                          <div className="flex items-center w-full space-x-2">
+                            <div className="h-2.5 bg-gray-400 rounded-full dark:bg-gray-700 w-32"></div>
+                            <div className="h-2.5 bg-gray-500 rounded-full dark:bg-gray-600 w-24"></div>
+                            <div className="h-2.5 bg-gray-500 rounded-full dark:bg-gray-600 w-full"></div>
+                          </div>
+                          <div className="flex items-center w-full space-x-2 max-w-[480px]">
+                            <div className="h-2.5 bg-gray-400 rounded-full dark:bg-gray-700 w-full"></div>
+                            <div className="h-2.5 bg-gray-500 rounded-full dark:bg-gray-600 w-full"></div>
+                            <div className="h-2.5 bg-gray-500 rounded-full dark:bg-gray-600 w-24"></div>
+                          </div>
+                          <div className="flex items-center w-full space-x-2 max-w-[400px]">
+                            <div className="h-2.5 bg-gray-500 rounded-full dark:bg-gray-600 w-full"></div>
+                            <div className="h-2.5 bg-gray-400 rounded-full dark:bg-gray-700 w-80"></div>
+                            <div className="h-2.5 bg-gray-500 rounded-full dark:bg-gray-600 w-full"></div>
+                          </div>
+                          <span className="sr-only">Loading...</span>
+                        </div>
+                      )}
                       {query.sources && <h1 className="font-bold">Sources</h1>}
                       <ul className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-3 lg:grid-cols-3">
                         {query.sources?.map(source => (
@@ -185,52 +211,3 @@ const getAbbreviatedName = (fullName: string): string => {
     .map(name => name.at(0))
     .join('');
 };
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const mockQueries: Query[] = [
-  {
-    sender: Sender.USER,
-    message: 'What is life?',
-  },
-  {
-    sender: Sender.CHAT_ENGINE,
-    message: 'Life is a meaningful process.',
-    sources: [
-      {
-        name: 'kpmg-esg-report.pdf',
-        url: 'https://www.tcenergy.com/siteassets/pdfs/sustainability/sustainability-report/2022/tce-2022-3rd-party-assurance-report.pdf',
-      },
-      {
-        name: 'mckinsey-tech-trends-outlook-2022-full-report.pdf',
-        url: 'https://www.mckinsey.com/~/media/mckinsey/business%20functions/mckinsey%20digital/our%20insights/the%20top%20trends%20in%20tech%202022/mckinsey-tech-trends-outlook-2022-full-report.pdf',
-      },
-    ],
-  },
-  {
-    sender: Sender.USER,
-    message: 'What is Lorem Ipsum?',
-  },
-  {
-    sender: Sender.CHAT_ENGINE,
-    message:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-  },
-  {
-    sender: Sender.USER,
-    message: 'Why do we use it?',
-  },
-  {
-    sender: Sender.CHAT_ENGINE,
-    message:
-      "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
-  },
-  {
-    sender: Sender.USER,
-    message: 'Where does it come from?',
-  },
-  {
-    sender: Sender.CHAT_ENGINE,
-    message:
-      'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.',
-  },
-];
