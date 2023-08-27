@@ -1,6 +1,8 @@
 'use client';
 import { CognitoUser } from '@aws-amplify/auth';
+import { CheckCircleIcon } from '@heroicons/react/24/outline';
 import { Auth } from 'aws-amplify';
+import clsx from 'clsx';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { FormEventHandler, useContext, useState } from 'react';
@@ -8,6 +10,59 @@ import { FormEventHandler, useContext, useState } from 'react';
 import { Logo } from '@/components/Logo';
 import { AlertContext, AlertType } from '@/contexts/AlertContext';
 import { UserContext } from '@/contexts/UserContext';
+
+interface PasswordRequirement {
+  description: string;
+  isPasswordValid: (newPassword: string, confirmPassword?: string) => boolean;
+}
+
+const passwordRequirements: PasswordRequirement[] = [
+  {
+    description: 'Minimum of 8 characters',
+    isPasswordValid: (pw: string) => pw.length >= 8,
+  },
+  {
+    description: 'Contains at least 1 number',
+    isPasswordValid: (pw: string) => {
+      const numberRegex = /\d/;
+      return numberRegex.test(pw);
+    },
+  },
+  {
+    description: 'Contains at least 1 special character',
+    isPasswordValid: (pw: string) => {
+      const specialCharRegex = /[!"#$%&'()*+,./:;<=>?@[\\\]^_`{|}~-]/;
+      const spaceRegex = /^\S[\d\sA-Za-z]*\s[\d\sA-Za-z]*\S$/;
+      return specialCharRegex.test(pw) || spaceRegex.test(pw);
+    },
+  },
+  {
+    description: 'Contains at least 1 uppercase letter',
+    isPasswordValid: (pw: string) => {
+      const uppercaseRegex = /[A-Z]/;
+      return uppercaseRegex.test(pw);
+    },
+  },
+  {
+    description: 'Contains at least 1 lowercase letter',
+    isPasswordValid: (pw: string) => {
+      const lowercaseRegex = /[a-z]/;
+      return lowercaseRegex.test(pw);
+    },
+  },
+  {
+    description: 'New password matches confirm password',
+    isPasswordValid: (newPw: string, confirmPw?: string) => newPw === confirmPw,
+  },
+];
+
+const isPasswordValid = (newPassword: string, confirmPassword: string) => {
+  return (
+    passwordRequirements.filter(
+      request => !request.isPasswordValid(newPassword, confirmPassword)
+    ).length === 0
+  );
+};
 
 export default function LoginPage() {
   const { setCurrentUser } = useContext(UserContext)!;
@@ -55,6 +110,11 @@ export default function LoginPage() {
       }
     } catch (error) {
       console.error('Error logging in:', error);
+      setAlertMessage({
+        type: AlertType.ERROR,
+        message: 'Wrong email or password',
+        duration: 3000,
+      });
     }
   };
 
@@ -132,12 +192,51 @@ export default function LoginPage() {
                 />
               </div>
             </div>
+            <div className="rounded-md bg-main-black p-4 text-white">
+              <ul>
+                {passwordRequirements.map(requirement => (
+                  <li
+                    key={requirement.description}
+                    className="flex items-center"
+                  >
+                    <div className="flex-shrink-0">
+                      <CheckCircleIcon
+                        className={clsx(
+                          newPassword
+                            ? clsx(
+                                requirement.isPasswordValid(
+                                  newPassword,
+                                  confirmPassword
+                                )
+                                  ? 'text-green-400'
+                                  : 'text-red-400'
+                              )
+                            : 'text-gray-800',
+                          'h-4 w-4'
+                        )}
+                        aria-hidden="true"
+                      />
+                    </div>
+                    <span className="ml-2 text-sm text-white/40">
+                      {requirement.description}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+              <div className="flex"></div>
+            </div>
             <div>
               <button
                 type="submit"
-                className="flex w-full justify-center rounded-md bg-purple-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-purple-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
+                disabled={!isPasswordValid(newPassword, confirmPassword)}
+                className={clsx(
+                  isPasswordValid(newPassword, confirmPassword)
+                    ? 'bg-purple-500 hover:bg-purple-700'
+                    : 'bg-gray-600',
+                  'flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600'
+                )}
               >
-                Log In
+                Set password
               </button>
             </div>
           </form>
